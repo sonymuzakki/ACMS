@@ -43,6 +43,19 @@ Route::get('/testing', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::controller(MasterController::class)->group(function () {
+
+        // Routes untuk Barang
+        Route::get('/barang', 'index_barang')->name('index.barang');
+        Route::post('/barang/store', 'store_barang')->name('store.barang');
+        Route::put('/barang/update/{id}', 'update_barang')->name('update.barang');
+        Route::get('/barang/delete/{id}', 'delete_barang')->name('delete.barang');
+
+         // Routes untuk Pembayaran
+         Route::get('/pembayaran', 'index_pembayaran')->name('index.pembayaran');
+         Route::post('/pembayaran/store', 'store_pembayaran')->name('store.pembayaran');
+         Route::put('/pembayaran/update/{id}', 'update_pembayaran')->name('update.pembayaran');
+         Route::get('/pembayaran/delete/{id}', 'delete_pembayaran')->name('delete.pembayaran');
+
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
         Route::get('/merk/add', 'add')->name('master.add');

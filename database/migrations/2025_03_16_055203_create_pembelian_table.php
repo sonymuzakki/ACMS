@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('updated_by');
             $table->foreign('pembayaran_id')->references('id')->on('master_bayar');
             $table->foreign('supplier_id')->references('id')->on('master_supplier');
-            $table->string('created_by');
-            $table->string('updated_by');
             $table->timestamps();
         });
     }

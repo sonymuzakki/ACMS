@@ -181,6 +181,58 @@
                 MASTER
             </li>
             <li>
+                <a href="javascript:;" class="side-menu__link  {{ Route::is('permission.index1','all.roles.permission1','roles.index') ? 'side-menu__link--active' : '' }}">
+                    <i data-tw-merge="" data-lucide="table2" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                    <div class="side-menu__link__title">Master</div>
+                    <i data-tw-merge="" data-lucide="chevron-down"
+                        class="stroke-[1] w-5 h-5 side-menu__link__chevron"></i>
+                </a>
+                <!-- BEGIN: Second Child -->
+                <ul class="hidden">
+
+                    <li>
+                        <a href="{{ route('index.barang') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Barang</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.pembayaran') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Pembayaran</div>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="{{ route('permission.index1') }}" class="side-menu__link ">
+                            <i data-tw-merge="" data-lucide="layout-panel-top"
+                                class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">
+                                Permission
+                            </div>
+                        </a>
+                        <!-- BEGIN: Third Child -->
+                        <!-- END: Third Child -->
+                    </li>
+                    <li>
+                        <a href="{{ route('all.roles.permission1') }}" class="side-menu__link ">
+                            <i data-tw-merge="" data-lucide="layout-panel-left"
+                                class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">
+                                Permission Role Setup
+                            </div>
+                        </a>
+                        <!-- BEGIN: Third Child -->
+                        <!-- END: Third Child -->
+                    </li>
+                </ul>
+                <!-- END: Second Child -->
+            </li>
+
+            <li>
                 <a href="{{ route('master.merk') }}"
                     class="side-menu__link {{ Route::is('master.merk') ? 'side-menu__link--active' : '' }}">
                     <i data-tw-merge="" data-lucide="gantt-chart-square"

@@ -1,6 +1,6 @@
 @extends('master1.master')
-@section('title', 'Trust UC - Merk')
-@section('br2', 'Merk')
+@section('title', 'Trust UC - Master Barang')
+@section('br2', 'Master Barang')
 @push('style')
 @endpush
 @section('main')
@@ -12,7 +12,7 @@
                 <div class="col-span-12">
                     <div class="flex flex-col gap-y-3 md:h-10 md:flex-row md:items-center">
                         <div class="text-base font-medium group-[.mode--light]:text-white">
-                            Merk
+                            Master Barang
                         </div>
                         {{-- <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
                             <a href="{{ route('users.add') }}" data-tw-merge="" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
@@ -26,7 +26,7 @@
                                 Add New
                             </a>
                         </div>
-d
+
                     </div>
                     <div class="mt-3.5 flex flex-col gap-8">
                         <div class="box box--stacked flex flex-col">
@@ -105,22 +105,14 @@ d
                                     Add Data
                                 </h2>
                             </div>
-                            <form action="{{ route('master.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('store.barang') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Merk
+                                            Barang
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="example@gmail.com" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div>
-                                </div>
-                                <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Logo
-                                        </label>
-                                        <input data-tw-merge id="modal-form-1" type="file" name="image" placeholder="example@gmail.com" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Barang" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
                                 </div>
 
@@ -133,40 +125,6 @@ d
                         </div>
                     </div>
                     <!-- END: Modal Content -->
-
-                    {{-- <div id="edit-modal" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 invisible opacity-0 duration-200">
-                        <div class="modal-content w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] mt-16 dark:bg-darkmode-600 sm:w-[460px]">
-                            <div class="flex items-center px-5 py-3 border-b border-slate-200/60 dark:border-darkmode-400">
-                                <h2 class="mr-auto text-base font-medium">
-                                    Edit Data
-                                </h2>
-                            </div>
-                            <form id="edit-form" action="" method="POST">
-                                @csrf
-                                @method('POST')
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-name" class="inline-block mb-2">Merk</label>
-                                        <input id="edit-name" name="nama" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
-                                    </div>
-                                </div>
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-image" class="inline-block mb-2">Logo</label>
-                                        <input id="edit-image" name="image" type="file" class="w-full text-sm border-slate-200 shadow-sm rounded-md" onchange="previewImage(event)">
-                                    </div>
-                                    <!-- Image Preview -->
-                                    <div class="col-span-12 sm:col-span-12 mt-4" id="image-preview-container" style="display: none;">
-                                        <img id="image-preview" src="" alt="Image Preview" class="w-32 h-32 object-cover rounded-md">
-                                    </div>
-                                </div>
-                                <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
-                                    <button type="button" onclick="closeEditModal()" class="mr-1 w-20 transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Cancel</button>
-                                    <button type="submit" class="w-20 bg-primary border-primary text-white transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Update</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
 
                     <!-- Modal HTML -->
                     <div id="edit-modal" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 invisible opacity-0 duration-200">
@@ -185,16 +143,6 @@ d
                                         <input id="edit-name" name="nama" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
                                     </div>
                                 </div>
-                                {{-- <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-image" class="inline-block mb-2">Logo</label>
-                                        <input id="edit-image" name="image" type="file" class="w-full text-sm border-slate-200 shadow-sm rounded-md" onchange="previewImage(event)">
-                                    </div>
-                                    <!-- Image Preview -->
-                                    <div class="col-span-12 sm:col-span-12 mt-4" id="image-preview-container" style="display: none;">
-                                        <img id="edit-image-preview" src="" alt="Image Preview" class="w-32 h-32 object-cover rounded-md">
-                                    </div>
-                                </div> --}}
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
                                     <button type="button" onclick="closeEditModal()" class="mr-1 w-20 transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Cancel</button>
                                     <button type="submit" class="w-20 bg-primary border-primary text-white transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Update</button>
@@ -252,7 +200,7 @@ d
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('master.merk') }}",
+                    url: "{{ route('index.barang') }}",
                     data: function(d) {
                         d.customFilter = $('#customFilter').val();
                         d.merkFilter = $('#merkFilter').val();
@@ -269,23 +217,6 @@ d
                         }
                     },
                     { data: 'nama', name: 'nama', searchable: true },
-                    // {
-                    //     data: 'image',
-                    //     name: 'image',
-                    //     // className: 'text-center',
-                    //     render: function(data, type, row) {
-                    //         if (data) {
-                    //             // Create the URL for the image
-                    //             const imageUrl = '/logo/' + data;
-
-                    //             // Return the image tag with a fixed size (e.g., 50x50 pixels)
-                    //             return '<img src="' + imageUrl + '" alt="Logo" class="rounded-full" style="width: 50px; height: 50px; object-fit: cover;">';
-                    //         } else {
-                    //             // If no image, show a placeholder or a fallback
-                    //             return '<span class="badge text-dark"><i class="fa-regular fa-eye-slash"></i></span>';
-                    //         }
-                    //     }
-                    // },
                     {
                         data: 'action',
                         name: 'action',
@@ -302,7 +233,7 @@ d
                                         </button>
                                         <div class="dropdown-menu absolute z-[9999] hidden">
                                             <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
-                                                <a href="#" onclick="openEditModal(${row.id}, '${row.nama}','${row.image}')" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
+                                                <a href="#" onclick="openEditModal(${row.id}, '${row.nama}')" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
                                                     <i class="fas fa-edit mr-2"></i> Edit
                                                 </a>
                                                 <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
@@ -384,7 +315,7 @@ d
                     var userId = $('#delete-modal-preview').data('id');
 
                     $.ajax({
-                        url: `/merk/delete/${userId}`,
+                        url: `/barang/delete/${userId}`,
                         type: 'get', // Ubah menjadi DELETE
                         success: function(result) {
                             $('#delete-modal-preview').removeClass('show'); // Sembunyikan modal konfirmasi
@@ -424,35 +355,16 @@ d
 
 </script>
 <script>
-    function openEditModal(id, nama, image) {
-        // Populate the form fields with data
-        document.getElementById('edit-name').value = nama;
+    function openEditModal(id, nama) {
+    // Populate the form fields with data
+    document.getElementById('edit-name').value = nama;
 
-        // Update the image preview
-        if (image) {
-            // Set the image source for preview
-            const previewImage = document.getElementById('edit-image-preview');
-            previewImage.src = `/logo/${image}`;
-            previewImage.onload = function() {
-                // Once image is loaded, show the preview
-                document.getElementById('image-preview-container').style.display = 'block';
-            };
-            previewImage.onerror = function() {
-                // If image fails to load, hide the preview
-                document.getElementById('image-preview-container').style.display = 'none';
-            };
-        } else {
-            // Hide the image preview if no image exists
-            document.getElementById('image-preview-container').style.display = 'none';
-        }
+    // Update the form action URL
+    document.getElementById('edit-form').action = `/barang/update/${id}`;
 
-        // Update the form action URL
-        // document.getElementById('edit-form').action = `/merk/update/${id}`;
-        document.getElementById('edit-form').action = `{{ url('/merk/update') }}/${id}`;
-
-        // Show the modal
-        document.getElementById('edit-modal').classList.add('show');
-        document.getElementById('edit-modal').classList.remove('invisible', 'opacity-0');
+    // Show the modal
+    document.getElementById('edit-modal').classList.add('show');
+    document.getElementById('edit-modal').classList.remove('invisible', 'opacity-0');
     }
 
     function closeEditModal() {
@@ -461,7 +373,6 @@ d
         document.getElementById('edit-modal').classList.add('invisible', 'opacity-0');
     }
 </script>
-
 @endpush
 
 @endsection
