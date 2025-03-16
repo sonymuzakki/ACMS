@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('updated_by');
             $table->foreign('pembelian_id')->references('id')->on('pembelian');
             $table->foreign('barang_id')->references('id')->on('master_barang');
-            $table->string('created_by');
-            $table->string('updated_by');
             $table->timestamps();
         });
     }
