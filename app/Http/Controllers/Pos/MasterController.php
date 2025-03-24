@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers\Pos;
 
-use App\Models\Merk;
-use App\Helper\tisas;
-use App\Models\inventory;
-use App\Models\JenisMobil;
-use App\Exports\StockExport;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
-use Illuminate\Support\Carbon;
-use App\Exports\InventoryExport;
-use App\Exports\StockBeliExport;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\MasterSupplier;
 use App\Models\Pembayaran;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Log; // Import the Log facade
-
 class MasterController extends Controller
 {
 
@@ -146,6 +131,69 @@ class MasterController extends Controller
     public function delete_pembayaran($id)
     {
         Pembayaran::find($id)->delete();
+        return redirect()->back();
+    }
+
+    // New Supplier Controller
+    public function index_supplier(Request $request)
+    {
+        $data = MasterSupplier::all();
+        if ($request->ajax()) {
+
+            // Apply custom filter if provided
+            if ($request->customFilter) {
+                $data->where(function($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%');
+                });
+            }
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend1.master.supplier.index', compact('data'));
+    }
+
+    public function store_supplier(Request $request)
+    {
+        $request->validate([
+            'nama' => 'nullable|string|max:255',
+            'no_hp' => 'nullable|',
+            'vendor' => 'nullable|',
+        ]);
+
+        MasterSupplier::create([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'vendor' => $request->vendor,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        $notification = [
+            'message' => 'Inventory Insert Successfully',
+            'alert-type' => 'success',
+        ];
+        return redirect()->route('index.supplier')->with($notification);
+    }
+
+    public function update_supplier(Request $request, $id)
+    {
+        $data = MasterSupplier::findOrFail($id);
+        $data->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'vendor' => $request->vendor,
+            'updated_by' => Auth::user()->id,
+            ]);
+        return redirect()->route('index.supplier');
+    }
+
+    public function delete_supplier($id)
+    {
+        MasterSupplier::find($id)->delete();
         return redirect()->back();
     }
 }

@@ -50,11 +50,17 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/barang/update/{id}', 'update_barang')->name('update.barang');
         Route::get('/barang/delete/{id}', 'delete_barang')->name('delete.barang');
 
-         // Routes untuk Pembayaran
-         Route::get('/pembayaran', 'index_pembayaran')->name('index.pembayaran');
-         Route::post('/pembayaran/store', 'store_pembayaran')->name('store.pembayaran');
-         Route::put('/pembayaran/update/{id}', 'update_pembayaran')->name('update.pembayaran');
-         Route::get('/pembayaran/delete/{id}', 'delete_pembayaran')->name('delete.pembayaran');
+        // Routes untuk Pembayaran
+        Route::get('/pembayaran', 'index_pembayaran')->name('index.pembayaran');
+        Route::post('/pembayaran/store', 'store_pembayaran')->name('store.pembayaran');
+        Route::put('/pembayaran/update/{id}', 'update_pembayaran')->name('update.pembayaran');
+        Route::get('/pembayaran/delete/{id}', 'delete_pembayaran')->name('delete.pembayaran');
+
+        // Routes untuk Supplier
+        Route::get('/supplier', 'index_supplier')->name('index.supplier');
+        Route::post('/supplier/store', 'store_supplier')->name('store.supplier');
+        Route::put('/supplier/update/{id}', 'update_supplier')->name('update.supplier');
+        Route::get('/supplier/delete/{id}', 'delete_supplier')->name('delete.supplier');
 
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
@@ -130,7 +136,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export/beli', 'view')->name('export.beli');
         // export
         Route::get('export-prospek-beli', 'export')->name('prospekBeli.export');
-
     });
 
     Route::controller(SalesController::class)->group(function () {
@@ -166,7 +171,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export/view', 'view')->name('view');
 
         Route::get('/report', 'report')->name('report');
-
     });
 
     Route::controller(PagesRoleController::class)->group(function () {
@@ -201,7 +205,6 @@ Route::middleware(['auth'])->group(function () {
 
         // Users
         Route::get('/users/index',  'UsersIndex')->name('roles.index');
-
     });
 
     Route::controller(UsersNewController::class)->group(function () {
@@ -213,7 +216,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users/update/{id}', 'update')->name('user.update');
         Route::get('/users/delete/{id}', 'destroy')->name('user.delete');
     });
-
 });
 
 require __DIR__ . '/auth.php';

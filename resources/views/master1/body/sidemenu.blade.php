@@ -204,30 +204,16 @@
                             <div class="side-menu__link__title">Pembayaran</div>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('index.supplier') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Supplier</div>
+                        </a>
+                    </li>
 
 
-                    <li>
-                        <a href="{{ route('permission.index1') }}" class="side-menu__link ">
-                            <i data-tw-merge="" data-lucide="layout-panel-top"
-                                class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
-                            <div class="side-menu__link__title">
-                                Permission
-                            </div>
-                        </a>
-                        <!-- BEGIN: Third Child -->
-                        <!-- END: Third Child -->
-                    </li>
-                    <li>
-                        <a href="{{ route('all.roles.permission1') }}" class="side-menu__link ">
-                            <i data-tw-merge="" data-lucide="layout-panel-left"
-                                class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
-                            <div class="side-menu__link__title">
-                                Permission Role Setup
-                            </div>
-                        </a>
-                        <!-- BEGIN: Third Child -->
-                        <!-- END: Third Child -->
-                    </li>
+
                 </ul>
                 <!-- END: Second Child -->
             </li>
