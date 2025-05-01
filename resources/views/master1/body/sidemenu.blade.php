@@ -55,19 +55,19 @@
                 </li>
                 {{-- @endif --}}
 
-                {{-- @if(Auth::user()->can('stock.menu'))
+                {{-- @if(Auth::user()->can('stock.menu')) --}}
                     <li class="side-menu__divider">
-                        STOCK
+                        PEMBELIAN
                     </li>
                     <li>
-                        <a href="{{ route('master.json') }}"
-                            class="side-menu__link {{ Route::is('master.json') ? 'side-menu__link--active' : '' }}">
+                        <a href=""
+                            class="side-menu__link ">
                             <i data-tw-merge="" data-lucide="gantt-chart-square"
                                 class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
-                            <div class="side-menu__link__title">Stock</div>
+                            <div class="side-menu__link__title">Pembelian</div>
                         </a>
                     </li>
-                @else
+                {{-- @else
                     <p>User does not have the 'stock.menu' permission.</p>
                 @endif --}}
 

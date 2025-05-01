@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('no_hp');
             $table->string('vendor');
-            $table->string('created_by');
-            $table->string('updated_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

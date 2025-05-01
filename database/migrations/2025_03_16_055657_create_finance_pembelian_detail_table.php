@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembelian_detail', function (Blueprint $table) {
-            $table->id();
+        Schema::create('finance_pembelian_detail', function (Blueprint $table) {
+            $table->string('id')->primary();
             $table->unsignedBigInteger('pembelian_id');
             $table->unsignedBigInteger('barang_id');
 
@@ -20,9 +20,9 @@ return new class extends Migration
             $table->double('harga');
             $table->double('diskon');
             $table->double('total');
-            $table->string('created_by');
-            $table->string('updated_by');
-            $table->foreign('pembelian_id')->references('id')->on('pembelian');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->foreign('pembelian_id')->references('id')->on('finance_pembelian');
             $table->foreign('barang_id')->references('id')->on('master_barang');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembelian_detail');
+        Schema::dropIfExists('finance_pembelian_detail');
     }
 };
