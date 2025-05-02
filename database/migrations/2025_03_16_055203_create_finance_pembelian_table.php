@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('finance_pembelian', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->string('id');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('pembayaran_id');
             $table->date('tanggal');

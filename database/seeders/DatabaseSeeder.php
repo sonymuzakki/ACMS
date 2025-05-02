@@ -5,10 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Aktifitas;
+use App\Models\Barang;
 use App\Models\inventory;
 use App\Models\User;
 use App\Models\lokasi;
+use App\Models\MasterSupplier;
 use App\Models\Merk;
+use App\Models\Pembayaran;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -39,28 +42,25 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Toyota'
         ]);
 
-        Aktifitas::create([
-            'inventory_id' => 1,
-            'nama_customer' => 'randi',
-            'sumber_prospek' => 'Walk In',
-            'category' => '1',
+        Barang::create([
+            'id' => 1,
+            'nama' => 'Dana',
+            'created_by' => '1',
         ]);
 
-        inventory::create([
+        MasterSupplier::create([
             'id' => 1,
-            'type' => 'innova',
-            'nopol' => 'ba 4559 bm',
-            'km' => '10000',
-            'merk_id' => '1',
-            'model' => 'suv',
-            'warna' => 'hitam',
-            'tahun' => '2022',
-            'transmisi' => 'Manual',
-            'tgl_beli' => '2022-04-04',
-            'penjual' => 'sony',
-            'harga_beli' => '',
-            'status' => '0',
+            'nama' => 'sonny',
+            'no_hp' => 123456789,
+            'vendor' => 'telkomsel',
+            'created_by' => '1',
         ]);
+        Pembayaran::create([
+            'id' => 1,
+            'nama' => 'Dana',
+            'created_by' => '1',
+        ]);
+
 
     }
 }

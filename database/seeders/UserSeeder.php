@@ -5,62 +5,70 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $admin = User::create([
+        // Pastikan RoleSeeder sudah dijalankan agar role tersedia
+        $adminRole = Role::where('name', 'admin')->first();
+        $counterRole = Role::where('name', 'Counter')->first();
+        $moderatorRole = Role::where('name', 'moderator')->first();
+
+        // Pastikan semua permissions sudah ada di database
+        $permissions = Permission::pluck('name')->toArray();
+
+        $admin = User::firstOrCreate([
+            'email' => 'admin@gmail.com'
+        ], [
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
             'role_id' => 1,
-            'password' => bcrypt('1'),
+            'password' => bcrypt('Intercomp4d4ng'),
         ]);
 
-        $admin->assignRole('admin');
+        if ($adminRole) {
+            $admin->assignRole($adminRole);
+            $admin->syncPermissions($permissions);
+        }
 
-        $api = User::create([
+        $api = User::firstOrCreate([
+            'email' => 'api@gmail.com'
+        ], [
             'name' => 'apiapps',
-            'email' => 'api@gmail.com',
-            'role_id' => '3',
+            'role_id' => 3,
             'password' => bcrypt('12345678'),
         ]);
 
-        $api->assignRole('admin');
+        if ($adminRole) {
+            $api->assignRole($adminRole);
+            $api->syncPermissions($permissions);
+        }
 
-        $user = User::create([
+        $user = User::firstOrCreate([
+            'email' => 'user@gmail.com'
+        ], [
             'name' => 'User',
-            'email' => 'user@gmail.com',
             'role_id' => 3,
             'password' => bcrypt('12345678'),
         ]);
 
-        $user->assignRole('user');
+        if ($counterRole) {
+            $user->assignRole($counterRole);
+            $user->syncPermissions($permissions);
+        }
 
-        $moderator = User::create([
+        $moderator = User::firstOrCreate([
+            'email' => 'moderator@gmail.com'
+        ], [
             'name' => 'Moderator',
-            'email' => 'moderator@gmail.com',
             'role_id' => 3,
             'password' => bcrypt('12345678'),
         ]);
 
-        $moderator->assignRole('moderator');
-
-        $permission = Permission::create(['name' => 'read role']);
-        $permission = Permission::create(['name' => 'create role']);
-        $permission = Permission::create(['name' => 'update role']);
-        $permission = Permission::create(['name' => 'delete role']);
-        Permission::create(['name' => 'read moderator']);
-
-        $admin->givePermissionTo(['read role','create role','update role','delete role','read moderator',]);
-        $api->givePermissionTo(['read role','create role','update role','delete role','read moderator',]);
-        $user->givePermissionTo(['read role','create role','update role','delete role','read moderator']);
-
+        if ($moderatorRole) {
+            $moderator->assignRole($moderatorRole);
+            $moderator->syncPermissions($permissions);
+        }
     }
 }
