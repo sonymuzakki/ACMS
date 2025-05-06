@@ -362,8 +362,8 @@
                     //     }
                     // },
                     {
-                        data: 'subtotal',
-                        name: 'subtotal',
+                        data: 'total',
+                        name: 'total',
                         className: 'text-center',
                         searchable: false,
                         orderable: false,

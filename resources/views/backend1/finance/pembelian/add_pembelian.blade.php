@@ -134,6 +134,30 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div
+                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                    <div
+                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                        <div class="text-left">
+                                                            <div class="flex items-center">
+                                                                <div class="font-medium">Payment</div>
+                                                                <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                    Required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                        <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
+                                                            id="payment" name="pembayaran_id">
+                                                            <option value="">Pilih Kategori</option>
+                                                            @foreach ($barang as $s)
+                                                                <option value="{{ $s->id }}">{{ $s->nama }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 {{-- <input type="hidden" name="vendor_id" id="hiddenVendor"> --}}
 
                                                 <div id="ketCon" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
@@ -168,7 +192,7 @@
                                                     <div class="flex-1 w-full mt-2 xl:mt-0">
                                                         <input data-tw-merge="" type="text" id="harga" name="harga"
                                                             class="rupiah disable ed:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                                        @error('biaya')
+                                                        @error('harga')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -418,6 +442,7 @@
                 e.preventDefault();
 
                 let supplier = document.getElementById("supplier").value;
+                // let payament = document.getElementById("payament").value;
                 let kategori = document.getElementById("kategori").value;
                 let keterangan = document.querySelector("input[name='keterangan']").value;
                 let harga = document.querySelector("input[name='harga']").value;
@@ -458,7 +483,8 @@
                     <td class="py-2 px-4 border">
                         <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
                     </td>
-                    <input type="hidden" name="biaya[]" value="${harga}">
+                    <input type="hidden" name="kategori_id[]" value="${kategori}">
+                    <input type="hidden" name="harga[]" value="${harga}">
                     <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
                     <input type="hidden" name="qty[]" value="${qty}">
                     <input type="hidden" name="total[]" value="${totalBiaya}">

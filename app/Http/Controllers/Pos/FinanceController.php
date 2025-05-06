@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Pos;
 
 use App\Models\Barang;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use App\Models\MasterSupplier;
 use App\Models\finance_pembelian;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\finance_pembelian_detail;
 use Yajra\DataTables\Facades\DataTables;
 
 class FinanceController extends Controller
@@ -44,9 +46,11 @@ class FinanceController extends Controller
     {
         $supplier = MasterSupplier::all();
         $barang = Barang::all();
+        $pembayaran = Pembayaran::all();
         return view('backend1.finance.pembelian.add_pembelian', [
             'supplier' => $supplier,
             'barang' => $barang,
+            'pembayaran' => $pembayaran,
         ]);
     }
 
@@ -74,6 +78,7 @@ class FinanceController extends Controller
             $pembelian = finance_pembelian::create([
                 'id' => $finId,
                 'supplier_id' => $request->supplier_id,
+                'pembayaran_id' => $request->pembayaran_id,
                 'tanggal' => $request->tanggal,
                 // 'vendor_id' => $request->vendor_id,
                 // 'subtotal' => array_sum($request->biaya) // Total biaya dari array
@@ -87,35 +92,42 @@ class FinanceController extends Controller
             // Jika ada ID sebelumnya, ambil angka terakhirnya, jika tidak mulai dari 1
             $counterDetail = $lastDetailId ? (int) substr($lastDetailId, -4) + 1 : 1;
 
-            if (is_array($request->barang_id)) {
-                foreach ($request->barang_id as $index => $barangId) {
-                    //Buat ID baru yang unik untuk setiap detail
-                    $detailId = "PBD{$date}" . str_pad($counterDetail, 4, '0', STR_PAD_LEFT);
 
-                    // Hitung total biaya
-                    $harga = (float) str_replace('.', '', $request->harga[$index] ?? 0);
-                    $qty = (float) str_replace('.', '', $request->qty[$index] ?? 1);
-                    $total = $harga * $qty;
+            foreach ($request->harga as $index => $kategoriId) {
+                // Buat ID baru yang unik
+                $detailId = "PB{$date}" . str_pad($counterDetail, 4, '0', STR_PAD_LEFT);
 
-                    // Simpan data detail
-                    $detailData[] = [
-                        'id' => $detailId,
-                        'pembelian_id' => $finId,
-                        'barang_id' => $barangId,
-                        'keterangan' => $request->keterangan[$index] ?? '',
-                        'harga' => $harga,
-                        'qty' => $request->qty[$index] ?? null,
-                        'total' => $total,
-                        'created_by' => auth()->user()->id,
-                    ];
-                    // **Increment counter agar ID berikutnya unik**
-                    $counterDetail++;
-                }
+                // Hitung total biaya
+                $harga = floatval(str_replace(['.', ','], '', $request->harga[$index] ?? 0));
+                $qty = intval($request->qty[$index] ?? 1);
+                $total = $harga * $qty;
+
+                $detailData[] = [
+                    'id' => $detailId,
+                    'pembelian_id' => $finId,
+                    'kategori_id' => $kategoriId,
+                    'harga' => $harga,
+                    'keterangan' => $request->keterangan[$index] ?? '',
+                    // 'harga' => $harga,
+                    'qty' => $request->qty[$index] ?? null,
+                    'total' => $total,
+                    'created_by' => auth()->user()->id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+
+                // **Increment counter agar ID berikutnya unik**
+                $counterDetail++;
             }
 
-            // Cek apakah ID sudah unik sebelum di insert
+            // // Cek apakah ID sudah unik sebelum di insert
+            // if (count($detailData) > 0) {
+            //     DB::table('finance_pembelian_detail')->insert($detailData);
+            // }
+
+            // **Cek apakah ID sudah unik sebelum insert**
             if (count($detailData) > 0) {
-                DB::table('finance_pembelian_detail')->insert($detailData);
+                finance_pembelian_detail::insert($detailData);
             }
 
             DB::commit();

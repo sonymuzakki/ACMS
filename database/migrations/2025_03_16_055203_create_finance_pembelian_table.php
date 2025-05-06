@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('finance_pembelian', function (Blueprint $table) {
             $table->string('id');
             $table->unsignedBigInteger('supplier_id');
-            $table->unsignedBigInteger('pembayaran_id');
-            $table->date('tanggal');
-            $table->string('no_invoice');
-            $table->double('total');
+            $table->unsignedBigInteger('pembayaran_id')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('no_invoice')->nullable();
+            $table->double('total')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->foreign('pembayaran_id')->references('id')->on('master_bayar');

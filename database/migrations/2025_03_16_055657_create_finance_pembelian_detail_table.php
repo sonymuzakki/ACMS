@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('finance_pembelian_detail', function (Blueprint $table) {
             $table->string('id');
-            $table->unsignedBigInteger('pembelian_id');
-            $table->unsignedBigInteger('ketegori_id');
-            $table->integer('qty');
-            $table->double('harga');
-            $table->double('diskon');
-            $table->double('total');
+            $table->string('pembelian_id');
+            $table->unsignedBigInteger('kategori_id')->nullable();
+            $table->integer('qty')->nullable();
+            $table->double('harga')->nullable();
+            $table->double('diskon')->nullable();
+            $table->double('total')->nullable();
+            $table->string('keterangan')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
-            $table->foreign('ketegori_id')->references('id')->on('master_kategori');
             $table->timestamps();
         });
     }
