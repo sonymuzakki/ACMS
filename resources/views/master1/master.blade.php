@@ -145,6 +145,29 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            // format rupiah di datatable
+            function formatRupiah(angka) {
+                if (angka === null || angka === undefined || isNaN(angka)) {
+                    return '';
+                }
+
+                var reverse = angka.toString().split('').reverse().join('');
+                var ribuan = reverse.match(/\d{1,3}/g);
+                ribuan = ribuan.join('.').split('').reverse().join('');
+
+                return '' + ribuan;
+            }
+
+            $.ajaxSetup({
+                statusCode: {
+                    401: function () {
+                        // Arahkan ke halaman login jika token kedaluwarsa
+                        window.location.href = '/login';
+                    }
+                }
+            });
+        </script>
         @stack('child-scripts')
     </body>
 

@@ -19,11 +19,11 @@ class finance_pembelian extends Model
         return $this->hasMany(finance_pembelian_detail::class, 'pembelian_id', 'id');
     }
 
-    public function master_supplier()
+    public function MasterSupplier()
     {
         return $this->belongsTo(MasterSupplier::class, 'supplier_id', 'id');
     }
-    public function master_bayar()
+    public function Pembayaran()
     {
         return $this->belongsTo(Pembayaran::class, 'pembayaran_id', 'id');
     }

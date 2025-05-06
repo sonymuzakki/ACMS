@@ -15,6 +15,7 @@ use App\Http\Controllers\Pos\AktifitasBeliController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Pages\RoleController as PagesRoleController;
 use App\Http\Controllers\Pages\UsersNewController;
+use App\Http\Controllers\Pos\FinanceController;
 use App\Http\Controllers\User\UsersController as UserUsersController;
 
 /*
@@ -216,6 +217,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users/update/{id}', 'update')->name('user.update');
         Route::get('/users/delete/{id}', 'destroy')->name('user.delete');
     });
+
+    Route::controller(FinanceController::class)->group(function () {
+        Route::get('/finance/pembelian', 'index_pembelian')->name('finance.index');
+        Route::get('/finance/pembelian/add', 'add_pembelian')->name('finance.add');
+        Route::post('/finance/pembelian/store', 'store_pembelian')->name('finance.store');
+        // Route::get('/finance/pembelian/edit/{id}', 'edit')->name('finance.edit');
+        // Route::post('/finance/pembelian/update/{id}', 'update')->name('finance.update');
+        // Route::get('/finance/pembelian/delete/{id}', 'destroy')->name('finance.delete');
+    });
 });
+
 
 require __DIR__ . '/auth.php';

@@ -15,7 +15,7 @@
             </div>
             <div
                 class="ml-3.5 font-medium transition-opacity group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0">
-                ECHO
+                Aretha Cell
             </div>
         </a>
         <a class="toggle-compact-menu ml-auto hidden h-[20px] w-[20px] items-center justify-center rounded-full border border-slate-600/40 transition-[opacity,transform] hover:bg-slate-600/5 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0 3xl:flex"
@@ -60,8 +60,8 @@
                         PEMBELIAN
                     </li>
                     <li>
-                        <a href=""
-                            class="side-menu__link ">
+                        <a href="{{ route('finance.index') }}"
+                            class="side-menu__link {{ Route::is('finance.index') ? 'side-menu__link--active' : '' }}">
                             <i data-tw-merge="" data-lucide="gantt-chart-square"
                                 class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
                             <div class="side-menu__link__title">Pembelian</div>

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class finance_pembelian_detail extends Model
 {
     // use HasFactory;
-    protected $guarded = "";
+    protected $guarded = [];
     protected $table = 'finance_pembelian_detail';
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -18,9 +18,9 @@ class finance_pembelian_detail extends Model
     {
         return $this->belongsTo(finance_pembelian::class, 'pembelian_id', 'id');
     }
-    public function Barang()
+    public function Kategori()
     {
-        return $this->belongsTo(Barang::class, 'barang_id', 'id');
+        return $this->belongsTo(Barang::class, 'kategori_id', 'id');
     }
 
     protected static function boot()
