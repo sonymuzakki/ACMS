@@ -63,6 +63,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/supplier/update/{id}', 'update_supplier')->name('update.supplier');
         Route::get('/supplier/delete/{id}', 'delete_supplier')->name('delete.supplier');
 
+        // Routes untuk Brand
+        Route::get('/brand', 'index_brand')->name('index.brand');
+        Route::post('/brand/store', 'store_brand')->name('store.brand');
+        Route::put('/brand/update/{id}', 'update_brand')->name('update.brand');
+        Route::get('/brand/delete/{id}', 'delete_brand')->name('delete.brand');
+
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
         Route::get('/merk/add', 'add')->name('master.add');
