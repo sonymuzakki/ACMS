@@ -181,7 +181,7 @@
                 MASTER DATA
             </li>
             <li>
-                <a href="javascript:;" class="side-menu__link  {{ Route::is('index.pembayaran','index.satuan','index.kategori','index.brand','index.supplier','index.pelanggan') ? 'side-menu__link--active' : '' }}">
+                <a href="javascript:;" class="side-menu__link  {{ Route::is('index.pembayaran','index.satuan','index.kategori','index.brand','index.supplier','index.pelanggan','index.produk') ? 'side-menu__link--active' : '' }}">
                     <i data-tw-merge="" data-lucide="table2" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
                     <div class="side-menu__link__title">Master</div>
                     <i data-tw-merge="" data-lucide="chevron-down"
@@ -190,6 +190,13 @@
                 <!-- BEGIN: Second Child -->
                 <ul class="hidden">
 
+                    <li>
+                        <a href="{{ route('index.produk') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="landmark" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Produk</div>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('index.pembayaran') }}" class="side-menu__link">
                             {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}

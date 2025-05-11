@@ -124,23 +124,45 @@
                             <form action="{{ route('store.produk') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Nama produk
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Pembayaran" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Nama Produk" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            No Hp
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="modal-form-6" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Kategori
                                         </label>
-                                        <input type="text" id="onlyNumbers" pattern="\d*" inputmode="numeric" name="no_hp" maxlength="10" placeholder="081xxxx" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <select id="kategori-select" name="kategori_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih kategori</option>
+                                            @foreach ($kategori as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="col-span-12 sm:col-span-12">
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Alamat
+                                            Stock
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="alamat" placeholder="Alamat" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="modal-form-1" type="number" name="stock" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Harga Jual
+                                        </label>
+                                        <input data-tw-merge name="harga_jual" id="harga_jual" type="text" placeholder="Harga Jual" class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="modal-form-6" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Satuan
+                                        </label>
+                                        <select id="satuan-select" name="satuan_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih Satuan</option>
+                                            @foreach ($satuan as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
@@ -154,7 +176,7 @@
                     </div>
                     <!-- END: Modal Content -->
 
-                    <!-- Modal HTML -->
+                    <!-- Modal Edit -->
                     <div id="edit-modal" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 invisible opacity-0 duration-200">
                         <div class="modal-content w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] mt-16 dark:bg-darkmode-600 sm:w-[460px]">
                             <div class="flex items-center px-5 py-3 border-b border-slate-200/60 dark:border-darkmode-400">
@@ -165,16 +187,46 @@
                             <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-name" class="inline-block mb-2">Nama produk</label>
-                                        <input id="edit-name" name="nama" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
+                                <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="edit-nama" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Nama produk
+                                        </label>
+                                        <input data-tw-merge id="edit-nama" type="text" name="nama" placeholder="Nama Produk" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
-                                </div>
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-nama_pemilik" class="inline-block mb-2">Nama Pemilik produk</label>
-                                        <input id="edit-nama_pemilik" name="nama_pemilik" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="kategori" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Kategori
+                                        </label>
+                                        <select id="kategori" name="kategori_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih kategori</option>
+                                            @foreach ($kategori as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="edit-stock" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Stock
+                                        </label>
+                                        <input data-tw-merge id="edit-stock" type="number" name="stock" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="edit-harga" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Harga Jual
+                                        </label>
+                                        <input data-tw-merge name="harga_jual" id="edit-harga" type="text" placeholder="Harga Jual" class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label data-tw-merge for="satuan" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+                                            Satuan
+                                        </label>
+                                        <select id="satuan" name="satuan_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih Satuan</option>
+                                            @foreach ($satuan as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
@@ -228,6 +280,7 @@
 </div>
 
 @push('child-scripts')
+
 <script>
         $(document).ready(function() {
             var table = $('#inventory-table').DataTable({
@@ -250,7 +303,7 @@
                             return data;
                         }
                     },
-                    { data: 'kategori.nama', name: 'kategori.nama', searchable: true },
+                    { data: 'kategori', name: 'kategori', searchable: true },
                     { data: 'nama', name: 'nama', searchable: true },
                     { data: 'stock', name: 'stock', searchable: true },
                     {
@@ -279,7 +332,9 @@
                                         </button>
                                         <div class="dropdown-menu absolute z-[9999] hidden">
                                             <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
-                                                <a href="#" onclick="openEditModal(${row.id}, '${row.nama}')" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
+                                                <a href="#" onclick="openEditModal(
+                                                ${row.id}, '${row.nama}' ,'${row.kategori_id}','${row.stock}','${row.harga_jual}','${row.satuan_id}')"
+                                                class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
                                                     <i class="fas fa-edit mr-2"></i> Edit
                                                 </a>
                                                 <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
@@ -401,10 +456,34 @@
 
 </script>
 <script>
-    function openEditModal(id, nama,nama_pemilik) {
-    // Populate the form fields with data
-    document.getElementById('edit-name').value = nama;
-    document.getElementById('edit-nama_pemilik').value = nama_pemilik;
+    document.addEventListener("DOMContentLoaded", function() {
+        new TomSelect("#kategori-select", {
+            create: true,
+            sortField: { field: "text" }
+        });
+        new TomSelect("#satuan-select", {
+            create: true, // beda konfigurasi misalnya
+        });
+    });
+    $(document).on('focus', '.rupiah', function() {
+        $(this).mask("#.##0", { reverse: true });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new TomSelect('#kategori');
+        new TomSelect('#satuan');
+    });
+    function openEditModal(id, nama, kategori_id, stock, harga_jual, satuan_id) {
+    document.getElementById('edit-nama').value = nama;
+    document.getElementById('edit-stock').value = stock;
+    document.getElementById('edit-harga').value = harga_jual;
+
+    let kategoriSelect = document.querySelector('#kategori')?.tomselect;
+    let satuanSelect = document.querySelector('#satuan')?.tomselect;
+
+    if (kategoriSelect) kategoriSelect.setValue(kategori_id);
+    if (satuanSelect) satuanSelect.setValue(satuan_id);
 
     // Update the form action URL
     document.getElementById('edit-form').action = `/produk/update/${id}`;
@@ -419,7 +498,9 @@
         document.getElementById('edit-modal').classList.remove('show');
         document.getElementById('edit-modal').classList.add('invisible', 'opacity-0');
     }
+
 </script>
+
 @endpush
 
 @endsection

@@ -72,6 +72,7 @@ class MasterController extends Controller
         return redirect()->route('index.kategori')->with($notification);
     }
 
+
     public function update_kategori(Request $request, $id)
     {
         $data = MasterKategori::findOrFail($id);
@@ -395,20 +396,25 @@ class MasterController extends Controller
              // Apply custom filter if provided
             if ($request->customFilter) {
                 $data->where(function($query) use ($request) {
-                    $query->where('nama', 'like', '%' . $request->customFilter . '%');
-                    $query->where('stock', 'like', '%' . $request->customFilter . '%');
-                    $query->where('harga_jual', 'like', '%' . $request->customFilter . '%');
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%')
+                    ->orWhere('stock', 'like', '%' . $request->customFilter . '%')
+                    ->orWhere('harga_jual', 'like', '%' . $request->customFilter . '%');
                 });
             }
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('kategori', function ($row) {
+                    return $row->kategori->nama ?? '';
+                })
                 ->addColumn('action', function ($row) {
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('backend1.master.produk.index', compact('data'));
+        $kategori = MasterKategori::all();
+        $satuan = Mastersatuan::all();
+        return view('backend1.master.produk.index', compact('data','kategori','satuan'));
     }
 
     public function store_produk(Request $request)
@@ -417,11 +423,25 @@ class MasterController extends Controller
             'nama' => 'nullable|string|max:255',
         ]);
 
+        // Jika kategori_id bukan angka, buat kategori baru
+        if (!is_numeric($request->kategori_id)) {
+            $kategoriBaru = MasterKategori::create([
+                'nama' => $request->kategori_id,
+                'created_by' => Auth::id(),
+            ]);
+            $kategori_id = $kategoriBaru->id;
+        } else {
+            $kategori_id = $request->kategori_id;
+        }
+
+        $hargaJual = str_replace('.', '', $request->harga_jual);
         MasterProduk::create([
             'nama' => $request->nama,
-            'no_hp' => $request->no_hp,
-            'alamat' => $request->alamat,
-            'created_by' => Auth::user()->id,
+            'kategori_id' => $kategori_id,
+            'satuan_id' => $request->satuan_id,
+            'stock' => $request->stock,
+            'harga_jual' => (int) $hargaJual,
+            'created_by' => Auth::id(),
         ]);
 
         $notification = [
@@ -434,10 +454,14 @@ class MasterController extends Controller
     public function update_produk(Request $request, $id)
     {
         $data = MasterProduk::findOrFail($id);
+        $hargaJual = str_replace('.', '', $request->harga_jual);
         $data->update([
             'nama' => $request->nama,
-            'no_hp' => $request->no_hp,
-            'alamat' => $request->alamat,
+            'kategori_id' => $request->kategori_id,
+            'satuan_id' => $request->satuan_id,
+            'stock' => $request->stock,
+            'harga_jual' => (int) $hargaJual,
+            'created_by' => Auth::id(),
             'updated_by' => Auth::user()->id,
             ]);
         return redirect()->route('index.produk');
