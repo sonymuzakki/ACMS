@@ -20,7 +20,7 @@ class finance_pembelian_detail extends Model
     }
     public function Kategori()
     {
-        return $this->belongsTo(Barang::class, 'kategori_id', 'id');
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
     }
 
     protected static function boot()

@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_bayar', function (Blueprint $table) {
+        Schema::create('master_produk', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('kategori_id');
             $table->string('nama');
+            $table->integer('stock');
+            $table->bigInteger('harga_jual');
+            $table->unsignedBigInteger('satuan_id');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_bayar');
+        Schema::dropIfExists('master_produk');
     }
 };

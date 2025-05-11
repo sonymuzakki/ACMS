@@ -1,6 +1,6 @@
 @extends('master1.master')
-@section('title', 'Trust UC - Master pembayaran')
-@section('br2', 'Master pembayaran')
+@section('title', 'ACMS - Master Satuan')
+@section('br2', 'Master Satuan')
 @push('style')
 @endpush
 @section('main')
@@ -12,7 +12,7 @@
                 <div class="col-span-12">
                     <div class="flex flex-col gap-y-3 md:h-10 md:flex-row md:items-center">
                         <div class="text-base font-medium group-[.mode--light]:text-white">
-                            Master pembayaran
+                            Master Satuan
                         </div>
                         {{-- <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
                             <a href="{{ route('users.add') }}" data-tw-merge="" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
@@ -49,7 +49,7 @@
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Nama
+                                                Satuan
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
@@ -105,14 +105,14 @@
                                     Add Data
                                 </h2>
                             </div>
-                            <form action="{{ route('store.pembayaran') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('store.satuan') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Pembayaran
+                                            Nama Satuan
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Pembayaran" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Nama Satuan" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
                                 </div>
 
@@ -139,7 +139,7 @@
                                 @method('PUT')
                                 <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-name" class="inline-block mb-2">Pembayaran</label>
+                                        <label for="edit-name" class="inline-block mb-2">Brand</label>
                                         <input id="edit-name" name="nama" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('index.pembayaran') }}",
+                    url: "{{ route('index.satuan') }}",
                     data: function(d) {
                         d.customFilter = $('#customFilter').val();
                         d.merkFilter = $('#merkFilter').val();
@@ -259,6 +259,10 @@
                 ],
                 });
 
+                $('#customFilter').on('keyup change', function() {
+                    table.draw();
+                });
+
                 $('#inventory-table_filter').hide();
                 $('.dataTables_length').hide();
                 $('.dataTables_info').hide();
@@ -295,9 +299,7 @@
                     $('#page-info').text('Page ' + (info.page + 1) + ' of ' + info.pages);
                 }
 
-                $('#customFilter').on('keyup change', function() {
-                    table.draw();
-                });
+
 
                 $('#entriesPerPage').on('change', function() {
                     var pageLength = parseInt($(this).val(), 10);
@@ -315,7 +317,7 @@
                     var userId = $('#delete-modal-preview').data('id');
 
                     $.ajax({
-                        url: `/pembayaran/delete/${userId}`,
+                        url: `/satuan/delete/${userId}`,
                         type: 'get', // Ubah menjadi DELETE
                         success: function(result) {
                             $('#delete-modal-preview').removeClass('show'); // Sembunyikan modal konfirmasi
@@ -360,7 +362,7 @@
     document.getElementById('edit-name').value = nama;
 
     // Update the form action URL
-    document.getElementById('edit-form').action = `/pembayaran/update/${id}`;
+    document.getElementById('edit-form').action = `/satuan/update/${id}`;
 
     // Show the modal
     document.getElementById('edit-modal').classList.add('show');

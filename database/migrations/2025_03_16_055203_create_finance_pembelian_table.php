@@ -20,7 +20,6 @@ return new class extends Migration
             $table->double('total')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
-            $table->foreign('pembayaran_id')->references('id')->on('master_bayar');
             $table->foreign('supplier_id')->references('id')->on('master_supplier');
             $table->timestamps();
         });

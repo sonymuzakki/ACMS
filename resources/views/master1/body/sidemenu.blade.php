@@ -46,7 +46,7 @@
                     STOCK
                 </li>
                 <li>
-                    <a href="{{ route('master.json') }}"
+                    <a href="{{ route('stock.index') }}"
                         class="side-menu__link {{ Route::is('master.json') ? 'side-menu__link--active' : '' }}">
                         <i data-tw-merge="" data-lucide="gantt-chart-square"
                             class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
@@ -178,10 +178,10 @@
             </li> --}}
 
             <li class="side-menu__divider">
-                MASTER
+                MASTER DATA
             </li>
             <li>
-                <a href="javascript:;" class="side-menu__link  {{ Route::is('permission.index1','all.roles.permission1','roles.index','index.brand') ? 'side-menu__link--active' : '' }}">
+                <a href="javascript:;" class="side-menu__link  {{ Route::is('index.pembayaran','index.satuan','index.kategori','index.brand','index.supplier','index.pelanggan') ? 'side-menu__link--active' : '' }}">
                     <i data-tw-merge="" data-lucide="table2" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
                     <div class="side-menu__link__title">Master</div>
                     <i data-tw-merge="" data-lucide="chevron-down"
@@ -191,10 +191,24 @@
                 <ul class="hidden">
 
                     <li>
-                        <a href="{{ route('index.barang') }}" class="side-menu__link">
+                        <a href="{{ route('index.pembayaran') }}" class="side-menu__link">
                             {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
-                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
-                            <div class="side-menu__link__title">Barang</div>
+                            <i data-tw-merge="" data-lucide="landmark" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Bank</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.satuan') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="badge-cent" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Satuan</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.kategori') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide ="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">Kategori</div>
                         </a>
                     </li>
                     <li>
@@ -205,17 +219,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('index.pembayaran') }}" class="side-menu__link">
-                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
-                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
-                            <div class="side-menu__link__title">Pembayaran</div>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('index.supplier') }}" class="side-menu__link">
                             {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
                             <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
                             <div class="side-menu__link__title">Supplier</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.pelanggan') }}" class="side-menu__link">
+                            {{-- <i data-tw-merge="" data-lucide="fa-solid fa-users" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i> --}}
+                            <i data-tw-merge="" data-lucide="layout-panel-top" class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
+                            <div class="side-menu__link__title">pelanggan</div>
                         </a>
                     </li>
 

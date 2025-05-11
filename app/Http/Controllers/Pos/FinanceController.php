@@ -139,4 +139,33 @@ class FinanceController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data pembelian.');
         }
     }
+
+    public function edit_pembelian($id)
+    {
+        // Cek apakah user punya permission 'edit finance'
+        if (!auth()->user()->can('pembelian.edit')) {
+            abort(403, 'Anda tidak memiliki akses untuk mengedit data finance ini.');
+        }
+
+        // $pembelian = finance_pembelian::with(['finance_pembelian_detail'])->findOrFail($id);
+        $pembelian = finance_pembelian::where('id', $id)
+            ->with(['finance_pembelian_detail' => function ($query) {
+                $query->select('id', 'pembelian_id', 'kategori_id', 'harga', 'qty', 'total');
+            }])
+            ->first();
+        if (!$pembelian) {
+            return redirect()->route('finance.index')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $supplier = MasterSupplier::all();
+        $barang = Barang::all();
+        $pembayaran = Pembayaran::all();
+
+        return view('backend1.finance.pembelian.edit_pembelian', [
+            'pembelian' => $pembelian,
+            'supplier' => $supplier,
+            'barang' => $barang,
+            'pembayaran' => $pembayaran,
+        ]);
+    }
 }

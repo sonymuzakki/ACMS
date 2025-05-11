@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Pos;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Barang;
-use App\Models\MasterBrand;
-use App\Models\MasterSupplier;
+use App\Models\Kategori;
 use App\Models\Pembayaran;
+use App\Models\MasterBrand;
+use App\Models\MasterProduk;
+use App\Models\Mastersatuan;
+use Illuminate\Http\Request;
+use App\Models\MasterSupplier;
+use App\Models\MasterPelanggan;
+use App\Http\Controllers\Controller;
+use App\Models\MasterBank;
+use App\Models\MasterKategori;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+
 class MasterController extends Controller
 {
 
@@ -25,10 +32,10 @@ class MasterController extends Controller
         return redirect('/');
     }
 
-    // New Barang Controller
-    public function index_barang(Request $request)
+    // New MasterKategori Controller
+    public function index_kategori(Request $request)
     {
-        $data = Barang::all();
+        $data = MasterKategori::query();
         if ($request->ajax()) {
 
             // Apply custom filter if provided
@@ -45,16 +52,16 @@ class MasterController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('backend1.master.barang.index', compact('data'));
+        return view('backend1.master.kategori.index', compact('data'));
     }
 
-    public function store_barang(Request $request)
+    public function store_kategori(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
         ]);
 
-        Barang::create([
+        MasterKategori::create([
             'nama' => $request->nama,
             'created_by' => Auth::user()->id,
         ]);
@@ -62,12 +69,12 @@ class MasterController extends Controller
             'message' => 'Inventory Insert Successfully',
             'alert-type' => 'success',
         ];
-        return redirect()->route('index.barang')->with($notification);
+        return redirect()->route('index.kategori')->with($notification);
     }
 
-    public function update_barang(Request $request, $id)
+    public function update_kategori(Request $request, $id)
     {
-        $data = Barang::findOrFail($id);
+        $data = MasterKategori::findOrFail($id);
         $data->update([
             'nama' => $request->nama,
             ]);
@@ -76,20 +83,21 @@ class MasterController extends Controller
 
     public function delete_barang($id)
     {
-        Barang::find($id)->delete();
+        MasterKategori::find($id)->delete();
         return redirect()->back();
     }
 
     // new pembayaran controller
     public function index_pembayaran(Request $request)
     {
-        $data = Pembayaran::all();
+        $data = MasterBank::query();
         if ($request->ajax()) {
 
             // Apply custom filter if provided
             if ($request->customFilter) {
                 $data->where(function($query) use ($request) {
                     $query->where('nama', 'like', '%' . $request->customFilter . '%');
+                    $query->orWhere('nama_pemilik', 'like', '%' . $request->customFilter . '%');
                 });
             }
 
@@ -100,17 +108,20 @@ class MasterController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('backend1.master.pembayaran.index', compact('data'));
+        return view('backend1.master.bank.index', compact('data'));
     }
 
     public function store_pembayaran(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
+            'nama_pemilik' => 'required|string|max:255',
+
         ]);
 
-        Pembayaran::create([
+        MasterBank::create([
             'nama' => $request->nama,
+            'nama_pemilik' => $request->nama_pemilik,
             'created_by' => Auth::user()->id,
         ]);
         $notification = [
@@ -122,23 +133,24 @@ class MasterController extends Controller
 
     public function update_pembayaran(Request $request, $id)
     {
-        $data = Pembayaran::findOrFail($id);
+        $data = MasterBank::findOrFail($id);
         $data->update([
             'nama' => $request->nama,
+            'nama_pemilik' => $request->nama_pemilik,
             ]);
         return redirect()->route('index.pembayaran');
     }
 
     public function delete_pembayaran($id)
     {
-        Pembayaran::find($id)->delete();
+        MasterBank::find($id)->delete();
         return redirect()->back();
     }
 
     // New Supplier Controller
     public function index_supplier(Request $request)
     {
-        $data = MasterSupplier::all();
+        $data = MasterSupplier::query();
         if ($request->ajax()) {
 
             // Apply custom filter if provided
@@ -201,7 +213,7 @@ class MasterController extends Controller
     // New Brand Controller
     public function index_brand(Request $request)
     {
-        $data = MasterBrand::all();
+        $data = MasterBrand::query();
         if ($request->ajax()) {
 
             // Apply custom filter if provided
@@ -252,6 +264,188 @@ class MasterController extends Controller
     public function delete_brand($id)
     {
         MasterBrand::find($id)->delete();
+        return redirect()->back();
+    }
+
+    // New Satuan Controller
+    public function index_satuan(Request $request)
+    {
+        $data = MasterSatuan::query();
+        if ($request->ajax()) {
+
+            // Apply custom filter if provided
+            if ($request->customFilter) {
+                $data->where(function($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%');
+                });
+            }
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend1.master.satuan.index', compact('data'));
+    }
+
+    public function store_satuan(Request $request)
+    {
+        $request->validate([
+            'nama' => 'nullable|string|max:255',
+        ]);
+
+        MasterSatuan::create([
+            'nama' => $request->nama,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        $notification = [
+            'message' => 'Inventory Insert Successfully',
+            'alert-type' => 'success',
+        ];
+        return redirect()->route('index.satuan')->with($notification);
+    }
+
+    public function update_satuan(Request $request, $id)
+    {
+        $data = MasterSatuan::findOrFail($id);
+        $data->update([
+            'nama' => $request->nama,
+            'updated_by' => Auth::user()->id,
+            ]);
+        return redirect()->route('index.satuan');
+    }
+
+    public function delete_satuan($id)
+    {
+        MasterSatuan::find($id)->delete();
+        return redirect()->back();
+    }
+
+     // New pelanggan Controller
+    public function index_pelanggan(Request $request)
+    {
+        $data = MasterPelanggan::query();
+        if ($request->ajax()) {
+
+             // Apply custom filter if provided
+            if ($request->customFilter) {
+                $data->where(function($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%');
+                });
+            }
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend1.master.pelanggan.index', compact('data'));
+    }
+
+    public function store_pelanggan(Request $request)
+    {
+        $request->validate([
+            'nama' => 'nullable|string|max:255',
+        ]);
+
+        MasterPelanggan::create([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        $notification = [
+            'message' => 'Inventory Insert Successfully',
+            'alert-type' => 'success',
+        ];
+        return redirect()->route('index.pelanggan')->with($notification);
+    }
+
+    public function update_pelanggan(Request $request, $id)
+    {
+        $data = MasterPelanggan::findOrFail($id);
+        $data->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'updated_by' => Auth::user()->id,
+            ]);
+        return redirect()->route('index.pelanggan');
+    }
+
+    public function delete_pelanggan($id)
+    {
+        MasterPelanggan::find($id)->delete();
+        return redirect()->back();
+    }
+
+    // New produk Controller
+    public function index_produk(Request $request)
+    {
+        $data = MasterProduk::query()
+                ->with(['kategori' , 'satuan']);
+        if ($request->ajax()) {
+
+             // Apply custom filter if provided
+            if ($request->customFilter) {
+                $data->where(function($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%');
+                    $query->where('stock', 'like', '%' . $request->customFilter . '%');
+                    $query->where('harga_jual', 'like', '%' . $request->customFilter . '%');
+                });
+            }
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend1.master.produk.index', compact('data'));
+    }
+
+    public function store_produk(Request $request)
+    {
+        $request->validate([
+            'nama' => 'nullable|string|max:255',
+        ]);
+
+        MasterProduk::create([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        $notification = [
+            'message' => 'Inventory Insert Successfully',
+            'alert-type' => 'success',
+        ];
+        return redirect()->route('index.produk')->with($notification);
+    }
+
+    public function update_produk(Request $request, $id)
+    {
+        $data = MasterProduk::findOrFail($id);
+        $data->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'updated_by' => Auth::user()->id,
+            ]);
+        return redirect()->route('index.produk');
+    }
+
+    public function delete_produk($id)
+    {
+        MasterProduk::find($id)->delete();
         return redirect()->back();
     }
 }

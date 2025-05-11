@@ -13,6 +13,7 @@ use App\Http\Controllers\Pos\PenjualanController;
 use App\Http\Controllers\Pos\PermissionController;
 use App\Http\Controllers\Pos\AktifitasBeliController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Pages\RoleController as PagesRoleController;
 use App\Http\Controllers\Pages\UsersNewController;
 use App\Http\Controllers\Pos\FinanceController;
@@ -46,13 +47,13 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(MasterController::class)->group(function () {
 
         // Routes untuk Barang
-        Route::get('/barang', 'index_barang')->name('index.barang');
-        Route::post('/barang/store', 'store_barang')->name('store.barang');
-        Route::put('/barang/update/{id}', 'update_barang')->name('update.barang');
-        Route::get('/barang/delete/{id}', 'delete_barang')->name('delete.barang');
+        Route::get('/kategori', 'index_kategori')->name('index.kategori');
+        Route::post('/kategori/store', 'store_kategori')->name('store.kategori');
+        Route::put('/kategori/update/{id}', 'update_kategori')->name('update.kategori');
+        Route::get('/kategori/delete/{id}', 'delete_kategori')->name('delete.kategori');
 
         // Routes untuk Pembayaran
-        Route::get('/pembayaran', 'index_pembayaran')->name('index.pembayaran');
+        Route::get('/bank', 'index_pembayaran')->name('index.pembayaran');
         Route::post('/pembayaran/store', 'store_pembayaran')->name('store.pembayaran');
         Route::put('/pembayaran/update/{id}', 'update_pembayaran')->name('update.pembayaran');
         Route::get('/pembayaran/delete/{id}', 'delete_pembayaran')->name('delete.pembayaran');
@@ -68,6 +69,24 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/brand/store', 'store_brand')->name('store.brand');
         Route::put('/brand/update/{id}', 'update_brand')->name('update.brand');
         Route::get('/brand/delete/{id}', 'delete_brand')->name('delete.brand');
+
+        // Routes untuk Satuan
+        Route::get('/satuan', 'index_satuan')->name('index.satuan');
+        Route::post('/satuan/store', 'store_satuan')->name('store.satuan');
+        Route::put('/satuan/update/{id}', 'update_satuan')->name('update.satuan');
+        Route::get('/satuan/delete/{id}', 'delete_satuan')->name('delete.satuan');
+
+        // Routes untuk pelanggan
+        Route::get('/pelanggan', 'index_pelanggan')->name('index.pelanggan');
+        Route::post('/pelanggan/store', 'store_pelanggan')->name('store.pelanggan');
+        Route::put('/pelanggan/update/{id}', 'update_pelanggan')->name('update.pelanggan');
+        Route::get('/pelanggan/delete/{id}', 'delete_pelanggan')->name('delete.pelanggan');
+
+        // Routes untuk produk
+        Route::get('/produk', 'index_produk')->name('index.produk');
+        Route::post('/produk/store', 'store_produk')->name('store.produk');
+        Route::put('/produk/update/{id}', 'update_produk')->name('update.produk');
+        Route::get('/produk/delete/{id}', 'delete_produk')->name('delete.produk');
 
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
@@ -110,76 +129,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('export/inventory', 'exportInventory')->name('export.inventory');
     });
 
-    Route::controller(AktifitasController::class)->group(function () {
-        Route::get('/index', 'index')->name('aktifitas.index')->middleware('permission:aktifitas.jual.menu');
-        Route::get('/aktifitas/add', 'add')->name('aktifitas.add');
-        Route::get('/filter-aktifitas', 'filterAktifitas')->name('aktifitas.filter');
-
-        Route::get('/prospecting-beli', 'index_beli')->name('aktifitas.beli');
-
-        Route::get('/get-info-by-nopol/{id}', 'getInfoByNopol')->name('aktifitas.cekNopol');
-
-        Route::post('/aktifitas/store', 'store')->name('aktifitas.store');
-
-        Route::get('/funnel-chart', 'funnelChart')->name('chart');
-
-        Route::get('aktifitas/exports',  'exports')->name('exports');
-
-        Route::get('/api/spv', 'getSpv');
-        Route::get('/api/sales-by-spv/{spvId}', 'getSalesBySpv');
-
-        Route::get('/dashboard', 'dashboard')->name('dashboard');
-
-        // Leads Sales From Tisas
-        Route::get('/leads-sales', 'index_leads')->name('aktifitas.leads');
-        Route::post('/update-status/{id}', 'updateStatus')->name('aktifitas.leads.update');
-    });
-
-    Route::controller(AktifitasBeliController::class)->group(function () {
-        Route::get('/prospecting-beli', 'index')->name('prospecting.beli')->middleware('permission:aktifitas.beli.menu');
-        Route::get('/prospecting-add', 'add')->name('prospecting.add');
-        Route::POST('/prospecting-store', 'store')->name('prospecting.store');
-        Route::get('/find-data', 'findData')->name('prospecting.find');
-        Route::get('/export/beli', 'view')->name('export.beli');
-        // export
-        Route::get('export-prospek-beli', 'export')->name('prospekBeli.export');
-    });
-
-    Route::controller(SalesController::class)->group(function () {
-        Route::get('/sales/index',  'getSales')->name('sales.index');
-        Route::get('/spv/index',  'getSpv')->name('spv.index');
-    });
-
-    Route::controller(PengajuanController::class)->group(function () {
-        Route::get('/pengajuan/index',  'index')->name('pengajuan.index');
-        Route::get('/pengajuan/credit/add',  'AddPengajuan')->name('pengajuan.add');
-        Route::POST('/pengajuan/credit/store',  'store')->name('pengajuan.store');
-        Route::get('/pengajuan/credit/edit/{id}',  'EditPengajuan')->name('pengajuan.edit');
-        Route::PUT('/pengajuan/credit/update/{id}',  'UpdatePengajuan')->name('pengajuan.update');
-
-        Route::get('/get-no-spk-by-inventory/{id}', 'getNoSPKByInventory')->name('get.nospk');
-    });
-
-    Route::controller(PenjualanController::class)->group(function () {
-        Route::get('/penjualan/index',  'index')->name('penjualan.index');
-        Route::get('/penjualan/add',  'AddPenjualan')->name('penjualan.add');
-        Route::POST('/penjualan/store',  'store')->name('penjualan.store');
-
-        Route::get('/get-no-spk/{id}', 'getData')->name('get.getData');
-        // Route::get('/get-no-spkcs/{id}', 'getDatacs')->name('get.getData');
-
-        Route::get('/penjualan/export', 'viewExport')->name('penjualan.viewExport');
-
-        // export
-        Route::get('/export/all', 'export_all')->name('export.all');
-
-        // view export
-        Route::get('/export', 'view_export')->name('view.export');
-        Route::get('/export/view', 'view')->name('view');
-
-        Route::get('/report', 'report')->name('report');
-    });
-
     Route::controller(PagesRoleController::class)->group(function () {
         // Permission Route
         Route::get('/permission/index',  'index')->name('permission.index');
@@ -214,6 +163,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/index',  'UsersIndex')->name('roles.index');
     });
 
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
+
     Route::controller(UsersNewController::class)->group(function () {
         // Users
         Route::get('/users/index',  'index')->name('users.index');
@@ -228,7 +181,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/finance/pembelian', 'index_pembelian')->name('finance.index');
         Route::get('/finance/pembelian/add', 'add_pembelian')->name('finance.add');
         Route::post('/finance/pembelian/store', 'store_pembelian')->name('finance.store');
-        // Route::get('/finance/pembelian/edit/{id}', 'edit')->name('finance.edit');
+        Route::get('/finance/pembelian/edit/{id}', 'edit_pembelian')->name('finance.edit');
         // Route::post('/finance/pembelian/update/{id}', 'update')->name('finance.update');
         // Route::get('/finance/pembelian/delete/{id}', 'destroy')->name('finance.delete');
     });

@@ -7,8 +7,14 @@ namespace Database\Seeders;
 use App\Models\Aktifitas;
 use App\Models\Barang;
 use App\Models\inventory;
+use App\Models\Kategori;
 use App\Models\User;
 use App\Models\lokasi;
+use App\Models\MasterBank;
+use App\Models\MasterKategori;
+use App\Models\MasterPelanggan;
+use App\Models\MasterProduk;
+use App\Models\MasterSatuan;
 use App\Models\MasterSupplier;
 use App\Models\Merk;
 use App\Models\Pembayaran;
@@ -23,28 +29,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-
-        // \App\Models\inventory::factory(1000)->create();
-
-        \App\Models\Inventory::factory(1000)->create();
+        inventory::factory(1000)->create();
 
         Merk::create([
             'nama' => 'Toyota'
         ]);
+        MasterBank::create([
+            'nama' => 'BRI',
+            'nama_pemilik' => 'Zidan',
+            'created_by' => '1',
+        ]);
 
-        Barang::create([
+        MasterKategori::create([
             'id' => 1,
-            'nama' => 'Dana',
+            'nama' => 'Pulsa',
             'created_by' => '1',
         ]);
 
@@ -55,11 +55,31 @@ class DatabaseSeeder extends Seeder
             'vendor' => 'telkomsel',
             'created_by' => '1',
         ]);
-        Pembayaran::create([
+
+        MasterPelanggan::create([
             'id' => 1,
-            'nama' => 'Dana',
+            'nama' => 'sonny',
+            'no_hp' => 123456789,
+            'alamat' => 'jati',
             'created_by' => '1',
         ]);
+
+        MasterProduk::create([
+            'id' => 1,
+            'kategori_id' => 1,
+            'nama' => 'pulsa',
+            'stock' => 100,
+            'harga_jual' => 10000,
+            'satuan_id' => 1,
+            'created_by' => '1',
+        ]);
+
+        MasterSatuan::create([
+            'id' => 1,
+            'nama' => 'Pcs',
+            'created_by' => '1',
+        ]);
+
 
 
     }
