@@ -182,8 +182,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/finance/pembelian/add', 'add_pembelian')->name('finance.add');
         Route::post('/finance/pembelian/store', 'store_pembelian')->name('finance.store');
         Route::get('/finance/pembelian/edit/{id}', 'edit_pembelian')->name('finance.edit');
-        // Route::post('/finance/pembelian/update/{id}', 'update')->name('finance.update');
-        // Route::get('/finance/pembelian/delete/{id}', 'destroy')->name('finance.delete');
+        Route::post('/finance/pembelian/update/{id}', 'update_pembelian')->name('finance.update');
+        Route::get('/finance/pembelian/delete/{id}', 'delete_pembelian')->name('finance.delete');
+        Route::post('/finance/updatesubtotal/{id}',  'update_subtotal')->name('finance.update.subtotal');
     });
 });
 

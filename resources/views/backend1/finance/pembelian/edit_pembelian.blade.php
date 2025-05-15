@@ -27,7 +27,7 @@
                             Pembelian
                             <i data-tw-merge="" data-lucide="arrow-right" class="mx-1 h-3.5 w-3.5 stroke-[1.3] sm:mx-2 sm:h-5 sm:w-5"></i>
                             <div class="text-sm sm:text-lg">
-                                {{ $pengeluaran->id }}
+                                {{ $pembelian->id }}
                             </div>
                         </div>
                         {{-- <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row lg:ml-auto">
@@ -52,7 +52,7 @@
                                                 <i data-tw-merge="" data-lucide="clipboard" class="mr-2.5 h-4 w-4 stroke-[1.3] text-slate-500"></i>
                                                 <div class="flex w-full flex-col flex-wrap gap-y-1 sm:flex-row sm:items-center">
                                                     <div class="w-54 sm:mr-auto">Tanggal:</div>
-                                                    {{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('M d, Y') }}
+                                                    {{ \Carbon\Carbon::parse($pembelian->tanggal)->format('M d, Y') }}
 
                                                 </div>
                                             </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="relative mt-3 rounded-[0.6rem] border border-slate-200/80 dark:border-darkmode-400">
                                         <div class="absolute left-0 -mt-2 ml-4 bg-white px-3 text-xs uppercase text-slate-500">
-                                            <div class="-mt-px">Vendor Details</div>
+                                            <div class="-mt-px">Supplier Details</div>
                                         </div>
                                         <div class="mt-2.5 flex flex-col gap-5 p-5">
                                             <div class="flex items-center">
@@ -92,7 +92,7 @@
                                                 <div class="flex w-full flex-col flex-wrap gap-y-1 sm:flex-row sm:items-center">
                                                     <div class="w-54 sm:mr-auto">Nama:</div>
                                                     <a class="underline decoration-primary/30 decoration-dotted underline-offset-[3px]" href="#">
-                                                        {{ $pengeluaran->vendor->nama }}
+                                                        {{ $pembelian->MasterSupplier->nama }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@
                                                 <i data-tw-merge="" data-lucide="calendar" class="mr-2.5 h-4 w-4 stroke-[1.3] text-slate-500"></i>
                                                 <div class="flex w-full flex-col flex-wrap gap-y-1 sm:flex-row sm:items-center">
                                                     <div class="w-54 sm:mr-auto">No Hp:</div>
-                                                    {{ $pengeluaran->vendor->no_hp }}
+                                                    {{ $pembelian->MasterSupplier->no_hp }}
                                                 </div>
                                             </div>
                                             <div class="flex items-center">
@@ -109,7 +109,7 @@
                                                     <div class="w-54 sm:mr-auto">Alamat:</div>
                                                     <a class="flex items-center underline decoration-primary/30 decoration-dotted underline-offset-[3px]" href="#">
                                                         <i data-tw-merge="" data-lucide="map-pin" class="stroke-[1] mr-1.5 h-3.5 w-3.5"></i>
-                                                        {{ $pengeluaran->vendor->alamat }}
+                                                        {{ $pembelian->MasterSupplier->alamat }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -122,32 +122,21 @@
                             <div class="box box--stacked flex flex-col p-5">
                                 <div class="relative mt-3 rounded-[0.6rem] border border-slate-200/80 dark:border-darkmode-400">
                                     <div class="absolute left-0 -mt-2 ml-4 bg-white px-3 text-xs uppercase text-slate-500">
-                                        <div class="-mt-px">Pembebanan Details</div>
+                                        <div class="-mt-px">Pembelian Details</div>
                                     </div>
                                     <div class="mt-2.5 flex flex-col gap-5 p-5">
                                         <div class="overflow-auto xl:overflow-visible">
-                                            @php
-                                            // Cek apakah ada jenis pmebebanan komisi spv dan komisi sales
-                                                $isKomisiSpv = $pengeluaran->Finance_detail_pengeluaran->contains(function ($detail) {
-                                                    // return $detail->jenisPembebanan->nama === 'Komisi supervisor';
-                                                    return in_array($detail->jenisPembebanan->nama, ['Komisi supervisor', 'Komisi Sales']);
-                                                });
-
-                                                // Jika ada , gunakan header "SPV / Sales " jika tidak ada tetap "Keterangan"
-                                                $headerKeterangan = $isKomisiSpv ? 'SPV / Sales' : 'Keterangan';
-                                            @endphp
                                             <table data-tw-merge="" class="w-full text-left border-b border-dashed border-slate-200/80">
                                                 <thead data-tw-merge="" class="">
                                                     <tr data-tw-merge="" class="">
                                                         <td data-tw-merge="" class="dark:border-darkmode-300 border-b-0 px-0 py-0 [&_div]:first:rounded-l-md [&_div]:first:border-l [&_div]:last:rounded-r-md [&_div]:last:border-r">
                                                             <div class="border-y border-slate-200/80 bg-slate-50 px-5 py-4 font-medium text-slate-500">
-                                                                Jenis Pengeluaran
+                                                                Kategori Pembelian
                                                             </div>
                                                         </td>
                                                         <td data-tw-merge="" class="dark:border-darkmode-300 border-b-0 px-0 py-0 [&_div]:first:rounded-l-md [&_div]:first:border-l [&_div]:last:rounded-r-md [&_div]:last:border-r">
                                                             <div class="border-y border-slate-200/80 bg-slate-50 px-5 py-4 font-medium text-slate-500">
-                                                                {{-- Keterangan --}}
-                                                                {{ $headerKeterangan }}
+                                                                Keterangan
                                                             </div>
                                                         </td>
                                                         <td data-tw-merge="" class="dark:border-darkmode-300 border-b-0 px-0 py-0 [&_div]:first:rounded-l-md [&_div]:first:border-l [&_div]:last:rounded-r-md [&_div]:last:border-r">
@@ -168,60 +157,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($pengeluaran->Finance_detail_pengeluaran as $detail )
+                                                    @foreach ($pembelian->finance_pembelian_detail as $detail )
                                                         <tr id="row-{{ $detail->id }}" data-tw-merge="" class="[&_td]:first:pt-5 [&_td]:last:border-b-0 [&_td]:last:pb-5">
                                                             <!-- Jenis Pembebanan -->
                                                             <td data-tw-merge="" class="px-5 border-b dark:border-darkmode-300 border-dashed py-3.5 dark:bg-darkmode-600 border-gray-600 focus-within:border-[#F8FAFC]" contenteditable="false" >
                                                                 <div class="flex items-center">
                                                                     <div class="">
                                                                         <a class="whitespace-nowrap font-medium" href="#">
-                                                                        {{ $detail->jenisPembebanan->nama ?? '-'}}
+                                                                        {{ $detail->MasterKategori->nama ?? '-'}}
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                             {{-- <!-- Keterangan atau SPV / Sales -->
+
                                                             <td class="px-5 border-b py-3.5">
                                                                 <div class="flex items-center">
-                                                                    @if ($detail->jenisPembebanan->nama === 'Komisi')
-                                                                        <a class="whitespace-nowrap font-medium">
-                                                                            {{ $detail->sales ?? '-' }} / {{ $detail->spv ?? '-' }}
-                                                                        </a>
-                                                                    @else
-                                                                        <a class="whitespace-nowrap font-medium">
-                                                                            {{ $detail->keterangan ?? '-' }}
-                                                                        </a>
-                                                                    @endif
-                                                                </div>
-                                                            </td> --}}
-                                                            <!-- Data Keterangan / SPV / Sales -->
-                                                            <td class="px-5 border-b py-3.5">
-                                                                <div class="flex items-center">
-                                                                    @if ($detail->jenisPembebanan->nama === 'Komisi supervisor')
-                                                                        <a class="whitespace-nowrap font-medium">
-                                                                            {{ $detail->spv ?? '-' }}
-                                                                        </a>
-                                                                    @elseif ($detail->jenisPembebanan->nama === 'Komisi Sales')
-                                                                        <a class="whitespace-nowrap font-medium">
-                                                                            {{ $detail->sales ?? '-' }}
-                                                                        </a>
-                                                                    @else
-                                                                        <a class="whitespace-nowrap font-medium">
-                                                                            {{ $detail->keterangan ?? '-' }}
-                                                                        </a>
-                                                                    @endif
+                                                                    <a class="whitespace-nowrap font-medium">
+                                                                        {{ $detail->keterangan ?? '-' }}
+                                                                    </a>
                                                                 </div>
                                                             </td>
-                                                            <!-- Keterangan -->
-                                                            {{-- <td data-tw-merge="" class="editable px-5 border-b dark:border-darkmode-300 border-dashed py-3.5 dark:bg-darkmode-600 border-gray-600 focus-within:border-[#F8FAFC]" contenteditable="true" data-id="{{ $detail->id }}" data-field="keterangan">
-                                                                <div class="flex items-center">
-                                                                    <div class="">
-                                                                        <a class="whitespace-nowrap font-medium" href="#">
-                                                                            {{ $detail->keterangan ?? '-'}}
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </td> --}}
+
                                                             <!-- Qty -->
                                                             <td data-tw-merge="" class="px-5 border-b dark:border-darkmode-300 border-dashed py-4 text-right dark:bg-darkmode-600 border-gray-600 focus-within:border-[#F8FAFC]" contenteditable="true" data-id="{{ $detail->id }}" data-field="qty">
                                                                 <div class="whitespace-nowrap">
@@ -229,9 +185,9 @@
                                                                 </div>
                                                             </td>
                                                             <!-- Harga -->
-                                                            <td data-tw-merge="" class="editable px-5 border-b dark:border-darkmode-300 border-dashed py-4 text-right dark:bg-darkmode-600 border-gray-600 focus-within:border-[#F8FAFC]" contenteditable="true" data-id="{{ $detail->id }}" data-field="biaya">
+                                                            <td data-tw-merge="" class="editable px-5 border-b dark:border-darkmode-300 border-dashed py-4 text-right dark:bg-darkmode-600 border-gray-600 focus-within:border-[#F8FAFC]" contenteditable="true" data-id="{{ $detail->id }}" data-field="harga">
                                                                 <div class="whitespace-nowrap">
-                                                                    {{ formatRupiah($detail->biaya) ?? '-' }}
+                                                                    {{ formatRupiah($detail->harga) ?? '-' }}
                                                                 </div>
                                                             </td>
                                                             <!-- Total -->
@@ -250,12 +206,12 @@
                                             <div class="flex items-center justify-left">
                                                 <div class="text-slate-600">Subtotal:</div>
                                                 <div class="w-10 font-medium text-slate-100 sm:w-48 subtotal-display">
-                                                    {{ formatRupiah($pengeluaran->subtotal) }}
+                                                    {{ formatRupiah($pembelian->subtotal) }}
                                                 </div>
                                             </div>
 
                                             <!-- Hidden Input for Finance ID -->
-                                            <input type="hidden" id="finance-id" value="{{ $pengeluaran->id }}">
+                                            <input type="hidden" id="finance-id" value="{{ $pembelian->id }}">
                                             {{-- <div class="flex items-center justify-end">
                                                 <div class="text-slate-500">Total:</div>
                                                 <div class="w-20 font-medium text-slate-600 sm:w-48">
@@ -269,87 +225,10 @@
                                                     {{ formatRupiah($pengeluaran->subtotal) }}
                                                 </div>
                                             </div> --}}
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="box box--stacked flex flex-col p-5">
-                                <div class="relative mt-3 rounded-[0.6rem] border border-slate-200/80 dark:border-darkmode-400">
-                                    <div class="absolute left-0 -mt-2 ml-4 bg-white px-3 text-xs uppercase text-slate-500">
-                                        <div class="-mt-px">Tracking Info</div>
-                                    </div>
-                                    <div class="mt-4 flex flex-col gap-3.5 px-5 py-2">
-                                        <div class="relative overflow-hidden before:absolute before:inset-y-0 before:left-0 before:ml-[14px] before:w-px before:bg-slate-200/60 before:content-[''] before:dark:bg-darkmode-400">
-                                            <div class="mb-3 last:mb-0 relative first:before:content-[''] first:before:h-1/2 first:before:w-5 first:before:bg-white first:before:absolute last:after:content-[''] last:after:h-1/2 last:after:w-5 last:after:bg-white last:after:absolute last:after:bottom-0">
-                                                <div class="px-4 py-3 ml-8 before:content-[''] before:ml-1 before:absolute before:w-5 before:h-5 before:bg-slate-200 before:rounded-full before:inset-y-0 before:my-auto before:left-0 before:dark:bg-darkmode-300 before:z-10 after:content-[''] after:absolute after:w-1.5 after:h-1.5 after:bg-slate-500 after:rounded-full after:inset-y-0 after:my-auto after:left-0 after:ml-[11px] after:dark:bg-darkmode-200 after:z-10">
-                                                    <a class="font-medium text-primary" href="#">
-                                                        Transaction Completed.
-                                                    </a>
-                                                    <div class="mt-1.5 flex flex-col gap-y-1.5 text-[0.8rem] leading-relaxed text-slate-500 sm:flex-row sm:items-center">
-                                                        Funds will be forwarded to the seller.
-                                                    </div>
-                                                    <div class="my-3.5 rounded-[0.6rem] border bg-slate-50/80 p-1 sm:w-1/2">
-                                                        <div class="grid grid-cols-1 overflow-hidden rounded-[0.6rem] md:grid-cols-3">
-                                                            <div class="image-fit h-20 cursor-pointer overflow-hidden border border-slate-100 saturate-[.6] hover:saturate-100">
-                                                                <img data-action="zoom" src="dist/images/products/product10-400x400.jpg" alt="Tailwise - Admin Dashboard Template">
-                                                            </div>
-                                                            <div class="image-fit h-20 cursor-pointer overflow-hidden border border-slate-100 saturate-[.6] hover:saturate-100">
-                                                                <img data-action="zoom" src="dist/images/products/product7-400x400.jpg" alt="Tailwise - Admin Dashboard Template">
-                                                            </div>
-                                                            <div class="image-fit h-20 cursor-pointer overflow-hidden border border-slate-100 saturate-[.6] hover:saturate-100">
-                                                                <img data-action="zoom" src="dist/images/products/product7-400x400.jpg" alt="Tailwise - Admin Dashboard Template">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-1.5 text-xs text-slate-500">
-                                                        25 Mar 2046, 10:28 AM
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 last:mb-0 relative first:before:content-[''] first:before:h-1/2 first:before:w-5 first:before:bg-white first:before:absolute last:after:content-[''] last:after:h-1/2 last:after:w-5 last:after:bg-white last:after:absolute last:after:bottom-0">
-                                                <div class="px-4 py-3 ml-8 before:content-[''] before:ml-1 before:absolute before:w-5 before:h-5 before:bg-slate-200 before:rounded-full before:inset-y-0 before:my-auto before:left-0 before:dark:bg-darkmode-300 before:z-10 after:content-[''] after:absolute after:w-1.5 after:h-1.5 after:bg-slate-500 after:rounded-full after:inset-y-0 after:my-auto after:left-0 after:ml-[11px] after:dark:bg-darkmode-200 after:z-10">
-                                                    <a class="font-medium text-primary" href="#">
-                                                        The order has arrived.
-                                                    </a>
-                                                    <div class="mt-1.5 flex flex-col gap-y-1.5 text-[0.8rem] leading-relaxed text-slate-500 sm:flex-row sm:items-center">
-                                                        Received by Calvin.
-                                                    </div>
-                                                    <div class="mt-1.5 text-xs text-slate-500">
-                                                        23 Mar 2023, 08:28 AM
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 last:mb-0 relative first:before:content-[''] first:before:h-1/2 first:before:w-5 first:before:bg-white first:before:absolute last:after:content-[''] last:after:h-1/2 last:after:w-5 last:after:bg-white last:after:absolute last:after:bottom-0">
-                                                <div class="px-4 py-3 ml-8 before:content-[''] before:ml-1 before:absolute before:w-5 before:h-5 before:bg-slate-200 before:rounded-full before:inset-y-0 before:my-auto before:left-0 before:dark:bg-darkmode-300 before:z-10 after:content-[''] after:absolute after:w-1.5 after:h-1.5 after:bg-slate-500 after:rounded-full after:inset-y-0 after:my-auto after:left-0 after:ml-[11px] after:dark:bg-darkmode-200 after:z-10">
-                                                    <a class="font-medium text-primary" href="#">
-                                                        The order has been sent.
-                                                    </a>
-                                                    <div class="mt-1.5 flex flex-col gap-y-1.5 text-[0.8rem] leading-relaxed text-slate-500 sm:flex-row sm:items-center">
-                                                        The order is being shipped by courier.
-                                                    </div>
-                                                    <div class="mt-1.5 text-xs text-slate-500">
-                                                        23 Mar 2023, 12:21 AM
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 last:mb-0 relative first:before:content-[''] first:before:h-1/2 first:before:w-5 first:before:bg-white first:before:absolute last:after:content-[''] last:after:h-1/2 last:after:w-5 last:after:bg-white last:after:absolute last:after:bottom-0">
-                                                <div class="px-4 py-3 ml-8 before:content-[''] before:ml-1 before:absolute before:w-5 before:h-5 before:bg-slate-200 before:rounded-full before:inset-y-0 before:my-auto before:left-0 before:dark:bg-darkmode-300 before:z-10 after:content-[''] after:absolute after:w-1.5 after:h-1.5 after:bg-slate-500 after:rounded-full after:inset-y-0 after:my-auto after:left-0 after:ml-[11px] after:dark:bg-darkmode-200 after:z-10">
-                                                    <a class="font-medium text-primary" href="#">
-                                                        Payment Verified.
-                                                    </a>
-                                                    <div class="mt-1.5 flex flex-col gap-y-1.5 text-[0.8rem] leading-relaxed text-slate-500 sm:flex-row sm:items-center">
-                                                        Payment has been received.
-                                                    </div>
-                                                    <div class="mt-1.5 text-xs text-slate-500">
-                                                        23 Mar 2023, 12:21 AM
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -363,56 +242,6 @@
         <script src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
-        {{-- <script>
-            $(document).ready(function () {
-                $(document).on("blur", ".editable", function () {
-                    let id = $(this).data("id");
-                    let field = $(this).data("field");
-                    let value = $(this).text().trim();
-
-                    // console.log("ID:", id);
-                    // console.log("Field:", field);
-                    // console.log("Value:", value); // Cek apakah value terkirim
-
-                    // Hilangkan titik (.) sebagai pemisah ribuan agar MySQL bisa menerima nilai
-                    if (field === "biaya") {
-                        value = value.replace(/\./g, ""); // Hapus semua titik dari angka
-                    }
-
-                    $.ajax({
-                        url: "/finance/update/" + id,
-                        method: "POST",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            field: field,
-                            value: value,
-                        },
-                        success: function (response) {
-                            console.log("Data updated:", response);
-                            // Cek apakah respons mengandung data baru
-                            // if (response.success) {
-                            //     $("#row-" + id + " td[data-field='" + field + "']").text(value); // Perbarui teks di tabel
-                            // } else {
-                            //     alert("Gagal memperbarui data.");
-                            // }
-                            if (response.success) {
-                                if(field === 'biaya') {
-                                    let formattedValue = formatRupiah(value);
-                                    $("#row-" + id + " td[data-field='" + field + "']").text(formattedValue);
-                                } else {
-                                    $("#row-" + id + " td[data-field='" + field + "']").text(value);
-                                }
-                            }
-                        },
-                        error: function (xhr) {
-                            alert("Gagal menyimpan perubahan: " + xhr.responseText);
-                        },
-                    });
-                });
-            });
-
-        </script> --}}
-
         <script>
                 $(document).ready(function () {
                     $(document).on("blur", ".editable", function () {
@@ -420,17 +249,17 @@
                         let field = $(this).data("field");
                         let value = $(this).text().trim();
 
-                        if (field === "biaya") {
-                            value = value.replace(/\./g, ""); // Hapus titik ribuan
+                        if (field === "harga") {
+                            value = value.replace(/\./g, "");
                         }
 
                         let row = $(this).closest("tr");
                         let qty = parseInt(row.find("td[data-field='qty']").text().trim()) || 0;
-                        let biaya = parseInt(row.find("td[data-field='biaya']").text().replace(/[^\d]/g, "")) || 0;
-                        let total = qty * biaya;
+                        let harga = parseInt(row.find("td[data-field='harga']").text().replace(/[^\d]/g, "")) || 0;
+                        let total = qty * harga;
 
                         $.ajax({
-                            url: "/finance/update/" + id,
+                            url: "/finance/pembelian/update/" + id,
                             method: "POST",
                             data: {
                                 _token: "{{ csrf_token() }}",
@@ -442,7 +271,7 @@
                                 console.log("Data updated:", response);
 
                                 if (response.success) {
-                                    if (field === "biaya") {
+                                    if (field === "harga") {
                                         let formattedValue = formatRupiah(value);
                                         $("#row-" + id + " td[data-field='" + field + "']").text(formattedValue);
                                     }
@@ -459,13 +288,13 @@
                         });
                 });
 
-                $(document).on("input", "td[data-field='qty'] , td[data-field='biaya']" , function() {
+                $(document).on("input", "td[data-field='qty'] , td[data-field='harga']" , function() {
                     let row =$(this).closest("tr");
                     let qty = parseInt(row.find("td[data-field='qty']").text().trim()) || 0;
-                    let biaya = parseInt(row.find("td[data-field='biaya']").text().replace(/[^\d]/g, "")) || 0;
+                    let harga = parseInt(row.find("td[data-field='harga']").text().replace(/[^\d]/g, "")) || 0;
 
                     // hitung total
-                    let total = qty * biaya;
+                    let total = qty * harga;
 
                     // format total ke rupiah
                     let formattedTotal = formatRupiah(total);
@@ -481,10 +310,10 @@
 
                     let subtotal = 0;
 
-                    $(".editable[data-field='biaya']").each(function () {
-                        let biaya = parseInt($(this).text().replace(/[^\d]/g, "")) || 0;
+                    $(".editable[data-field='harga']").each(function () {
+                        let harga = parseInt($(this).text().replace(/[^\d]/g, "")) || 0;
                         let qty = parseInt($(this).closest("tr").find("td[data-field='qty']").text().trim()) || 1;
-                        subtotal += biaya * qty;
+                        subtotal += harga * qty;
                     });
 
                     // Update tampilan subtotal

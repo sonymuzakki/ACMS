@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pembayaran_id')->nullable();
             $table->date('tanggal')->nullable();
             $table->string('no_invoice')->nullable();
-            $table->double('total')->nullable();
+            $table->double('subtotal')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->foreign('supplier_id')->references('id')->on('master_supplier');

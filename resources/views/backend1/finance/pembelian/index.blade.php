@@ -269,8 +269,8 @@
                         }
                     },
                     {
-                        data: 'total',
-                        name: 'total',
+                        data: 'subtotal',
+                        name: 'subtotal',
                         className: 'text-center',
                         searchable: false,
                         orderable: false,

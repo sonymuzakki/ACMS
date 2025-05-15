@@ -172,7 +172,7 @@ class FinanceController extends Controller
                 'pembayaran_id' => $request->pembayaran_id,
                 'tanggal' => $request->tanggal,
                 'created_by' => auth()->user()->id,
-                'total' => array_sum(array_map(fn($b) => (float) str_replace('.', '', $b), $request->total))
+                'subtotal' => array_sum(array_map(fn($b) => (float) str_replace('.', '', $b), $request->total))
             ]);
 
             // ===== GENERATE DAN SIMPAN DETAIL =====
@@ -222,7 +222,6 @@ class FinanceController extends Controller
         }
     }
 
-
     public function edit_pembelian($id)
     {
         // Cek apakah user punya permission 'edit finance'
@@ -233,7 +232,7 @@ class FinanceController extends Controller
         // $pembelian = finance_pembelian::with(['finance_pembelian_detail'])->findOrFail($id);
         $pembelian = finance_pembelian::where('id', $id)
             ->with(['finance_pembelian_detail' => function ($query) {
-                $query->select('id', 'pembelian_id', 'kategori_id', 'harga', 'qty', 'total');
+                $query->select('id', 'pembelian_id', 'kategori_id', 'harga', 'qty', 'total','keterangan');
             }])
             ->first();
         if (!$pembelian) {
@@ -251,5 +250,87 @@ class FinanceController extends Controller
             'pembayaran' => $pembayaran,
         ]);
     }
+
+    public function update_pembelian(Request $request, $id)
+    {
+        try {
+            $detail = finance_pembelian_detail::findOrFail($id);
+
+            // Pastikan jika field biaya, ubah ke format angka
+            $value = $request->value;
+            if ($request->field === "harga") {
+                $value = str_replace('.', '', $value); // Hapus titik ribuan
+                $value = floatval($value); // Ubah ke angka
+            }
+
+            // Hitung total baru jika field yang diubah adalah qty atau biaya
+            if ($request->field === "qty" || $request->field === "harga") {
+                $qty = ($request->field === "qty") ? intval($value) : $detail->qty;
+                $harga = ($request->field === "harga") ? floatval($value) : floatval($detail->harga);
+                $total = $qty * $harga;
+
+                // Update qty, biaya, dan total di database
+                $detail->update([
+                    $request->field => $value,
+                    'total' => $total,
+                ]);
+            } else {
+                // Update hanya field yang diubah
+                $detail->update([
+                    $request->field => $value
+                ]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function update_subtotal(Request $request, $id)
+    {
+        Log::info("Menerima ID: " . $id);
+
+        // Debugging: Periksa semua data di tabel
+        $allData = finance_pembelian::pluck('id')->toArray();
+        Log::info("Semua ID di database: " . json_encode($allData));
+
+        $pengeluaran = finance_pembelian::where('id', $id)->first();
+
+        if (!$pengeluaran) {
+            Log::error("ID tidak ditemukan: " . $id);
+            return response()->json(["success" => false, "message" => "ID tidak valid"], 400);
+        }
+
+        $pengeluaran->subtotal = $request->subtotal;
+        $pengeluaran->save();
+
+        return response()->json(["success" => true, "message" => "Subtotal diperbarui"]);
+    }
+
+    public function delete_pembelian($id)
+    {
+        DB::beginTransaction();
+        try {
+            // Cek apakah data pengeluaran ada
+            $pengeluaran = finance_pembelian::find($id);
+            if (!$pengeluaran) {
+                return response()->json(['message' => 'Data tidak ditemukan'], 404);
+            }
+
+            // Hapus detail pengeluaran terlebih dahulu
+            finance_pembelian_detail::where('pengeluaran_id', $id)->delete();
+
+            // Hapus data utama dari finance_pengeluaran
+            $pengeluaran->delete();
+
+            DB::commit();
+            return response()->json(['message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Terjadi kesalahan', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 
 }
