@@ -129,6 +129,7 @@
                                             <option value="Report">Report</option>
                                             <option value="Master">Master</option>
                                             <option value="Administrasi">Administrasi</option>
+                                            <option value="Finance">Finance</option>
                                         </select>
                                     </div>
                                 </div>

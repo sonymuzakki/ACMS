@@ -42,6 +42,10 @@ class RoleSeeder extends Seeder
             ['name' => 'user.edit', 'group_name' => 'User'],
             ['name' => 'role.permission', 'group_name' => 'Administrasi'],
             ['name' => 'report', 'group_name' => 'Report'],
+            ['name' => 'finance.menu', 'group_name' => 'Finance'],
+            ['name' => 'finance.add', 'group_name' => 'Finance'],
+            ['name' => 'finance.edit', 'group_name' => 'Finance'],
+            ['name' => 'finance.delete', 'group_name' => 'Finance'],
         ];
 
         // Insert data permissions

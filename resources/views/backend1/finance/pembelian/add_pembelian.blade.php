@@ -127,7 +127,7 @@
                                                         <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
                                                             id="kategori" name="kategori_id">
                                                             <option value="">Pilih Kategori</option>
-                                                            @foreach ($barang as $s)
+                                                            @foreach ($kategori as $s)
                                                                 <option value="{{ $s->id }}">{{ $s->nama }}
                                                                 </option>
                                                             @endforeach
@@ -151,7 +151,7 @@
                                                         <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
                                                             id="payment" name="pembayaran_id">
                                                             <option value="">Pilih Kategori</option>
-                                                            @foreach ($barang as $s)
+                                                            @foreach ($pembayaran as $s)
                                                                 <option value="{{ $s->id }}">{{ $s->nama }}
                                                                 </option>
                                                             @endforeach
@@ -161,8 +161,7 @@
                                                 {{-- <input type="hidden" name="vendor_id" id="hiddenVendor"> --}}
 
                                                 <div id="ketCon" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Keterangan</div>
@@ -608,172 +607,6 @@
             });
         </script>
         <!-- End -->
-
-        {{-- <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const vendorSelect = document.getElementById("vendor");
-                const jenisContainer = document.getElementById("jenisContainer");
-                const spvCon = document.getElementById("spvCon");
-                const salesCon = document.getElementById("salesCon");
-                const ketCon = document.getElementById("ketCon");
-                const labelHarga = document.getElementById("label-harga");
-                const labelKeterangan = document.getElementById("keterangan");
-                const qtyCon = document.getElementById("qtyCon");
-                const qtyInp = document.getElementById("qtyInp");
-                const hiddenVendor = document.getElementById('hiddenVendor');
-
-                let jenisSelect = new TomSelect("#jenis", {
-                    create: false,
-                    placeholder: 'Pilih Jenis ..',
-                    searchField: ['text']
-                });
-
-                const jenisData = @json($jenis);
-
-                vendorSelect.addEventListener("change", function() {
-                    if (vendorSelect.value) {
-                        vendorSelect.setAttribute("disabled", "true");
-                        hiddenVendor.value = vendorSelect.value;
-                    }
-
-                    const selectedVendorId = vendorSelect.value;
-                    jenisSelect.clear();
-                    jenisSelect.clearOptions();
-
-                    if (selectedVendorId) {
-                        jenisContainer.classList.remove("opacity-3", "invisible");
-                        const filteredJenis = jenisData.filter(j => j.vendor_id == selectedVendorId);
-
-                        filteredJenis.forEach(jenis => {
-                            jenisSelect.addOption({ value: jenis.id, text: jenis.nama });
-                        });
-
-                        jenisSelect.refreshOptions();
-                    } else {
-                        jenisContainer.classList.add("opacity-3", "invisible");
-                    }
-            });
-
-            // Event listener untuk select jenis pembebanan
-            jenisSelect.on("change", function(value) {
-                const selectedJenis = jenisData.find(j => j.id == value);
-
-                if (selectedJenis) {
-                    if (selectedJenis.nama.toLowerCase() === "komisi supervisor") {
-                        spvCon.style.display = "flex";
-                        salesCon.style.display = "none"; // Sembunyikan sales jika supervisor dipilih
-                        labelHarga.textContent = "Komisi"; // Ubah label ke "Komisi"
-                        labelKeterangan.textContent = "SPV / Sales"; // Ubah label ke "Keterangan"
-                        ketCon.style.display = "none";
-                        qtyCon.style.display = "none";
-                        qtyInp.style.display = "none";
-                    } else if (selectedJenis.nama.toLowerCase() === "komisi sales") {
-                        salesCon.style.display = "flex";
-                        spvCon.style.display = "none"; // Sembunyikan supervisor jika sales dipilih
-                        labelHarga.textContent = "Komisi"; // Ubah label ke "Komisi"
-                        labelKeterangan.textContent = "SPV / Sales"; // Ubah label ke "Keterangan"
-                        ketCon.style.display = "none";
-                        qtyCon.style.display = "none";
-                        qtyInp.style.display = "none";
-                    } else {
-                        spvCon.style.display = "none";
-                        salesCon.style.display = "none";
-                    }
-                } else {
-                    spvCon.style.display = "none";
-                    salesCon.style.display = "none";
-                }
-                });
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const jenisSelect = document.getElementById('jenis');
-                const spvSelect = document.getElementById('spv');
-                const salesSelect = document.getElementById('selectNopolcs');
-                const biayaInput = document.querySelector('input[name="biaya"]');
-
-                const endpointMap = {
-                    'komisi supervisor': {
-                        select: spvSelect,
-                        url: '/api/get-biaya-supervisor'
-                    },
-                    'komisi sales': {
-                        select: salesSelect,
-                        url: '/api/get-komisi-sales'
-                    }
-                };
-
-                function updateBiaya() {
-                    const selectedJenis = jenisSelect.options[jenisSelect.selectedIndex]?.text?.toLowerCase() || "";
-                    const isSalesKomisi = selectedJenis.includes("komisi sales");
-                    const isSpvKomisi = selectedJenis.includes("komisi supervisor");
-
-                    const salesValue = salesSelect.value?.trim() || "";
-                    const spvValue = spvSelect.value?.trim() || "";
-
-                    const isSalesValid = salesValue !== "";
-                    const isSpvValid = spvValue !== "";
-
-
-                    if (isSalesKomisi && isSalesValid) {
-                        fetchBiaya(endpointMap["komisi sales"].url, salesValue, "sales");
-                        return;
-                    }
-
-                    if (isSpvKomisi && isSpvValid) {
-                        fetchBiaya(endpointMap["komisi supervisor"].url, spvValue, "supervisor");
-                        return;
-                    }
-
-                    console.log("Sales Value:", salesValue);
-                    console.log("Valid Sales?", isSalesValid);
-
-                    biayaInput.value = "";
-                }
-
-                function fetchBiaya(url, id, tipe) {
-                    fetch(`${url}?inventory_id=${encodeURIComponent(id)}`)
-                        .then(response => {
-                            if (!response.ok) throw new Error(`Gagal ambil data dari ${url}`);
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                let nilai = 0;
-
-                                if (tipe.includes('sales') && data.total_komisi !== undefined) {
-                                    nilai = data.total_komisi;
-                                } else if (tipe.includes('supervisor') && data.harga !== undefined) {
-                                    nilai = data.harga;
-                                } else {
-                                    biayaInput.value = "";
-                                    alert("Data tidak lengkap.");
-                                    return;
-                                }
-
-                                biayaInput.value = formatRupiah(nilai.toString());
-                            } else {
-                                biayaInput.value = "";
-                                alert("Data tidak ditemukan.");
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Fetch error:", error);
-                            biayaInput.value = "";
-                        });
-                }
-
-                // Event listeners
-                jenisSelect.addEventListener("change", updateBiaya);
-                spvSelect.addEventListener("change", updateBiaya);
-                salesSelect.addEventListener("change", updateBiaya); // Untuk jaga-jaga
-
-                if (salesSelect.tomselect) {
-                    salesSelect.tomselect.on("change", updateBiaya);
-                }
-            });
-
-        </script> --}}
     @endpush
 
 @endsection

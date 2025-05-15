@@ -208,8 +208,6 @@
     const canEditFinance = @json(auth()->user()->can('finance.edit'));
 </script>
 
-{{-- <script src="{{ asset('dist/js/components/base/lucide.js') }}"></script> --}}
-{{-- <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> --}}
 
 <script>
         $(document).ready(function() {
@@ -239,7 +237,7 @@
                             let day = data.substring(8, 10);  // Ambil tanggal (2 digit)
                             let counter = data.substring(10);  // Ambil 4 digit terakhir sebagai counter
 
-                            let formattedId = `PG${year}${month}${day}${counter}`;
+                            let formattedId = `PB${year}${month}${day}${counter}`;
 
                             if (!canEditFinance) {
                                 return `<td class="border-b dark:border-darkmode-300 border-dashed py-4 dark:bg-darkmode-600">
@@ -261,53 +259,8 @@
                                     </td>`;
                         }
                     },
-
-                    // {
-                    //     data: null,
-                    //     name: 'image_nopol_type',
-                    //     width: '30px',
-                    //     searchable: false,
-                    //     orderable: false,
-                    //     render: function(data, type, row) {
-
-                    //         let imageUrl = row.inventory.merk.image
-                    //             ? `/logo/${row.inventory.merk.image}`
-                    //             : '/logo/no-image.jpg';
-
-                    //         return `
-                    //             <div class="flex items-center">
-                    //                 <div class="image-fit zoom-in h-9 w-9">
-                    //                     <img src="${imageUrl}" alt="Merk Logo"
-                    //                         class="tooltip cursor-pointer rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)]
-                    //                             dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]">
-                    //                 </div>
-                    //                 <div class="ml-3.5">
-                    //                     <a class="whitespace-nowrap font-medium" href="#">
-                    //                         ${row.nopol}
-                    //                     </a>
-                    //                     <div class="mt-0.5 flex whitespace-nowrap text-xs text-slate-500">
-                    //                         <a class="ml-1 block w-44 truncate" href="#">
-                    //                             Type: ${row.type}
-                    //                         </a>
-                    //                     </div>
-                    //                 </div>
-                    //             </div>
-                    //         `;
-                    //     }
-                    // },
-
                     { data: 'supplier', name: 'supplier', searchable: true , className: 'text-center' },
                     { data: 'vendor', name: 'vendor', searchable: true , className: 'text-center' },
-                    // { data: 'total', name: 'total' },
-                    // { data: 'tanggal', name: 'tanggal', searchable: true ,
-                    //     render: function(data) {
-                    //             return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY')}</div>`;
-                    //         }
-                    // },
-
-                    // { data: 'pembayaran_id', name: 'pembayaran_id', searchable: true , className: 'text-center' },
-                    // { data: 'tanggal', name: 'tanggal', searchable: true , className: 'text-center' },
-                    // { data: 'total', name: 'total', searchable: true , className: 'text-center' },
                     {
                         data: 'tanggal',
                         name: 'tanggal',
@@ -315,52 +268,6 @@
                             return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY')}</div>`;
                         }
                     },
-                    // {
-                    //     data: 'status',
-                    //     name: 'status',
-                    //     render: function(data) {
-                    //         let statusText = '';
-                    //         let iconClass = '';
-                    //         let textClass = '';
-                    //         let iconName = '';
-
-                    //         // Convert data to number if needed
-                    //         let status = Number(data);
-
-                    //         switch (status) {
-                    //             case 0: // Completed
-                    //                 statusText = 'Completed';
-                    //                 iconClass = 'text-success';
-                    //                 textClass = 'text-success';
-                    //                 iconName = 'package';
-                    //                 break;
-                    //             case 1: // Processing
-                    //                 statusText = 'Processing';
-                    //                 iconClass = 'text-primary';
-                    //                 textClass = 'text-primary';
-                    //                 iconName = 'clock4';
-                    //                 break;
-                    //             case 2: // Cancelled
-                    //                 statusText = 'Cancelled';
-                    //                 iconClass = 'text-primary';
-                    //                 textClass = 'text-primary';
-                    //                 iconName = 'package-x';
-                    //                 break;
-                    //             default:
-                    //                 statusText = '-';
-                    //                 iconClass = 'text-slate-500';
-                    //                 textClass = 'text-slate-500';
-                    //                 iconName = 'help-circle';
-                    //                 break;
-                    //         }
-                    //         return `<td data-tw-merge="" class="px-5 border-b dark:border-darkmode-300 border-dashed py-4 dark:bg-darkmode-600">
-                    //                     <div class="flex items-center ${textClass}">
-                    //                         <i data-tw-merge="" data-lucide="${iconName}" class="h-3.5 w-3.5 stroke-[1.7]"></i>
-                    //                         <div class="ml-1.5 whitespace-nowrap">${statusText}</div>
-                    //                     </div>
-                    //                 </td>`;
-                    //     }
-                    // },
                     {
                         data: 'total',
                         name: 'total',

@@ -23,8 +23,8 @@ class finance_pembelian extends Model
     {
         return $this->belongsTo(MasterSupplier::class, 'supplier_id', 'id');
     }
-    public function Pembayaran()
+    public function MasterBank()
     {
-        return $this->belongsTo(Pembayaran::class, 'pembayaran_id', 'id');
+        return $this->belongsTo(MasterBank::class, 'pembayaran_id', 'id');
     }
 }
