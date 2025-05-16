@@ -56,6 +56,9 @@
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
                                                 Tanggal
                                             </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Qty
+                                            </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
                                                 Total
                                             </th>
@@ -268,6 +271,7 @@
                             return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY')}</div>`;
                         }
                     },
+                    { data: 'qty', name: 'qty', searchable: true , className: 'text-center' },
                     {
                         data: 'subtotal',
                         name: 'subtotal',

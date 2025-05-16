@@ -24,6 +24,9 @@ class FinanceController extends Controller
 
             return DataTables::of($query)
                 ->addIndexColumn()
+                ->addColumn('qty', function ($row) {
+                    return $row->finance_pembelian_detail->sum('qty') ?: '-';
+                })
                 ->addColumn('supplier', function ($row) {
                     return $row->MasterSupplier->nama ?? '-';
                 })
@@ -33,7 +36,6 @@ class FinanceController extends Controller
                 ->addColumn('total', function ($row) {
                     return $row->total ?? '-';
                 })
-
                 ->addColumn('action', function ($row) {
                     return '<a href="#" onclick="openEditModal(' . $row->id . ')" class="btn btn-warning btn-sm">Edit</a>';
                 })
