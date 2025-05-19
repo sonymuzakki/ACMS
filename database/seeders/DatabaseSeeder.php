@@ -68,8 +68,9 @@ class DatabaseSeeder extends Seeder
             'id' => 1,
             'kategori_id' => 1,
             'nama' => 'pulsa',
-            'stock' => 100,
+            'qty' => 100,
             'harga_jual' => 10000,
+            'harga_beli_terakhir' => 9000,
             'satuan_id' => 1,
             'created_by' => '1',
         ]);

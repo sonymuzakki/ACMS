@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('finance_pembelian_detail', function (Blueprint $table) {
             $table->string('id');
             $table->string('pembelian_id');
-            $table->unsignedBigInteger('kategori_id')->nullable();
+            $table->unsignedBigInteger('produk_id')->nullable();
             $table->integer('qty')->nullable();
             $table->double('harga')->nullable();
             $table->double('diskon')->nullable();

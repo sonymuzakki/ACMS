@@ -23,6 +23,11 @@ class finance_pembelian_detail extends Model
         return $this->belongsTo(MasterKategori::class, 'kategori_id', 'id');
     }
 
+    public function MasterProduk()
+    {
+        return $this->belongsTo(MasterProduk::class, 'produk_id','id');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -30,7 +35,6 @@ class finance_pembelian_detail extends Model
         static::creating(function ($model) {
             $date = now()->format('Ymd');
             $lastId = DB::table('finance_detail_pengeluaran')
-                // ->where('id','Like',"PB{$date}&")
                 ->where('id', 'LIKE', "PB{$date}%")
                 ->max('id');
 

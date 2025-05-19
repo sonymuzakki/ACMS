@@ -439,7 +439,7 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'kategori_id' => $kategori_id,
             'satuan_id' => $request->satuan_id,
-            // 'stock' => $request->stock,
+            'qty' => $request->qty,
             'harga_jual' => (int) $hargaJual,
             'created_by' => Auth::id(),
         ]);

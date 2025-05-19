@@ -57,11 +57,13 @@
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Stock
+                                                Qty
                                             </th>
-                                            <th
-                                                class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
                                                 Harga Jual
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
+                                                Harga Beli Terakhir
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
@@ -141,12 +143,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <div class="col-span-12 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Stock
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="number" name="stock" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div> --}}
+                                        <input data-tw-merge id="modal-form-1" type="number" name="qty" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Harga Jual
@@ -205,12 +207,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <div class="col-span-12 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="edit-stock" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Stock
                                         </label>
-                                        <input data-tw-merge id="edit-stock" type="number" name="stock" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div> --}}
+                                        <input data-tw-merge id="edit-stock" type="number" name="qty" placeholder="Stock" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                    </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="edit-harga" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Harga Jual
@@ -305,10 +307,19 @@
                     },
                     { data: 'kategori', name: 'kategori', searchable: true },
                     { data: 'nama', name: 'nama', searchable: true },
-                    { data: 'stock', name: 'stock', searchable: true },
+                    { data: 'qty', name: 'qty', searchable: true },
                     {
                         data: 'harga_jual',
                         name: 'harga_jual',
+                        searchable: true,
+                        className: 'text-center',
+                            render: function(data) {
+                                return formatRupiah(data);  // Format currency or similar
+                            }
+                    },
+                    {
+                        data: 'harga_beli_terakhir',
+                        name: 'harga_beli_terakhir',
                         searchable: true,
                         className: 'text-center',
                             render: function(data) {
@@ -333,7 +344,7 @@
                                         <div class="dropdown-menu absolute z-[9999] hidden">
                                             <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
                                                 <a href="#" onclick="openEditModal(
-                                                ${row.id}, '${row.nama}' ,'${row.kategori_id}','${row.stock}','${row.harga_jual}','${row.satuan_id}')"
+                                                ${row.id}, '${row.nama}' ,'${row.kategori_id}','${row.qty}','${row.harga_jual}','${row.satuan_id}')"
                                                 class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
                                                     <i class="fas fa-edit mr-2"></i> Edit
                                                 </a>
@@ -474,9 +485,9 @@
         new TomSelect('#kategori');
         new TomSelect('#satuan');
     });
-    function openEditModal(id, nama, kategori_id, stock, harga_jual, satuan_id) {
+    function openEditModal(id, nama, kategori_id, qty, harga_jual, satuan_id) {
     document.getElementById('edit-nama').value = nama;
-    document.getElementById('edit-stock').value = stock;
+    document.getElementById('edit-qty').value = qty;
     document.getElementById('edit-harga').value = harga_jual;
 
     let kategoriSelect = document.querySelector('#kategori')?.tomselect;

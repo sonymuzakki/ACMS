@@ -37,8 +37,7 @@
 
                                             <div class="mt-5">
                                                 <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Tanggal</div>
@@ -59,32 +58,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <!-- Vendor -->
-                                                {{-- <div
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
-                                                        <div class="text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="font-medium">Supplier</div>
-                                                                <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
-                                                                    Required
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                        <select class="w-full text-sm border-slate-200 shadow-sm rounded-md"
-                                                            id="supplier" name="supplier_id">
-                                                            <option value="">Pilih Supplier</option>
-                                                            @foreach ($supplier as $s)
-                                                                <option value="{{ $s->id }}">{{ $s->nama }} -
-                                                                    {{ $s->vendor }} </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div> --}}
-                                                <div  class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
@@ -110,10 +84,8 @@
                                                     </div>
                                                 </div>
                                                 <!-- Barang -->
-                                                <div
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Kategori</div>
@@ -127,17 +99,14 @@
                                                         <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
                                                             id="kategori" name="kategori_id">
                                                             <option value="">Pilih Kategori</option>
-                                                            @foreach ($kategori as $s)
-                                                                <option value="{{ $s->id }}">{{ $s->nama }}
-                                                                </option>
+                                                            @foreach ($produk as $s)
+                                                                <option value="{{ $s->id }}">{{ $s->nama }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Payment</div>
