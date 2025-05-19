@@ -88,6 +88,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/produk/update/{id}', 'update_produk')->name('update.produk');
         Route::get('/produk/delete/{id}', 'delete_produk')->name('delete.produk');
 
+        // Routes untuk jenis/transaksi
+        Route::get('/jenis/transaksi', 'index_jenis_transaksi')->name('index.jenis_transaksi');
+        Route::post('/jenis/transaksi/store', 'store_jenis_transaksi')->name('store.jenis_transaksi');
+        Route::put('/jenis/transaksi/update/{id}', 'update_jenis_transaksi')->name('update.jenis_transaksi');
+        Route::get('/jenis/transaksi/delete/{id}', 'delete_jenis_transaksi')->name('delete.jenis_transaksi');
+
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
         Route::get('/merk/add', 'add')->name('master.add');

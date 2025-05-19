@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="csrf-token" content="UTDQHUMnQs9GC9VYhC9EaF5Db5U3oNpH3LpUisuu">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Trust UC , Mobil bekas Padang , Toyota intercom">
+        <meta name="description" content="ACMS">
         <meta name="author" content="Sony Muzakki">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title') </title>

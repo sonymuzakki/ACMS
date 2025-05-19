@@ -1,6 +1,6 @@
 @extends('master1.master')
-@section('title', 'ACMS - Master Bank')
-@section('br2', 'Master Bank')
+@section('title', 'ACMS - Finance Penjualan')
+@section('br2', 'Finance Penjualan')
 @push('style')
 @endpush
 @section('main')
@@ -12,21 +12,21 @@
                 <div class="col-span-12">
                     <div class="flex flex-col gap-y-3 md:h-10 md:flex-row md:items-center">
                         <div class="text-base font-medium group-[.mode--light]:text-white">
-                            Master Bank
+                            Finance Penjualan
                         </div>
-                        {{-- <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
-                            <a href="{{ route('users.add') }}" data-tw-merge="" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
-                                <i data-tw-merge="" data-lucide="pen-line" class="mr-2 h-4 w-4 stroke-[1.3]"></i>
-                                Add New
-                            </a>
-                        </div> --}}
-                        <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
-                            <a href="#" id="open-modal" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
-                                <i data-tw-merge="" data-lucide="pen-line" class="mr-2 h-4 w-4 stroke-[1.3]"></i>
-                                Add New
-                            </a>
-                        </div>
-
+                        {{-- @php
+                            $inventoryId = request()->query('inventory_id');
+                        @endphp --}}
+                        {{-- @if(Auth::user()->can('finance.add')) --}}
+                            <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
+                                {{-- <a href="{{ route('finance.add' , ['inventory_id' => $inventoryId] ) }}" --}}
+                                <a href="{{ route('finance.add') }}"
+                                    class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
+                                    <i data-tw-merge="" data-lucide="pen-line" class="mr-2 h-4 w-4 stroke-[1.3]"></i>
+                                    Add New
+                                </a>
+                            </div>
+                        {{-- @endif --}}
                     </div>
                     <div class="mt-3.5 flex flex-col gap-8">
                         <div class="box box--stacked flex flex-col">
@@ -34,7 +34,8 @@
                                 <div>
                                     <div class="relative">
                                         <i data-tw-merge="" data-lucide="search" class="absolute inset-y-0 left-0 z-10 my-auto ml-3 h-4 w-4 stroke-[1.3] text-slate-500"></i>
-                                        <input data-tw-merge="" type="text" id="customFilter" placeholder="Search ..." class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 rounded-[0.5rem] pl-9 sm:w-64">
+                                        <input data-tw-merge="" type="text" id="customFilter" placeholder="Search ..."
+                                            class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 rounded-[0.5rem] pl-9 sm:w-64">
                                     </div>
                                 </div>
                             </div>
@@ -43,23 +44,25 @@
                                 <table id="inventory-table" data-tw-merge="" class="w-full text-left border-b border-slate-200/60">
                                     <thead data-tw-merge="" class="">
                                         <tr data-tw-merge="" class="">
-                                            <th
-                                                class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
                                                 No
                                             </th>
-                                            <th
-                                                class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Nama
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Supplier
                                             </th>
-                                            <th
-                                                class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Nama Pemilik Bank
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Vendor
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Tanggal
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Qty
                                             </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Nomor Rekening
+                                                Total
                                             </th>
-                                            <th
-                                                class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
                                                 Action
                                             </th>
                                         </tr>
@@ -91,8 +94,7 @@
                                     </ul>
                                 </nav>
                                 <!-- Show Entri -->
-                                <select id="entriesPerPage" data-tw-merge=""
-                                    class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 rounded-[0.5rem] sm:w-20">
+                                <select id="entriesPerPage" data-tw-merge="" class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 rounded-[0.5rem] sm:w-20">
                                     <option>5</option>
                                     <option>10</option>
                                     <option>25</option>
@@ -104,7 +106,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal Add -->
+                    {{-- <!-- Modal Add -->
                     <div data-tw-backdrop="" aria-hidden="true" tabindex="-1" id="header-footer-modal-preview" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&:not(.show)]:duration-[0s,0.2s] [&:not(.show)]:delay-[0.2s,0s] [&:not(.show)]:invisible [&:not(.show)]:opacity-0 [&.show]:visible [&.show]:opacity-100 [&.show]:duration-[0s,0.4s]">
                         <div data-tw-merge class="w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]">
                             <div class="flex items-center px-5 py-3 border-b border-slate-200/60 dark:border-darkmode-400">
@@ -112,42 +114,26 @@
                                     Add Data
                                 </h2>
                             </div>
-                            <form action="{{ route('store.pembayaran') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('master.pembebanan.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Nama Bank
+                                            Nama Jenis Pembebanan
                                         </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Pembayaran" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div>
-                                </div>
-                                <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Nama Pemilik Bank
-                                        </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="nama_pemilik" placeholder="Nama Pemilik" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div>
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Nomor Rekening
-                                        </label>
-                                        <input data-tw-merge id="modal-form-1" type="text" name="no_rekening" placeholder="Nomor Rekening" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="modal-form-1" type="text" name="nama" placeholder="Jenis" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" autofocus>
                                     </div>
                                 </div>
 
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
                                     <button data-tw-merge data-tw-dismiss="modal" type="button" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-20 mr-1 w-20">Cancel</button>
                                     <button data-tw-merge type="submit" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary w-20 w-20">Submit</button>
-
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <!-- END: Modal Content -->
+                    <!-- END: Modal Content --> --}}
 
-                    <!-- Modal HTML -->
                     <div id="edit-modal" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 invisible opacity-0 duration-200">
                         <div class="modal-content w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] mt-16 dark:bg-darkmode-600 sm:w-[460px]">
                             <div class="flex items-center px-5 py-3 border-b border-slate-200/60 dark:border-darkmode-400">
@@ -155,25 +141,13 @@
                                     Edit Data
                                 </h2>
                             </div>
-                            <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
+                            <form id="edit-form" action="" method="POST">
                                 @csrf
-                                @method('PUT')
+                                @method('POST')
                                 <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-name" class="inline-block mb-2">Nama Bank</label>
+                                        <label for="edit-name" class="inline-block mb-2">Jenis Pembebanan</label>
                                         <input id="edit-name" name="nama" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
-                                    </div>
-                                </div>
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-nama_pemilik" class="inline-block mb-2">Nama Pemilik Bank</label>
-                                        <input id="edit-nama_pemilik" name="nama_pemilik" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
-                                    </div>
-                                </div>
-                                <div class="p-5 grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12">
-                                        <label for="edit-no-rek" class="inline-block mb-2">Nomor Rekening</label>
-                                        <input id="edit-no-rek" name="no_rekening" type="text" class="w-full text-sm border-slate-200 shadow-sm rounded-md">
                                     </div>
                                 </div>
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
@@ -219,7 +193,6 @@
                         </div>
                     </div>
                     <!-- END: Modal Content -->
-
                 </div>
             </div>
         </div>
@@ -227,35 +200,93 @@
 </div>
 
 @push('child-scripts')
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+    });
+</script>
+
+<script>
+    const canEditFinance = @json(auth()->user()->can('finance.edit'));
+</script>
+
+
 <script>
         $(document).ready(function() {
             var table = $('#inventory-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('index.pembayaran') }}",
+                    url: "{{ route('finance.index') }}",
                     data: function(d) {
+                        d.inventory_id = getParameterByName('inventory_id'); // ambil dari URL
+                        // Mengirimkan start_date dan end_date ke server
                         d.customFilter = $('#customFilter').val();
-                        d.merkFilter = $('#merkFilter').val();
                     }
                 },
                 columns: [
                     {
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
+                        data: 'id',
+                        name: 'id',
+                        width: '30px',
                         orderable: false,
                         searchable: false,
-                        render: function(data) {
-                            return data;
+                        render: function(data, type, row) {
+                            if (!data) return '-'; // Jika tidak ada data, tampilkan kosong
+
+                            let year = data.substring(2, 6);  // Ambil tahun (4 digit)
+                            let month = data.substring(6, 8); // Ambil bulan (2 digit)
+                            let day = data.substring(8, 10);  // Ambil tanggal (2 digit)
+                            let counter = data.substring(10);  // Ambil 4 digit terakhir sebagai counter
+
+                            let formattedId = `PB${year}${month}${day}${counter}`;
+
+                            if (!canEditFinance) {
+                                return `<td class="border-b dark:border-darkmode-300 border-dashed py-4 dark:bg-darkmode-600">
+                                            <a href="#" class="flex items-center text-primary">
+                                                <i class="h-4 w-4 stroke-[1.7]" data-lucide="external-link"></i>
+                                                <div class="ml-1.5 whitespace-nowrap text-[13px] underline decoration-primary/30 decoration-dotted underline-offset-[3px]">
+                                                    ${formattedId}
+                                                </div>
+                                            </a>
+                                        </td>`;
+                            }
+                            return `<td class="border-b dark:border-darkmode-300 border-dashed py-4 dark:bg-darkmode-600">
+                                        <a href="/finance/pembelian/edit/${data}" class="flex items-center text-primary">
+                                            <i class="h-4 w-4 stroke-[1.7]" data-lucide="external-link"></i>
+                                            <div class="ml-1.5 whitespace-nowrap text-[13px] underline decoration-primary/30 decoration-dotted underline-offset-[3px]">
+                                                ${formattedId}
+                                            </div>
+                                        </a>
+                                    </td>`;
                         }
                     },
-                    { data: 'nama', name: 'nama', searchable: true },
-                    { data: 'nama_pemilik', name: 'nama_pemilik', searchable: true },
-                    { data: 'no_rekening', name: 'no_rekening', searchable: true },
+                    { data: 'supplier', name: 'supplier', searchable: true , className: 'text-center' },
+                    { data: 'vendor', name: 'vendor', searchable: true , className: 'text-center' },
+                    {
+                        data: 'tanggal',
+                        name: 'tanggal',
+                        render: function(data) {
+                            return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY')}</div>`;
+                        }
+                    },
+                    { data: 'qty', name: 'qty', searchable: true , className: 'text-center' },
+                    {
+                        data: 'subtotal',
+                        name: 'subtotal',
+                        className: 'text-center',
+                        searchable: false,
+                        orderable: false,
+                        render: function (data) {
+                            return formatRupiah(data);
+                        }
+                    },
                     {
                         data: 'action',
                         name: 'action',
                         className: 'text-center',
+                        width: '20px',
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row) {
@@ -266,23 +297,26 @@
                                         <button data-tw-toggle="dropdown" aria-expanded="false" class="cursor-pointer h-5 w-5 text-slate-500">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
-                                        <div class="dropdown-menu absolute z-[9999] hidden">
-                                            <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
-                                                <a href="#" onclick="openEditModal(${row.id}, '${row.nama}', '${row.nama_pemilik}','${row.no_rekening}')" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
-                                                    <i class="fas fa-edit mr-2"></i> Edit
-                                                </a>
-                                                <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
-                                                    <i class="fas fa-trash-alt mr-2"></i> Delete
-                                                </a>
+                                        @if(Auth::user()->can('finance.delete'))
+                                            <div class="dropdown-menu absolute z-[9999] hidden">
+                                                <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
+                                                    <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
+                                                        <i class="fas fa-trash-alt mr-2"></i> Delete
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             `;
                         }
                     }
-
                 ],
+
+                drawCallback: function() {
+                    lucide.createIcons(); //
+                },
+
                 pagingType: "simple_numbers",
                 pageLength: 10,
                 initComplete: function() {
@@ -308,6 +342,7 @@
                         $('.dropdown-menu').addClass('hidden');
                     }
                 });
+
                 // Custom pagination controls
                 $('#prev-page').on('click', function() {
                     var page = table.page() - 1;
@@ -350,7 +385,7 @@
                     var userId = $('#delete-modal-preview').data('id');
 
                     $.ajax({
-                        url: `/pembayaran/delete/${userId}`,
+                        url: `/finance/delete/${userId}`,
                         type: 'get', // Ubah menjadi DELETE
                         success: function(result) {
                             $('#delete-modal-preview').removeClass('show'); // Sembunyikan modal konfirmasi
@@ -375,29 +410,15 @@
                 });
             });
 
-            document.addEventListener('DOMContentLoaded', function() {
-            // Open the modal when the "Add New" button is clicked
-            document.getElementById('open-modal').addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent default link behavior
-                document.getElementById('header-footer-modal-preview').classList.add('show');
-            });
-
-            // Close the modal when the "Cancel" button is clicked
-            document.querySelector('[data-tw-dismiss="modal"]').addEventListener('click', function() {
-                document.getElementById('header-footer-modal-preview').classList.remove('show');
-            });
-        });
-
 </script>
+
 <script>
-    function openEditModal(id, nama,nama_pemilik,no_rekening) {
+    function openEditModal(id, nama) {
     // Populate the form fields with data
     document.getElementById('edit-name').value = nama;
-    document.getElementById('edit-nama_pemilik').value = nama_pemilik;
-    document.getElementById('edit-no-rekening').value = no_rekening;
 
     // Update the form action URL
-    document.getElementById('edit-form').action = `/pembayaran/update/${id}`;
+    document.getElementById('edit-form').action = `/pembebanan/update/${id}`;
 
     // Show the modal
     document.getElementById('edit-modal').classList.add('show');
@@ -408,6 +429,18 @@
         // Hide the modal
         document.getElementById('edit-modal').classList.remove('show');
         document.getElementById('edit-modal').classList.add('invisible', 'opacity-0');
+    }
+
+</script>
+<script>
+    function getParameterByName(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        let url = window.location.href;
+        let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 </script>
 @endpush

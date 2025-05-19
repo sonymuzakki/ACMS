@@ -13,6 +13,7 @@ use App\Models\MasterSupplier;
 use App\Models\MasterPelanggan;
 use App\Http\Controllers\Controller;
 use App\Models\MasterBank;
+use App\Models\MasterJenisTransaksi;
 use App\Models\MasterKategori;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -470,6 +471,78 @@ class MasterController extends Controller
     public function delete_produk($id)
     {
         MasterProduk::find($id)->delete();
+        return redirect()->back();
+    }
+
+    // New produk Controller
+    public function index_jenis_transaksi(Request $request)
+    {
+        $data = MasterJenisTransaksi::query();
+        if ($request->ajax()) {
+
+             // Apply custom filter if provided
+            if ($request->customFilter) {
+                $data->where(function($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->customFilter . '%')
+                    ->orWhere('kode', 'like', '%' . $request->customFilter . '%')
+                    ->orWhere('tipe', 'like', '%' . $request->customFilter . '%')
+                    ->orWhere('keterangan', 'like', '%' . $request->customFilter . '%');
+                });
+            }
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('backend1.master.jenisTransaksi.index', compact('data'));
+    }
+
+    public function store_jenis_transaksi(Request $request)
+    {
+        // dd($request->all());
+
+        $request->validate([
+            'kode' => 'nullable|string|max:255',
+            'nama' => 'nullable|string|max:255',
+            'tipe' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        MasterJenisTransaksi::create([
+            'nama' => $request->nama,
+            'kode' => $request->kode,
+            'tipe' => $request->tipe,
+            'keterangan' => $request->keterangan,
+            'created_by' => Auth::id(),
+        ]);
+
+        $notification = [
+            'message' => 'Inventory Insert Successfully',
+            'alert-type' => 'success',
+        ];
+        return redirect()->route('index.jenis_transaksi')->with($notification);
+    }
+
+    public function update_jenis_transaksi(Request $request, $id)
+    {
+        $data = MasterJenisTransaksi::findOrFail($id);
+        $data->update([
+             'nama' => $request->nama,
+            'kode' => $request->kode,
+            'tipe' => $request->tipe,
+            'keterangan' => $request->keterangan,
+            'updated_by' => Auth::user()->id,
+            ]);
+        return redirect()->route('index.jenis_transaksi');
+    }
+
+    public function delete_jenis_transaksi($id)
+    {
+        MasterJenisTransaksi::find($id)->delete();
         return redirect()->back();
     }
 }

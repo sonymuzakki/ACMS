@@ -4,21 +4,24 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Aktifitas;
-use App\Models\Barang;
-use App\Models\inventory;
-use App\Models\Kategori;
+use App\Models\Merk;
 use App\Models\User;
+use App\Models\Barang;
 use App\Models\lokasi;
+use App\Models\Kategori;
+use App\Models\Aktifitas;
+use App\Models\inventory;
 use App\Models\MasterBank;
-use App\Models\MasterKategori;
-use App\Models\MasterPelanggan;
+use App\Models\Pembayaran;
 use App\Models\MasterProduk;
 use App\Models\MasterSatuan;
+use App\Models\MasterKategori;
 use App\Models\MasterSupplier;
-use App\Models\Merk;
-use App\Models\Pembayaran;
+use App\Models\MasterPelanggan;
 use Illuminate\Database\Seeder;
+use App\Models\finance_penjualan;
+use App\Models\MasterJenisTransaksi;
+use App\Models\finance_penjualan_detail;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,6 +42,7 @@ class DatabaseSeeder extends Seeder
         MasterBank::create([
             'nama' => 'BRI',
             'nama_pemilik' => 'Zidan',
+            'no_rekening' => '5424011563245',
             'created_by' => '1',
         ]);
 
@@ -74,14 +78,34 @@ class DatabaseSeeder extends Seeder
             'satuan_id' => 1,
             'created_by' => '1',
         ]);
-
         MasterSatuan::create([
             'id' => 1,
             'nama' => 'Pcs',
             'created_by' => '1',
         ]);
-
-
-
+        finance_penjualan_detail::create([
+            'id' => 'PJ20250001',
+            'penjualan_id' => 1,
+            'produk_id' => 1,
+            'qty' => 10,
+            'harga_jual' => 10000,
+            'total' => 100000,
+            'created_by' => '1',
+        ]);
+        finance_penjualan::create([
+            'id' => 1,
+            'tanggal' => '2025-05-19',
+            'total' => 100000,
+            'pembayaran_id' => 1,
+            'created_by' => '1',
+        ]);
+        MasterJenisTransaksi::create([
+            'id' => 1,
+            'kode' => "TARIK",
+            'nama' => 'Tarik Tunai',
+            'keterangan' => 'Pengambilan Uang tunai',
+            'tipe' => 'Keluar',
+            'created_by' => '1',
+        ]);
     }
 }

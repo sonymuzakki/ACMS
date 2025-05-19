@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_bank', function (Blueprint $table) {
+        Schema::create('master_jenis_transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('nama_pemilik')->nullable();
-            $table->string('no_rekening')->nullable();
+            $table->string('kode');
+            $table->string('nama')->nullable();
+            $table->string('tipe')->nullable();
+            $table->string('keterangan')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_bank');
+        Schema::dropIfExists('master_jenis_transaksi');
     }
 };

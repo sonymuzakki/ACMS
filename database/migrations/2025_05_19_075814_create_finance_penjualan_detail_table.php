@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_bank', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('nama_pemilik')->nullable();
-            $table->string('no_rekening')->nullable();
+        Schema::create('finance_penjualan_detail', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('penjualan_id');
+            $table->unsignedBigInteger('produk_id');
+            $table->integer('qty');
+            $table->double('harga_jual');
+            $table->double('total');
             $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_bank');
+        Schema::dropIfExists('finance_penjualan_detail');
     }
 };
