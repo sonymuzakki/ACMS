@@ -17,9 +17,9 @@ class finance_penjualan extends Model
         return $this->hasMany(finance_penjualan_detail::class, 'penjualan_id', 'id');
     }
 
-    public function MasterSupplier()
+    public function MasterPelanggan()
     {
-        return $this->belongsTo(MasterSupplier::class, 'supplier_id', 'id');
+        return $this->belongsTo(MasterPelanggan::class, 'pelanggan_id', 'id');
     }
 
     public function MasterBank()
@@ -30,5 +30,9 @@ class finance_penjualan extends Model
     public function MasterProduk()
     {
         return $this->belongsTo(MasterProduk::class, 'produk_id','id');
+    }
+    public function MasterJenisTransaksi()
+    {
+        return $this->belongsTo(MasterJenisTransaksi::class, 'jenis_transaksi_id', 'id');
     }
 }

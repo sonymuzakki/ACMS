@@ -20,7 +20,7 @@
                         {{-- @if(Auth::user()->can('finance.add')) --}}
                             <div class="flex flex-col gap-x-3 gap-y-2 sm:flex-row md:ml-auto">
                                 {{-- <a href="{{ route('finance.add' , ['inventory_id' => $inventoryId] ) }}" --}}
-                                <a href="{{ route('finance.add') }}"
+                                <a href="{{ route('finance.penjualan.add') }}"
                                     class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary group-[.mode--light]:!border-transparent group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200">
                                     <i data-tw-merge="" data-lucide="pen-line" class="mr-2 h-4 w-4 stroke-[1.3]"></i>
                                     Add New
@@ -48,19 +48,22 @@
                                                 No
                                             </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
-                                                Supplier
-                                            </th>
-                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
-                                                Vendor
-                                            </th>
-                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
                                                 Tanggal
                                             </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
-                                                Qty
+                                                Jenis Transaksi
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Referensi
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Nominal
+                                            </th>
+                                            <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 text-center">
+                                                Profit
                                             </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Total
+                                                Harga
                                             </th>
                                             <th class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
                                                 Action
@@ -68,7 +71,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -218,7 +220,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('finance.index') }}",
+                    url: "{{ route('finance.penjualan.index') }}",
                     data: function(d) {
                         d.inventory_id = getParameterByName('inventory_id'); // ambil dari URL
                         // Mengirimkan start_date dan end_date ke server
@@ -229,7 +231,7 @@
                     {
                         data: 'id',
                         name: 'id',
-                        width: '30px',
+                        width: '10px',
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row) {
@@ -240,7 +242,7 @@
                             let day = data.substring(8, 10);  // Ambil tanggal (2 digit)
                             let counter = data.substring(10);  // Ambil 4 digit terakhir sebagai counter
 
-                            let formattedId = `PB${year}${month}${day}${counter}`;
+                            let formattedId = `PJ${year}${month}${day}${counter}`;
 
                             if (!canEditFinance) {
                                 return `<td class="border-b dark:border-darkmode-300 border-dashed py-4 dark:bg-darkmode-600">
@@ -262,19 +264,50 @@
                                     </td>`;
                         }
                     },
-                    { data: 'supplier', name: 'supplier', searchable: true , className: 'text-center' },
-                    { data: 'vendor', name: 'vendor', searchable: true , className: 'text-center' },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal',
+                        data: 'created_at',
+                        name: 'created_at',
+                        width: '5px',
+                        // render: function(data) {
+                        //     return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY HH:MM:SS')}</div>`;
+                        // }
                         render: function(data) {
-                            return `<div class="whitespace-nowrap text-center">${moment(data).format('MMM D, YYYY')}</div>`;
+                            const date = moment(data).format('MMM D, YYYY');
+                            const time = moment(data).format('HH:mm:ss');
+                            return `
+                                <div class="whitespace-nowrap text-center">
+                                    ${date}<br>
+                                    <span class="text-xs text-gray-500">${time}</span>
+                                </div>
+                            `;
                         }
                     },
-                    { data: 'qty', name: 'qty', searchable: true , className: 'text-center' },
+                    { data: 'jenis', name: 'jenis', width: '5px', searchable: true , className: 'text-center' },
+                    { data: 'bank', name: 'bank',  width: '5px', searchable: true , className: 'text-center' },
                     {
-                        data: 'subtotal',
-                        name: 'subtotal',
+                        data: 'harga',
+                        name: 'harga',
+                        className: 'text-center',
+                        searchable: false,
+                        orderable: false,
+                        render: function (data) {
+                            return formatRupiah(data);
+                        }
+                    },
+                    {
+                        data: 'profit',
+                        name: 'profit',
+                        className: 'text-center',
+                        searchable: false,
+                        orderable: false,
+                        render: function (data) {
+                            return formatRupiah(data);
+                        }
+                    },
+                    // { data: 'qty', name: 'qty', searchable: true , className: 'text-center' },
+                    {
+                        data: 'total',
+                        name: 'total',
                         className: 'text-center',
                         searchable: false,
                         orderable: false,

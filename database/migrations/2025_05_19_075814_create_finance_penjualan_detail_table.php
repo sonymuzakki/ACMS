@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('penjualan_id');
             $table->unsignedBigInteger('produk_id');
             $table->integer('qty');
-            $table->double('harga_jual');
+            $table->double('harga_beli')->nullable();
+            $table->double('harga_jual')->nullable();
             $table->double('total');
             $table->string('created_by')->nullable();
             $table->timestamps();

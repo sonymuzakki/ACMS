@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Pos;
 
+use App\Models\MasterBank;
+use App\Models\MasterProduk;
 use Illuminate\Http\Request;
+use App\Models\MasterKategori;
 use App\Models\MasterSupplier;
+use App\Models\MasterPelanggan;
 use App\Models\finance_pembelian;
+use App\Models\finance_penjualan;
+use App\Models\finance_penjualan_detail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\MasterJenisTransaksi;
 use App\Models\finance_pembelian_detail;
-use App\Models\MasterBank;
-use App\Models\MasterKategori;
-use App\Models\MasterProduk;
 use Yajra\DataTables\Facades\DataTables;
 
 class FinanceController extends Controller
@@ -266,5 +270,55 @@ class FinanceController extends Controller
         }
     }
 
+    // Modul Penjualan
+    public function index_penjualan(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = finance_penjualan::with(['finance_penjualan_detail', 'MasterPelanggan', 'MasterBank','MasterJenisTransaksi'])
+                ->latest();
 
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('pelanggan', function ($row) {
+                    return $row->MasterPelanggan->nama ?? '-';
+                })
+                ->addColumn('harga', function ($row) {
+                    return $row->finance_penjualan_detail->first()->harga_jual ?? '-';
+                })
+                ->addColumn('qty', function ($row) {
+                    return $row->finance_penjualan_detail->first()->qty ?? '-';
+                })
+                ->addColumn('bank', function ($row) {
+                    return $row->MasterBank->nama ?? '-';
+                })
+                ->addColumn('jenis', function ($row) {
+                    return $row->MasterJenisTransaksi->nama ?? '-';
+                })
+                ->addColumn('total', function ($row) {
+                    return $row->total ?? '-';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="#" onclick="openEditModal(' . $row->id . ')" class="btn btn-warning btn-sm">Edit</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend1.finance.penjualan.index', []);
+    }
+
+    public function add_penjualan()
+    {
+        $jenis = MasterJenisTransaksi::all();
+        $produk = MasterProduk::all();
+        $pembayaran = MasterBank::all();
+        $penjualan = finance_penjualan_detail::all();
+        $pelanggan = MasterPelanggan::all();
+        return view('backend1.finance.penjualan.add_penjualan', [
+            'jenis' => $jenis,
+            'produk' => $produk,
+            'pembayaran' => $pembayaran,
+            'penjualan' => $penjualan,
+            'pelanggan' => $pelanggan,
+        ]);
+    }
 }

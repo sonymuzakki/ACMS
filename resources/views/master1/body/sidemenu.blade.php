@@ -64,7 +64,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="side-menu__link {{ Route::is('finance.index') ? 'side-menu__link--active' : '' }}">
+                        <a href="{{ route('finance.penjualan.index') }}" class="side-menu__link {{ Route::is('finance.penjualan.index') ? 'side-menu__link--active' : '' }}">
                             <i data-tw-merge="" data-lucide="Dollar-Sign"
                                 class="stroke-[1] w-5 h-5 side-menu__link__icon"></i>
                             <div class="side-menu__link__title">Penjualan</div>

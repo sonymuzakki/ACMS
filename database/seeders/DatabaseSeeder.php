@@ -84,8 +84,8 @@ class DatabaseSeeder extends Seeder
             'created_by' => '1',
         ]);
         finance_penjualan_detail::create([
-            'id' => 'PJ20250001',
-            'penjualan_id' => 1,
+            'id' => 'PJD20250001',
+            'penjualan_id' => 'PJ20250001',
             'produk_id' => 1,
             'qty' => 10,
             'harga_jual' => 10000,
@@ -93,10 +93,14 @@ class DatabaseSeeder extends Seeder
             'created_by' => '1',
         ]);
         finance_penjualan::create([
-            'id' => 1,
+            'id' => 'PJ20250001',
+            'pelanggan_id' => 1,
+            'jenis_transaksi_id' => 1,
+            'pembayaran_id' => 1,
+            'profit' => 20000,
             'tanggal' => '2025-05-19',
             'total' => 100000,
-            'pembayaran_id' => 1,
+            'keterangan' => 'Pembayaran',
             'created_by' => '1',
         ]);
         MasterJenisTransaksi::create([

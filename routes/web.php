@@ -191,6 +191,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/finance/pembelian/update/{id}', 'update_pembelian')->name('finance.update');
         Route::get('/finance/pembelian/delete/{id}', 'delete_pembelian')->name('finance.delete');
         Route::post('/finance/updatesubtotal/{id}',  'update_subtotal')->name('finance.update.subtotal');
+
+        // Penjualan
+        Route::get('/finance/penjualan', 'index_penjualan')->name('finance.penjualan.index');
+        Route::get('/finance/penjualan/add', 'add_penjualan')->name('finance.penjualan.add');
     });
 });
 
