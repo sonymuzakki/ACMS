@@ -60,8 +60,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                <div class="flex-col pt-5 mt-2 mb-5 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div
                                                         class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
@@ -88,61 +87,65 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
-                                                        <div class="text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="font-medium">Bank / E-Wallet </div>
-                                                                <div
-                                                                    class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
-                                                                    Required
+                                                <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+
+                                                <div id="form-pembayaran">
+                                                    <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                        <div
+                                                            class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                            <div class="text-left">
+                                                                <div class="flex items-center">
+                                                                    <div class="font-medium">Bank / E-Wallet </div>
+                                                                    <div
+                                                                        class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                        Required
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                        <select
-                                                            class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
-                                                            id="pembayaran" name="pembayaran_id">
-                                                            <option value="">Pilih Bank</option>
-                                                            @foreach ($pembayaran as $s)
-                                                                <option value="{{ $s->id }}">{{ $s->nama }}
-                                                            @endforeach
-                                                        </select>
-                                                        @error('pembayaran')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div id="nominal"
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
-                                                        <div class="text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="font-medium">Nominal</div>
-                                                            </div>
+                                                        <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                            <select
+                                                                class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
+                                                                id="pembayaran" name="pembayaran_id">
+                                                                <option value="">Pilih Bank</option>
+                                                                @foreach ($pembayaran as $s)
+                                                                    <option value="{{ $s->id }}">{{ $s->nama }}
+                                                                @endforeach
+                                                            </select>
+                                                            @error('pembayaran')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                        <input id="nominalInput" data-tw-merge="" type="text"
-                                                            placeholder="Nominal" value="{{ old('nominal') }}"
-                                                            name="nominal"
-                                                            class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                                    <div id="nominal"
+                                                        class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                        <div
+                                                            class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                            <div class="text-left">
+                                                                <div class="flex items-center">
+                                                                    <div class="font-medium">Nominal</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                            <input id="nominalInput" data-tw-merge="" type="text"
+                                                                placeholder="Nominal" value="{{ old('nominal') }}"
+                                                                name="nominal"
+                                                                class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Card Nominal Selector -->
+                                                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-3 mt-5">
+                                                        @foreach ([100000, 200000, 300000, 500000, 800000, 1000000] as $amount)
+                                                            <div onclick="setNominal({{ $amount }})"
+                                                                class="cursor-pointer rounded-lg bg-slate-100 dark:bg-darkmode-800 px-4 py-3 text-center font-medium text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition duration-150">
+                                                                {{ number_format($amount, 0, ',', '.') }}
+                                                            </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
 
-                                                <!-- Card Nominal Selector -->
-                                                <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-3 mt-5">
-                                                    @foreach ([100000, 200000, 300000, 500000, 800000, 1000000] as $amount)
-                                                        <div onclick="setNominal({{ $amount }})"
-                                                            class="cursor-pointer rounded-lg bg-slate-100 dark:bg-darkmode-800 px-4 py-3 text-center font-medium text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition duration-150">
-                                                            {{ number_format($amount, 0, ',', '.') }}
-                                                        </div>
-                                                    @endforeach
-                                                </div>
                                                 <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div id="profit" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                         <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
@@ -175,8 +178,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div id="ketCon"
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div
                                                         class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
@@ -219,10 +221,10 @@
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Keterangan
                                                     </th>
-                                                    <th data-tw-merge
+                                                    {{-- <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Nominal
-                                                    </th>
+                                                    </th> --}}
                                                     <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Harga
@@ -359,12 +361,29 @@
             document.getElementById("tambah").addEventListener("click", function(e) {
                 e.preventDefault();
 
-                let jenis = document.getElementById("jenis").value;
-                let pembayaran = document.getElementById("pembayaran").value;
+                // let jenis = document.getElementById("jenis").value;
+                // let pembayaran = document.getElementById("pembayaran").value;
                 let keterangan = document.querySelector("input[name='keterangan']").value;
                 let nominal = document.querySelector("input[name='nominal']").value;
                 let profit = document.querySelector("input[name='profit']").value;
                 let qty = document.querySelector("input[name='qty']").value;
+
+                // let jenis = document.getElementById("jenis").value;
+                // let pembayaran = document.getElementById("pembayaran").value;
+
+                // let jenisId = jenis.value;
+                // let JenisNama = jenis.options[jenis.selectedIndex].text;
+                // let pembayaranId = pembayaran.value;
+                // let pembayaranNama = pembayaran.options[pembayaran.selectedIndex].text;
+
+                let jenisEl = document.getElementById("jenis");
+                let pembayaranEl = document.getElementById("pembayaran");
+
+                let jenisId = jenisEl.value;
+                let JenisNama = jenisEl.options[jenisEl.selectedIndex].text;
+
+                let pembayaranId = pembayaranEl.value;
+                let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
 
                 // Hapus semua karakter selain angka
                 nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
@@ -378,19 +397,17 @@
 
                 newRow.innerHTML = `
                     <td class="py-2 px-4 border">${JenisNama}</td>
-                    <td class="py-2 px-4 border">${pembayaran}</td>
+                    <td class="py-2 px-4 border">${pembayaranNama}</td>
                     <td class="py-2 px-4 border">${keterangan}</td> <!-- Nama SPV atau Sales ditampilkan di sini -->
-                    <td class="py-2 px-4 border">${qty}</td>
-                    <td class="py-2 px-4 border">${profit}</td>
                     <td class="py-2 px-4 border ">${biayaf}</td>
+                    <td class="py-2 px-4 border">${qty}</td>
                     <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
                     <td class="py-2 px-4 border">
                         <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
                     </td>
-                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenis}">
-                    <input type="hidden" name="pembayaran_id[]" value="${pembayaran}">
-                    <input type="hidden" name="nominal[]" value="${nominal}">
-                    <input type="hidden" name="profit[]" value="${profit}">
+                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+                    <input type="hidden" name="pembayaran_id[]" value="${pembayaranId}">
+                    <input type="hidden" name="harga_jual[]" value="${biayaf}">
                     <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
                     <input type="hidden" name="qty[]" value="${qty}">
                     <input type="hidden" name="total[]" value="${totalBiaya}">
