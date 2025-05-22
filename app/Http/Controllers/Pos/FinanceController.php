@@ -257,7 +257,7 @@ class FinanceController extends Controller
             }
 
             // Hapus detail pengeluaran terlebih dahulu
-            finance_pembelian_detail::where('pengeluaran_id', $id)->delete();
+            finance_pembelian_detail::where('pembelian_id', $id)->delete();
 
             // Hapus data utama dari finance_pengeluaran
             $pengeluaran->delete();

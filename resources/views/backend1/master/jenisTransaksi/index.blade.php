@@ -119,6 +119,7 @@
                                             Kode
                                         </label>
                                         <input data-tw-merge id="kode-edit" type="text" name="kode" placeholder="Kode" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+
                                     </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-6" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
@@ -178,7 +179,7 @@
                                         </label>
                                         <input data-tw-merge id="nama-edit" type="text" name="nama" placeholder="Nama" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
-                                    <div class="col-span-12 sm:col-span-6">
+                                    {{-- <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Tipe
                                         </label>
@@ -193,7 +194,7 @@
                                             Keterangan
                                         </label>
                                         <input data-tw-merge name="keterangan" id="keterangan-edit" type="text" placeholder="keterangan" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
                                     <button type="button" onclick="closeEditModal()" class="mr-1 w-20 transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Cancel</button>
@@ -282,25 +283,24 @@
                         render: function(data, type, row) {
                             if (row.status == 2) return '-';
                             return `
-                                <div class="flex items-center justify-center">
-                                    <div class="dropdown relative h-5">
-                                        <button data-tw-toggle="dropdown" aria-expanded="false" class="cursor-pointer h-5 w-5 text-slate-500">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                        <div class="dropdown-menu absolute z-[9999] hidden">
-                                            <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
-                                                <a href="#" onclick="openEditModal(
-                                                ${row.id}, '${row.kode}' ,'${row.tipe}','${row.qty}','${row.keterangan}')"
-                                                class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
-                                                    <i class="fas fa-edit mr-2"></i> Edit
-                                                </a>
-                                                <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
-                                                    <i class="fas fa-trash-alt mr-2"></i> Delete
-                                                </a>
-                                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="dropdown relative h-5">
+                                    <button data-tw-toggle="dropdown" aria-expanded="false" class="cursor-pointer h-5 w-5 text-slate-500">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu absolute z-[9999] hidden">
+                                        <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
+                                            <a href="#" onclick="openEditModal(${row.id}, '${row.nama}','${row.kode}')"
+                                            class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
+                                                <i class="fas fa-edit mr-2"></i> Edit
+                                            </a>
+                                            <a href="#" class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item text-danger delete-btn" data-id="${row.id}">
+                                                <i class="fas fa-trash-alt mr-2"></i> Delete
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             `;
                         }
                     }
@@ -421,31 +421,33 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        new TomSelect('#tipe');
+        // Inisialisasi TomSelect pada select #tipe
+        new TomSelect('#tipe-select');
     });
-    function openEditModal(id, nama, kode, tipe, keterangan) {
-    document.getElementById('kode-edit').value = kode;
-    document.getElementById('nama-edit').value = nama;
-    document.getElementById('keterangan-edit').value = keterangan;
 
-    let tipeSelect = document.querySelector('#tipe')?.tomselect;
+    function openEditModal(id,nama,kode) {
+        // Isi nilai input form edit
+        document.getElementById('nama-edit').value = nama;
+        document.getElementById('kode-edit').value = kode;
+        // document.getElementById('keterangan-edit').value = keterangan;
 
-    if (tipeSelect) tipeSelect.setValue(tipe_id);
+        // Set nilai select TomSelect
+        // let tipeSelect = document.querySelector('#tipe')?.tomselect;
+        // if (tipeSelect) tipeSelect.setValue(tipe);
 
-    // Update the form action URL
-    document.getElementById('edit-form').action = `/jenis/transaksi/update/${id}`;
+        // Set action form update
+        document.getElementById('edit-form').action = `/jenis/transaksi/update/${id}`;
 
-    // Show the modal
-    document.getElementById('edit-modal').classList.add('show');
-    document.getElementById('edit-modal').classList.remove('invisible', 'opacity-0');
+        // Tampilkan modal
+        document.getElementById('edit-modal').classList.add('show');
+        document.getElementById('edit-modal').classList.remove('invisible', 'opacity-0');
     }
 
     function closeEditModal() {
-        // Hide the modal
+        // Sembunyikan modal
         document.getElementById('edit-modal').classList.remove('show');
         document.getElementById('edit-modal').classList.add('invisible', 'opacity-0');
     }
-
 </script>
 
 @endpush

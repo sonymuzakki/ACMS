@@ -60,8 +60,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div
                                                         class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
@@ -225,7 +224,7 @@
                                                     </th>
                                                     <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
-                                                        Harga
+                                                        Profit
                                                     </th>
                                                     <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
@@ -359,36 +358,44 @@
             document.getElementById("tambah").addEventListener("click", function(e) {
                 e.preventDefault();
 
-                let jenis = document.getElementById("jenis").value;
-                let pembayaran = document.getElementById("pembayaran").value;
                 let keterangan = document.querySelector("input[name='keterangan']").value;
                 let nominal = document.querySelector("input[name='nominal']").value;
                 let profit = document.querySelector("input[name='profit']").value;
                 let qty = document.querySelector("input[name='qty']").value;
 
+                let jenisEl = document.getElementById("jenis");
+                let pembayaranEl = document.getElementById("pembayaran");
+
+                let jenisId = jenisEl.value;
+                let JenisNama = jenisEl.options[jenisEl.selectedIndex].text;
+
+                let pembayaranId = pembayaranEl.value;
+                let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
+
                 // Hapus semua karakter selain angka
                 nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
                 qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
+                profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
 
                 let biayaf = nominal.toLocaleString();
-                let totalBiaya = qty * nominal;
+                let totalBiaya = qty * nominal + profit;
 
                 let table = document.getElementById("dataTable").querySelector("tbody");
                 let newRow = table.insertRow();
 
                 newRow.innerHTML = `
                     <td class="py-2 px-4 border">${JenisNama}</td>
-                    <td class="py-2 px-4 border">${pembayaran}</td>
+                    <td class="py-2 px-4 border">${pembayaranNama}</td>
                     <td class="py-2 px-4 border">${keterangan}</td> <!-- Nama SPV atau Sales ditampilkan di sini -->
-                    <td class="py-2 px-4 border">${qty}</td>
-                    <td class="py-2 px-4 border">${profit}</td>
                     <td class="py-2 px-4 border ">${biayaf}</td>
+                    <td class="py-2 px-4 border">${profit}</td>
+                    <td class="py-2 px-4 border">${qty}</td>
                     <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
                     <td class="py-2 px-4 border">
                         <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
                     </td>
-                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenis}">
-                    <input type="hidden" name="pembayaran_id[]" value="${pembayaran}">
+                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+                    <input type="hidden" name="pembayaran_id[]" value="${pembayaranId}">
                     <input type="hidden" name="nominal[]" value="${nominal}">
                     <input type="hidden" name="profit[]" value="${profit}">
                     <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->

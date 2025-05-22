@@ -30,7 +30,7 @@ class MasterController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Logout berhasil!');
     }
 
     // New MasterKategori Controller
@@ -66,11 +66,7 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'created_by' => Auth::user()->id,
         ]);
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.kategori')->with($notification);
+        return redirect()->route('index.kategori')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
 
@@ -86,7 +82,7 @@ class MasterController extends Controller
     public function delete_barang($id)
     {
         MasterKategori::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Kategori berhasil diupdate!');
     }
 
     // new pembayaran controller
@@ -126,11 +122,7 @@ class MasterController extends Controller
             'nama_pemilik' => $request->nama_pemilik,
             'created_by' => Auth::user()->id,
         ]);
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.pembayaran')->with($notification);
+        return redirect()->route('index.pembayaran')->with('success', 'Pembayaran berhasil ditambahkan!');
     }
 
     public function update_pembayaran(Request $request, $id)
@@ -140,13 +132,13 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'nama_pemilik' => $request->nama_pemilik,
             ]);
-        return redirect()->route('index.pembayaran');
+        return redirect()->route('index.pembayaran')->with('success', 'Pembayaran berhasil diupdate!');
     }
 
     public function delete_pembayaran($id)
     {
         MasterBank::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Pembayaran berhasil dihapus!');
     }
 
     // New Supplier Controller
@@ -186,12 +178,7 @@ class MasterController extends Controller
             'vendor' => $request->vendor,
             'created_by' => Auth::user()->id,
         ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.supplier')->with($notification);
+        return redirect()->route('index.supplier')->with('success', 'Supplier berhasil ditambahkan!');
     }
 
     public function update_supplier(Request $request, $id)
@@ -203,13 +190,13 @@ class MasterController extends Controller
             'vendor' => $request->vendor,
             'updated_by' => Auth::user()->id,
             ]);
-        return redirect()->route('index.supplier');
+        return redirect()->route('index.supplier')->with('success', 'Supplier berhasil diupdate!');
     }
 
     public function delete_supplier($id)
     {
         MasterSupplier::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Supplier berhasil dihapus!');
     }
 
     // New Brand Controller
@@ -245,12 +232,7 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'created_by' => Auth::user()->id,
         ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.brand')->with($notification);
+        return redirect()->route('index.brand')->with('success', 'Brand berhasil ditambahkan!');
     }
 
     public function update_brand(Request $request, $id)
@@ -260,13 +242,13 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'updated_by' => Auth::user()->id,
             ]);
-        return redirect()->route('index.brand');
+        return redirect()->route('index.brand')->with('success', 'Brand berhasil diupdate!');
     }
 
     public function delete_brand($id)
     {
         MasterBrand::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Brand berhasil dihapus!');
     }
 
     // New Satuan Controller
@@ -302,12 +284,7 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'created_by' => Auth::user()->id,
         ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.satuan')->with($notification);
+        return redirect()->route('index.satuan')->with('success', 'Satuan berhasil ditambahkan!');
     }
 
     public function update_satuan(Request $request, $id)
@@ -317,13 +294,13 @@ class MasterController extends Controller
             'nama' => $request->nama,
             'updated_by' => Auth::user()->id,
             ]);
-        return redirect()->route('index.satuan');
+        return redirect()->route('index.satuan')->with('success', 'Satuan berhasil diupdate!');
     }
 
     public function delete_satuan($id)
     {
         MasterSatuan::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Satuan berhasil dihapus!');
     }
 
      // New pelanggan Controller
@@ -361,12 +338,7 @@ class MasterController extends Controller
             'alamat' => $request->alamat,
             'created_by' => Auth::user()->id,
         ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.pelanggan')->with($notification);
+        return redirect()->route('index.pelanggan')->with('success', 'Pelanggan berhasil ditambahkan!');
     }
 
     public function update_pelanggan(Request $request, $id)
@@ -378,13 +350,13 @@ class MasterController extends Controller
             'alamat' => $request->alamat,
             'updated_by' => Auth::user()->id,
             ]);
-        return redirect()->route('index.pelanggan');
+        return redirect()->route('index.pelanggan')->with('success', 'Pelanggan berhasil diupdate!');
     }
 
     public function delete_pelanggan($id)
     {
         MasterPelanggan::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Pelanggan berhasil dihapus!');
     }
 
     // New produk Controller
@@ -444,12 +416,7 @@ class MasterController extends Controller
             'harga_jual' => (int) $hargaJual,
             'created_by' => Auth::id(),
         ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.produk')->with($notification);
+        return redirect()->route('index.produk')->with('success', 'Produk berhasil ditambahkan!');
     }
 
     public function update_produk(Request $request, $id)
@@ -465,13 +432,19 @@ class MasterController extends Controller
             'created_by' => Auth::id(),
             'updated_by' => Auth::user()->id,
             ]);
-        return redirect()->route('index.produk');
+        return redirect()->route('index.produk')->with('success', 'Produk berhasil diupdate!');
     }
 
     public function delete_produk($id)
     {
-        MasterProduk::find($id)->delete();
-        return redirect()->back();
+        try {
+            $produk = MasterProduk::findOrFail($id); // lebih aman, akan throw jika tidak ditemukan
+            $produk->delete();
+
+            return redirect()->back()->with('success', 'Produk berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus produk: ' . $e->getMessage());
+        }
     }
 
     // New produk Controller
@@ -503,46 +476,68 @@ class MasterController extends Controller
 
     public function store_jenis_transaksi(Request $request)
     {
-        // dd($request->all());
+        try {
+            // Validasi input
+            $validated = $request->validate([
+                'kode' => 'required|string|max:255',
+                'nama' => 'nullable|string|max:255',
+                'tipe' => 'nullable|string|max:255',
+                'keterangan' => 'nullable|string|max:255',
+            ]);
 
-        $request->validate([
-            'kode' => 'nullable|string|max:255',
-            'nama' => 'nullable|string|max:255',
-            'tipe' => 'nullable|string|max:255',
-            'keterangan' => 'nullable|string|max:255',
-        ]);
+            // Simpan ke database
+            MasterJenisTransaksi::create([
+                'nama' => $validated['nama'],
+                'kode' => $validated['kode'],
+                'tipe' => $validated['tipe'],
+                'keterangan' => $validated['keterangan'],
+                'created_by' => Auth::id(),
+            ]);
 
-        MasterJenisTransaksi::create([
-            'nama' => $request->nama,
-            'kode' => $request->kode,
-            'tipe' => $request->tipe,
-            'keterangan' => $request->keterangan,
-            'created_by' => Auth::id(),
-        ]);
-
-        $notification = [
-            'message' => 'Inventory Insert Successfully',
-            'alert-type' => 'success',
-        ];
-        return redirect()->route('index.jenis_transaksi')->with($notification);
+            return redirect()->route('index.jenis_transaksi')->with('success', 'Jenis Transaksi berhasil ditambahkan!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        } catch (\Exception $e) {
+            // Jika terjadi error lain saat menyimpan
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function update_jenis_transaksi(Request $request, $id)
     {
-        $data = MasterJenisTransaksi::findOrFail($id);
-        $data->update([
-             'nama' => $request->nama,
-            'kode' => $request->kode,
-            'tipe' => $request->tipe,
-            'keterangan' => $request->keterangan,
-            'updated_by' => Auth::user()->id,
+        try {
+            // Validasi input
+            $validated = $request->validate([
+                'kode' => 'nullable|string|max:255',
+                'nama' => 'nullable|string|max:255',
+                'tipe' => 'nullable|string|max:255',
+                'keterangan' => 'nullable|string|max:255',
             ]);
-        return redirect()->route('index.jenis_transaksi');
+
+            $data = MasterJenisTransaksi::findOrFail($id);
+            $data->update([
+                'nama' => $validated['nama'],
+                'kode' => $validated['kode'],
+                'tipe' => $validated['tipe'],
+                'keterangan' => $validated['keterangan'],
+                'updated_by' => Auth::user()->id,
+                ]);
+            return redirect()->route('index.jenis_transaksi');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        } catch (\Exception $e) {
+            // Jika terjadi error lain saat menyimpan
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage())->withInput();
+        }
+
     }
 
     public function delete_jenis_transaksi($id)
     {
         MasterJenisTransaksi::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Jenis Transaksi berhasil dihapus!');
     }
 }

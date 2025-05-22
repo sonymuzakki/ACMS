@@ -385,7 +385,7 @@
                     var userId = $('#delete-modal-preview').data('id');
 
                     $.ajax({
-                        url: `/finance/delete/${userId}`,
+                        url: `/finance/pembelian/delete/${userId}`,
                         type: 'get', // Ubah menjadi DELETE
                         success: function(result) {
                             $('#delete-modal-preview').removeClass('show'); // Sembunyikan modal konfirmasi

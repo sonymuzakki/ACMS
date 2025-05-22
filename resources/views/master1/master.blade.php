@@ -170,6 +170,42 @@
             });
         </script>
         @stack('child-scripts')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            @if (session('success'))
+                Toast.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}'
+                });
+            @endif
+
+            @if (session('error'))
+                Toast.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}'
+                });
+            @endif
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Toast.fire({
+                        icon: 'error',
+                        title: '{{ $error }}'
+                    });
+                @endforeach
+            @endif
+        </script>
     </body>
 
     <!-- Mirrored from tailwise-html.vercel.app/echo-dashboard-overview-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Aug 2024 07:42:17 GMT -->
