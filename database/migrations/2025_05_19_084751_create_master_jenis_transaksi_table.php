@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('master_jenis_transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->unsignedBigInteger('kategori_id')->nullable();
             $table->string('nama')->nullable();
             $table->string('tipe')->nullable();
             $table->string('keterangan')->nullable();

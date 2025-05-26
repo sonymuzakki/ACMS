@@ -39,50 +39,149 @@ class DatabaseSeeder extends Seeder
         Merk::create([
             'nama' => 'Toyota'
         ]);
-        MasterBank::create([
-            'nama' => 'BRI',
-            'nama_pemilik' => 'Zidan',
-            'no_rekening' => '5424011563245',
-            'created_by' => '1',
+
+        MasterBank::insert([
+            [
+                'nama' => 'BRI',
+                'nama_pemilik' => 'Zidan',
+                'no_rekening' => '5424011563245',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama' => 'BCA',
+                'nama_pemilik' => 'Rina',
+                'no_rekening' => '1234567890',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama' => 'Mandiri',
+                'nama_pemilik' => 'Dewi',
+                'no_rekening' => '9876543210',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama' => 'BNI',
+                'nama_pemilik' => 'Aldi',
+                'no_rekening' => '1122334455',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
 
-        MasterKategori::create([
-            'id' => 1,
-            'nama' => 'Pulsa',
-            'created_by' => '1',
+        MasterKategori::insert([
+            [
+                'id' => 1,
+                'nama' => 'Tarik Tunai',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 2,
+                'nama' => 'Beras',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 3,
+                'nama' => 'Kabel Charger C',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 4,
+                'nama' => 'Kabel Charger Micro',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 5,
+                'nama' => 'Top Up',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
         ]);
 
-        MasterSupplier::create([
-            'id' => 1,
-            'nama' => 'sonny',
-            'no_hp' => 123456789,
-            'vendor' => 'telkomsel',
-            'created_by' => '1',
+        MasterSupplier::insert([
+            [
+                'id' => 1,
+                'nama' => 'sonny',
+                'no_hp' => 123456789,
+                'vendor' => 'telkomsel',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 2,
+                'nama' => 'budi',
+                'no_hp' => 987654321,
+                'vendor' => 'beras',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 3,
+                'nama' => 'andi',
+                'no_hp' => 123456789,
+                'vendor' => 'indosat',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
 
         MasterPelanggan::create([
             'id' => 1,
-            'nama' => 'sonny',
+            'nama' => 'toni',
             'no_hp' => 123456789,
             'alamat' => 'jati',
             'created_by' => '1',
+
         ]);
 
         MasterProduk::create([
             'id' => 1,
-            'kategori_id' => 1,
-            'nama' => 'pulsa',
-            'qty' => 100,
-            'harga_jual' => 10000,
-            'harga_beli_terakhir' => 9000,
+            'kategori_id' => 2,
+            'nama' => 'beras ir 42',
+            'qty' => 10,
+            'harga_jual' => 150000,
+            'harga_beli_terakhir' => 128000,
             'satuan_id' => 1,
             'created_by' => '1',
         ]);
-        MasterSatuan::create([
-            'id' => 1,
-            'nama' => 'Pcs',
-            'created_by' => '1',
+
+        MasterSatuan::insert([
+            [
+                'id' => 1,
+                'nama' => 'Karung',
+                'created_by' => '1',
+            ],
+            [
+                'id' => 2,
+                'nama' => 'Pcs',
+                'created_by' => '1',
+            ],
+            [
+                'id' => 3,
+                'nama' => 'Liter',
+                'created_by' => '1',
+            ]
         ]);
+
         finance_penjualan_detail::create([
             'id' => 'PJD20250001',
             'penjualan_id' => 'PJ20250001',
@@ -92,6 +191,7 @@ class DatabaseSeeder extends Seeder
             'total' => 100000,
             'created_by' => '1',
         ]);
+
         finance_penjualan::create([
             'id' => 'PJ20250001',
             'pelanggan_id' => 1,
@@ -103,13 +203,25 @@ class DatabaseSeeder extends Seeder
             'keterangan' => 'Pembayaran',
             'created_by' => '1',
         ]);
-        MasterJenisTransaksi::create([
-            'id' => 1,
-            'kode' => "TARIK",
-            'nama' => 'Tarik Tunai',
-            'keterangan' => 'Pengambilan Uang tunai',
-            'tipe' => 'Keluar',
-            'created_by' => '1',
+
+        MasterJenisTransaksi::insert([
+            [
+                'id' => 1,
+                'kategori_id' => 1,
+                'nama' => 'Tarik Tunai',
+                'keterangan' => 'Pengambilan Uang tunai',
+                'tipe' => 'Keluar',
+                'created_by' => '1',
+            ],
+            [
+                'id' => 2,
+                'kategori_id' => 2,
+                'nama' => 'Beras Karung',
+                'keterangan' => 'Beras Karung',
+                'tipe' => 'Keluar',
+                'created_by' => '1',
+            ],
+
         ]);
     }
 }

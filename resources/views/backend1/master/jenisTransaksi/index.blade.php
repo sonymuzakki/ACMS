@@ -43,7 +43,7 @@
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
-                                                Kode
+                                                Kategori
                                             </th>
                                             <th
                                                 class="px-5 border-b dark:border-darkmode-300 border-t border-slate-200/60 bg-slate-50 py-4 font-medium text-slate-500 ">
@@ -116,10 +116,14 @@
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Kode
+                                            Kategori
                                         </label>
-                                        <input data-tw-merge id="kode-edit" type="text" name="kode" placeholder="Kode" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-
+                                        <select id="kategori-select" name="kategori_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih Tipe</option>
+                                            @foreach ($kategori as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-6" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
@@ -169,21 +173,26 @@
                                 <div data-tw-merge class="p-5 grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
-                                            Kode
+                                            Kategori
                                         </label>
-                                        <input data-tw-merge id="kode-edit" type="text" name="kode" placeholder="Kode" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <select id="kategori-select-edit" name="kategori_id" class="tom-select w-full" autocomplete="off">
+                                            <option value="">Pilih Tipe</option>
+                                            @foreach ($kategori as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-6" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Nama
                                         </label>
-                                        <input data-tw-merge id="nama-edit" type="text" name="nama" placeholder="Nama" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                        <input data-tw-merge id="nama-editt" type="text" name="nama" placeholder="Nama" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                     </div>
-                                    {{-- <div class="col-span-12 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label data-tw-merge for="modal-form-1" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
                                             Tipe
                                         </label>
-                                        <select id="tipe-select" name="tipe" class="tom-select w-full" autocomplete="off">
+                                        <select id="tipe-select-edit" name="tipe" class="tom-select w-full" autocomplete="off">
                                             <option value="">Pilih Tipe</option>
                                             <option value="Keluar">Keluar</option>
                                             <option value="Masuk">Masuk</option>
@@ -194,7 +203,7 @@
                                             Keterangan
                                         </label>
                                         <input data-tw-merge name="keterangan" id="keterangan-edit" type="text" placeholder="keterangan" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="px-5 py-3 text-right border-t border-slate-200/60 dark:border-darkmode-400">
                                     <button type="button" onclick="closeEditModal()" class="mr-1 w-20 transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer">Cancel</button>
@@ -270,7 +279,7 @@
                             return data;
                         }
                     },
-                    { data: 'kode', name: 'kode', searchable: true },
+                    { data: 'kategori', name: 'kategori', searchable: true },
                     { data: 'nama', name: 'nama', searchable: true },
                     { data: 'tipe', name: 'tipe', searchable: true },
                     { data: 'keterangan', name: 'keterangan', searchable: true },
@@ -290,7 +299,7 @@
                                     </button>
                                     <div class="dropdown-menu absolute z-[9999] hidden">
                                         <div class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-40">
-                                            <a href="#" onclick="openEditModal(${row.id}, '${row.nama}','${row.kode}')"
+                                            <a href="#" onclick="openEditModal(${row.id}, ${row.kategori_id},'${row.nama}',  '${row.tipe}', '${row.keterangan ?? ''}')"
                                             class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item">
                                                 <i class="fas fa-edit mr-2"></i> Edit
                                             </a>
@@ -417,31 +426,39 @@
         new TomSelect("#tipe-select", {
             create: true, // beda konfigurasi misalnya
         });
+        new TomSelect("#kategori-select", {
+            create: true, // beda konfigurasi misalnya
+        });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Inisialisasi TomSelect pada select #tipe
-        new TomSelect('#tipe-select');
+        new TomSelect('#tipe-select-edit');
+        new TomSelect('#kategori-select-edit');
     });
 
-    function openEditModal(id,nama,kode) {
-        // Isi nilai input form edit
-        document.getElementById('nama-edit').value = nama;
-        document.getElementById('kode-edit').value = kode;
-        // document.getElementById('keterangan-edit').value = keterangan;
+    function openEditModal(id, kategori_id,nama,tipe,keterangan) {
+        document.getElementById('nama-editt').value = nama;
+        document.getElementById('keterangan-edit').value = keterangan;
 
-        // Set nilai select TomSelect
-        // let tipeSelect = document.querySelector('#tipe')?.tomselect;
-        // if (tipeSelect) tipeSelect.setValue(tipe);
+        // Set select kategori
+        let kategoriSelect = document.querySelector('#kategori-select-edit')?.tomselect;
+        if (kategoriSelect && kategori_id) kategoriSelect.setValue(kategori_id);
 
-        // Set action form update
-        document.getElementById('edit-form').action = `/jenis/transaksi/update/${id}`;
+        // Set select tipe
+        let tipeSelect = document.querySelector('#tipe-select-edit')?.tomselect;
+        if (tipeSelect && tipe) tipeSelect.setValue(tipe);
+
+        // Set action form
+        document.getElementById('edit-form').action = `/jenis/transa    ksi/update/${id}`;
 
         // Tampilkan modal
         document.getElementById('edit-modal').classList.add('show');
         document.getElementById('edit-modal').classList.remove('invisible', 'opacity-0');
     }
+
 
     function closeEditModal() {
         // Sembunyikan modal

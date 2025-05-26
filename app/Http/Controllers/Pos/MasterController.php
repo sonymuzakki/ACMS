@@ -450,14 +450,13 @@ class MasterController extends Controller
     // New produk Controller
     public function index_jenis_transaksi(Request $request)
     {
-        $data = MasterJenisTransaksi::query();
+        $data = MasterJenisTransaksi::query()->with('kategori');
         if ($request->ajax()) {
 
              // Apply custom filter if provided
             if ($request->customFilter) {
                 $data->where(function($query) use ($request) {
                     $query->where('nama', 'like', '%' . $request->customFilter . '%')
-                    ->orWhere('kode', 'like', '%' . $request->customFilter . '%')
                     ->orWhere('tipe', 'like', '%' . $request->customFilter . '%')
                     ->orWhere('keterangan', 'like', '%' . $request->customFilter . '%');
                 });
@@ -465,13 +464,16 @@ class MasterController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('kategori', function ($row) {
+                    return $row->kategori->nama ?? '';
+                })
                 ->addColumn('action', function ($row) {
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
-        return view('backend1.master.jenisTransaksi.index', compact('data'));
+        $kategori = MasterKategori::all();
+        return view('backend1.master.jenisTransaksi.index', compact('data','kategori'));
     }
 
     public function store_jenis_transaksi(Request $request)
@@ -479,7 +481,7 @@ class MasterController extends Controller
         try {
             // Validasi input
             $validated = $request->validate([
-                'kode' => 'required|string|max:255',
+                'kategori_id' => 'nullable|string|max:255',
                 'nama' => 'nullable|string|max:255',
                 'tipe' => 'nullable|string|max:255',
                 'keterangan' => 'nullable|string|max:255',
@@ -488,7 +490,7 @@ class MasterController extends Controller
             // Simpan ke database
             MasterJenisTransaksi::create([
                 'nama' => $validated['nama'],
-                'kode' => $validated['kode'],
+                'kategori_id' => $validated['kategori_id'],
                 'tipe' => $validated['tipe'],
                 'keterangan' => $validated['keterangan'],
                 'created_by' => Auth::id(),
@@ -509,7 +511,7 @@ class MasterController extends Controller
         try {
             // Validasi input
             $validated = $request->validate([
-                'kode' => 'nullable|string|max:255',
+                'kategori_id' => 'nullable|string|max:255',
                 'nama' => 'nullable|string|max:255',
                 'tipe' => 'nullable|string|max:255',
                 'keterangan' => 'nullable|string|max:255',
@@ -518,7 +520,7 @@ class MasterController extends Controller
             $data = MasterJenisTransaksi::findOrFail($id);
             $data->update([
                 'nama' => $validated['nama'],
-                'kode' => $validated['kode'],
+                'kategori_id' => $validated['kategori_id'],
                 'tipe' => $validated['tipe'],
                 'keterangan' => $validated['keterangan'],
                 'updated_by' => Auth::user()->id,

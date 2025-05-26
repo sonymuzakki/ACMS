@@ -12,4 +12,9 @@ class MasterJenisTransaksi extends Model
     protected $table = 'master_jenis_transaksi';
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+    public function kategori()
+    {
+        return $this->belongsTo(MasterKategori::class, 'kategori_id','id');
+    }
 }
