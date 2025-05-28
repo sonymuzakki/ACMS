@@ -153,9 +153,8 @@
                                                         <div class="flex-1 w-full mt-2 xl:mt-0">
                                                                 <input id="profitInput" data-tw-merge="" type="text" placeholder="Profit" value="{{ old('profit') }}" name="profit"
                                                                     class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
-                                                            </div>
-                                                        <div id="qtyCon"
-                                                            class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-20">
+                                                        </div>
+                                                        <div id="qtyCon" class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-20">
                                                             <div class="text-left mr-2 ml-3 mt-2">
                                                                 <div class="flex items-center">
                                                                     <div class="font-medium">Quantity</div>
@@ -176,31 +175,142 @@
                                                 </div>
 
                                                 <div id="elseContainer" style="display: none" class="mt-5">
-                                                    <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
-                                                        <div class="text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="font-medium">Produk</div>
-                                                                <div
-                                                                    class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
-                                                                    Required
+                                                    {{-- <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                        <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                            <div class="text-left">
+                                                                <div class="flex items-center">
+                                                                    <div class="font-medium">Produk</div>
+                                                                    <div
+                                                                        class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                        Required
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                            <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="produk" name="produk_id">
+                                                                <option value="">Pilih Produk</option>
+                                                                @foreach ($produk as $s)
+                                                                    <option value="{{ $s->id }}" data-nama="{{ $s->nama }}">{{ $s->nama }}
+                                                                @endforeach
+                                                            </select>
+                                                            @error('jenis')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div> --}}
+                                                    <!-- Form Profit and Quantity -->
+                                                    <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                        <div id="profit" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                            <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                                <div class="text-left">
+                                                                    <div class="flex items-center">
+                                                                        <div class="font-medium">Produk</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                            <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="produk" name="produk_id">
+                                                                    <option value="">Pilih Produk</option>
+                                                                    @foreach ($produk as $s)
+                                                                        <option value="{{ $s->id }}" data-nama="{{ $s->nama }}">{{ $s->nama }}
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('jenis')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                        </div>
+                                                        <div id="harga_beli" class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-38">
+                                                            <div class="text-left mr-2 ml-3 mt-2">
+                                                                <div class="flex items-center">
+                                                                    <div class="font-medium">Harga Beli</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="qtyInp" class="flex-1 w-full mt-2 xl:mt-0">
+                                                            <input data-tw-merge="" type="text" id="harga_beli" readonly placeholder="Harga beli" name="harga_beli"
+                                                                class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" >
+                                                            @error('qty')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                    <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                        <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="produk" name="produk_id">
-                                                            <option value="">Pilih Produk</option>
-                                                            @foreach ($produk as $s)
-                                                                <option value="{{ $s->id }}" data-nama="{{ $s->nama }}">{{ $s->nama }}
-                                                            @endforeach
-                                                        </select>
-                                                        @error('jenis')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                                    <!-- End Form Profit and Quantity -->
+                                                    <!-- Form Metode Pembayaran -->
+                                                    <div class="flex-col block pt-5 mt-3 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                        <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                            <div class="text-left">
+                                                                <div class="flex items-center">
+                                                                    <div class="font-medium">Metode Pembayaran</div>
+                                                                    <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                        Required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-1 w-full mt-3 xl:mt-0">
+                                                            <div class="flex flex-col sm:flex-row">
+                                                                <div data-tw-merge="" class="flex items-center mr-4">
+                                                                    <input data-tw-merge="" type="radio" name="metode_pembayaran" id="tunai" value="Tunai" {{ old('metode_pembayaran') == 'Tunai' ? 'checked' : '' }}  class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" >
+                                                                    <label data-tw-merge="" for="cash" class="cursor-pointer ml-2">Tunai</label>
+                                                                </div>
+                                                                <div data-tw-merge="" class="flex items-center mt-2 mr-4 sm:mt-0">
+                                                                    <input data-tw-merge="" type="radio" name="metode_pembayaran" id="bank" value="Bank" {{ old('metode_pembayaran') == 'Bank' ? 'checked' : '' }} class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" >
+                                                                    <label data-tw-merge="" for="condition-second" class="cursor-pointer ml-2">Bank / E-Wallet</label>
+                                                                </div>
+                                                            </div>
+                                                            @error('metode_pembayaran')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <!-- End Form Metode Pembayaran -->
+                                                    <!-- Form Bank -->
+                                                    <div id="bankForm" style="display: none" class="mt-5">
+                                                        <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                            <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                                <div class="text-left">
+                                                                    <div class="flex items-center">
+                                                                        <div class="font-medium">Bank </div>
+                                                                        <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                            Required
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                                <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="bank" name="pembayaran_id">
+                                                                    <option value="">Pilih Bank</option>
+                                                                    @foreach ($pembayaran as $s)
+                                                                        <option value="{{ $s->id }}">{{ $s->nama }}
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('pembayaran')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Bank -->
+                                                    </div>
 
+                                                    <!-- Form Harga Jual -->
+                                                    <div  id="harga" style="display: none" class="mt-5">
+                                                        <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                            <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                                <div class="text-left">
+                                                                    <div class="flex items-center">
+                                                                        <div class="font-medium">Harga</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-1 w-full mt-2 xl:mt-0">
+                                                                <input id="hargaInput" data-tw-merge="" type="text" placeholder="Harga" value="{{ old('harga_jual') }}" name="harga_jual"
+                                                                    class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Form Harga Jual -->
                                                 <div id="ketCon" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
@@ -292,10 +402,8 @@
                                         </button>
                                     </div>
                         </form>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -393,10 +501,11 @@
                 }
             };
         </script>
-        <!-- Tom Select -->
+
+        <!-- Tom Select dan Show Hide Form -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const selectIds = ['jenis', 'pembayaran'];
+                const selectIds = ['jenis', 'pembayaran','metode_pembayaran'];
 
                 selectIds.forEach(id => {
                     const element = document.getElementById(id);
@@ -409,6 +518,27 @@
                     }
                 });
 
+            });
+            // Show Hide
+            document.addEventListener('DOMContentLoaded', function() {
+                const metodePembayaranRadios = document.querySelectorAll('input[name="metode_pembayaran"]');
+                const bankForm = document.getElementById('bankForm');
+                const hargaForm = document.getElementById('harga');
+
+                metodePembayaranRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.value === 'Bank') {
+                            bankForm.style.display = 'block';
+                            hargaForm.style.display = 'block';
+                        } else if (this.value === 'Tunai') {
+                            bankForm.style.display = 'none';
+                            hargaForm.style.display = 'block';
+                        } else {
+                            bankForm.style.display = 'none';
+                            hargaForm.style.display = 'none';
+                        }
+                    });
+                });
             });
         </script>
 

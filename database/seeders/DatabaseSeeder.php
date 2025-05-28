@@ -216,7 +216,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 2,
                 'kategori_id' => 2,
-                'nama' => 'Beras Karung',
+                'nama' => 'Beras',
                 'keterangan' => 'Beras Karung',
                 'tipe' => 'Keluar',
                 'created_by' => '1',
