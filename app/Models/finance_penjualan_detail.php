@@ -31,4 +31,9 @@ class finance_penjualan_detail extends Model
     {
         return $this->belongsTo(MasterProduk::class, 'produk_id','id');
     }
+
+    public function PembelianDetail()
+    {
+        return $this->belongsTo(finance_pembelian_detail::class, 'pembelian_detail_id', 'id');
+    }
 }

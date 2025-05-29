@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('finance_penjualan_detail', function (Blueprint $table) {
             $table->string('id');
             $table->string('penjualan_id');
+            $table->string('pembelian_detail_id')->nullable();
             $table->unsignedBigInteger('produk_id');
             $table->integer('qty');
             $table->double('harga_beli')->nullable();

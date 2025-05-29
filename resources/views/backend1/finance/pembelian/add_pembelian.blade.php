@@ -83,12 +83,12 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <!-- Barang -->
+                                                <!-- Produk -->
                                                 <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                     <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
-                                                                <div class="font-medium">Kategori</div>
+                                                                <div class="font-medium">Produk</div>
                                                                 <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
                                                                     Required
                                                                 </div>
@@ -97,8 +97,8 @@
                                                     </div>
                                                     <div class="flex-1 w-full mt-2 xl:mt-0">
                                                         <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
-                                                            id="kategori" name="kategori_id">
-                                                            <option value="">Pilih Kategori</option>
+                                                            id="produk" name="produk_id">
+                                                            <option value="">Pilih Produk</option>
                                                             @foreach ($produk as $s)
                                                                 <option value="{{ $s->id }}">{{ $s->nama }}</option>
                                                             @endforeach
@@ -119,7 +119,7 @@
                                                     <div class="flex-1 w-full mt-2 xl:mt-0">
                                                         <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md"
                                                             id="payment" name="pembayaran_id">
-                                                            <option value="">Pilih Kategori</option>
+                                                            <option value="">Pilih Pembayaran</option>
                                                             @foreach ($pembayaran as $s)
                                                                 <option value="{{ $s->id }}">{{ $s->nama }}
                                                                 </option>
@@ -158,7 +158,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                        <input data-tw-merge="" type="text" id="harga" name="harga"
+                                                        <input data-tw-merge="" type="text" id="harga" name="harga_beli"
                                                             class="rupiah disable ed:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                                         @error('harga')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -322,86 +322,6 @@
                         }
                     });
                 });
-
-                // $(document).ready(function() {
-                //     const params = new URLSearchParams(window.location.search);
-                //     const inventoryId = params.get('inventory_id');
-
-                //     if (inventoryId) {
-                //         $('#selectNopolcs').val(inventoryId).trigger('change'); // set select2 dan trigger event
-
-                //         $.ajax({
-                //             url: '/get-data/' + inventoryId,
-                //             type: 'GET',
-                //             dataType: 'json',
-                //             success: function(response) {
-                //                 console.log('Full response:', response); // Liat semua isi response
-                //                 var data = response[0];
-                //                 console.log('Model:', data.model);
-                //                 console.log('Type:', data.type);
-                //                 console.log('No Rangka:', data.no_rangka);
-                //                 console.log('Tahun:', data.tahun);
-                //                 console.log('Warna:', data.warna);
-                //                 console.log('Merk:', data.merk);
-                //                 console.log('Merk Nama:', data.merk.nama);
-
-                //                 // Assign ke form
-                //                 $('#type_cs').val(data.type);
-                //                 $('#no_rangka_cs').val(data.no_rangka);
-                //                 $('#tahun_cs').val(data.tahun);
-                //                 $('#model_cs').val(data.model);
-                //                 $('#warna_cs').val(data.warna);
-                //                 $('#merk_cs').val(data.merk.nama);
-                //             },
-                //             error: function(xhr, status, error) {
-                //                 console.error('AJAX Error:', error);
-                //                 console.log('XHR Response:', xhr.responseText);
-                //             }
-                //         });
-                //     }
-                // });
-
-                $(document).ready(function() {
-                    function fetchInventoryData(inventoryId) {
-                        if (!inventoryId) return;
-
-                        // Set value dropdown supaya terlihat dipilih
-                        $('#selectNopolcs').val(inventoryId);
-
-                        $.ajax({
-                            url: '/get-data/' + inventoryId,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(response) {
-                                var data = response[0];
-                                $('#type_cs').val(data.type);
-                                $('#no_rangka_cs').val(data.no_rangka);
-                                $('#tahun_cs').val(data.tahun);
-                                $('#model_cs').val(data.model);
-                                $('#warna_cs').val(data.warna);
-                                $('#merk_cs').val(data.merk.nama);
-                            }
-                        });
-                    }
-
-                    $('#selectNopolcs').on('change', function() {
-                        var inventoryId = $(this).val();
-                        fetchInventoryData(inventoryId);
-                    });
-
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var inventoryIdFromUrl = urlParams.get('inventory_id');
-
-                    if (inventoryIdFromUrl) {
-                        // Tunggu DOM selesai render dulu baru set val dan fetch
-                        setTimeout(function() {
-                            $('#selectNopolcs').val(inventoryIdFromUrl);
-                            fetchInventoryData(inventoryIdFromUrl);
-                        }, 100); // 100ms biasanya cukup
-                    }
-                });
-
-
             });
         </script>
 
@@ -409,37 +329,30 @@
             document.getElementById("tambah").addEventListener("click", function(e) {
                 e.preventDefault();
 
-                let supplier = document.getElementById("supplier").value;
-                // let payament = document.getElementById("payament").value;
-                let kategori = document.getElementById("kategori").value;
+                // let supplier = document.getElementById("supplier").value;
+                // let kategori = document.getElementById("kategori").value;
                 let keterangan = document.querySelector("input[name='keterangan']").value;
-                let harga = document.querySelector("input[name='harga']").value;
+                let harga_beli = document.querySelector("input[name='harga_beli']").value;
                 let qty = document.querySelector("input[name='qty']").value;
 
+                let SuppEl = document.getElementById("supplier");
+                let KategoriEl = document.getElementById("produk");
+
+                let jenisId = SuppEl.value;
+                let JenisNama = jenisEl.options[jenisEl.selectedIndex].text;
+
+                let pembayaranId = pembayaranEl.value;
+                let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
+
                 // Hapus semua karakter selain angka
-                harga = parseFloat(harga.replace(/[^\d]/g, '')) || 0;
+                harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
                 qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
 
-                // if (!jenisSelect || !vendorSelect) {
-                //     console.error("Element selectJenis atau selectVendor tidak ditemukan!");
-                //     return;
-                // }
-
-                let biayaf = harga.toLocaleString();
-                let totalBiaya = qty * harga;
+                let biayaf = harga_beli.toLocaleString();
+                let totalBiaya = qty * harga_beli;
 
                 let table = document.getElementById("dataTable").querySelector("tbody");
                 let newRow = table.insertRow();
-
-                // // Cek apakah jenis adalah "Komisi Sales" atau "Komisi Supervisor"
-                // let displayKeterangan = keterangan;
-
-                // if (jenisNama.toLowerCase() === "komisi sales" && selectSales) {
-                //     displayKeterangan = selectSales.options[selectSales.selectedIndex]
-                //     .text; // Ambil nama Sales dari select
-                // } else if (jenisNama.toLowerCase() === "komisi supervisor" && selectSpv) {
-                //     displayKeterangan = selectSpv.options[selectSpv.selectedIndex].text; // Ambil nama SPV dari select
-                // }
 
                 newRow.innerHTML = `
                     <td class="py-2 px-4 border">${supplier}</td>
@@ -452,7 +365,7 @@
                         <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
                     </td>
                     <input type="hidden" name="kategori_id[]" value="${kategori}">
-                    <input type="hidden" name="harga[]" value="${harga}">
+                    <input type="hidden" name="harga_beli[]" value="${harga_beli}">
                     <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
                     <input type="hidden" name="qty[]" value="${qty}">
                     <input type="hidden" name="total[]" value="${totalBiaya}">

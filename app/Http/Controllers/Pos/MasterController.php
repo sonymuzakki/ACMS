@@ -408,12 +408,14 @@ class MasterController extends Controller
         }
 
         $hargaJual = str_replace('.', '', $request->harga_jual);
+        $hargaBeli = str_replace('.', '', $request->harga_beli);
         MasterProduk::create([
             'nama' => $request->nama,
             'kategori_id' => $kategori_id,
             'satuan_id' => $request->satuan_id,
             'qty' => $request->qty,
             'harga_jual' => (int) $hargaJual,
+            'harga_beli' => (int) $hargaBeli,
             'created_by' => Auth::id(),
         ]);
         return redirect()->route('index.produk')->with('success', 'Produk berhasil ditambahkan!');

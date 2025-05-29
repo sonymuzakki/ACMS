@@ -94,6 +94,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/jenis/transaksi/update/{id}', 'update_jenis_transaksi')->name('update.jenis_transaksi');
         Route::get('/jenis/transaksi/delete/{id}', 'delete_jenis_transaksi')->name('delete.jenis_transaksi');
 
+
         // Routes untuk Merk
         Route::get('/merk', 'index')->name('master.merk');
         Route::get('/merk/add', 'add')->name('master.add');
@@ -195,6 +196,9 @@ Route::middleware(['auth'])->group(function () {
         // Penjualan
         Route::get('/finance/penjualan', 'index_penjualan')->name('finance.penjualan.index');
         Route::get('/finance/penjualan/add', 'add_penjualan')->name('finance.penjualan.add');
+        // Route untuk cek produk by jenis transaksi
+        Route::get('/produk-by-jenis/{id}', 'getProdukByJenis')->name('produk.by.jenis');
+        Route::get('/produk/{id}/harga-beli', 'getHargaBeli')->name('produk.harga.beli');
     });
 });
 

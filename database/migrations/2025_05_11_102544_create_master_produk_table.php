@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id');
             $table->string('nama');
             $table->integer('qty');
+            $table->bigInteger('harga_beli');
             $table->bigInteger('harga_jual');
             $table->bigInteger('harga_beli_terakhir')->nullable();
             $table->unsignedBigInteger('satuan_id');

@@ -105,15 +105,15 @@ class FinanceController extends Controller
             foreach ($request->kategori_id as $index => $kategoriId) {
                 $detailId = "PBD{$date}" . str_pad($counterDetail, 4, '0', STR_PAD_LEFT);
 
-                $harga = floatval(str_replace(['.', ','], '', $request->harga[$index] ?? 0));
+                $harga_beli = floatval(str_replace(['.', ','], '', $request->harga_beli[$index] ?? 0));
                 $qty = intval($request->qty[$index] ?? 1);
-                $total = $harga * $qty;
+                $total = $harga_beli * $qty;
 
                 $detailData[] = [
                     'id' => $detailId,
                     'pembelian_id' => $finId,
                     'produk_id' => $kategoriId,
-                    'harga' => $harga,
+                    'harga_beli' => $harga_beli,
                     'keterangan' => $request->keterangan[$index] ?? '',
                     'qty' => $qty,
                     'total' => $total,
@@ -137,7 +137,7 @@ class FinanceController extends Controller
 
                     DB::table('master_produk')
                         ->where('id', $detail['produk_id'])
-                        ->update(['harga_beli_terakhir' => $detail['harga']]);
+                        ->update(['harga_beli_terakhir' => $detail['harga_beli']]);
                 }
             }
 
@@ -320,5 +320,43 @@ class FinanceController extends Controller
             'penjualan' => $penjualan,
             'pelanggan' => $pelanggan,
         ]);
+    }
+
+    public function getProdukByJenis($id)
+    {
+        $jenis = MasterJenisTransaksi::findOrFail($id);
+
+        $produk = MasterProduk::where('kategori_id', $jenis->kategori_id)
+            ->select('id', 'nama', 'harga_beli_terakhir','harga_jual')
+            ->get();
+
+        return response()->json($produk);
+    }
+
+    public function getHargaBeli($id)
+    {
+        // $detail = finance_pembelian_detail::where('produk_id', $id)
+        //             ->orderByDesc('id')
+        //             ->first(); // Ambil harga beli terakhir
+
+        // if (!$detail) {
+        //     return response()->json(['harga_beli' => null]);
+        // }
+
+        // return response()->json([
+        //     'harga_beli' => $detail->harga_beli
+        // ]);
+        Log::info('Cek produk ID', ['id' => $id]); // 👈 Tambahkan baris ini
+
+        $harga = DB::table('finance_pembelian_detail')
+            ->where('produk_id', $id)
+            ->orderByDesc('created_at') // atau 'id' jika tidak pakai timestamps
+            ->value('harga_beli');
+
+        if ($harga) {
+            return response()->json(['harga_beli' => $harga]);
+        }
+
+        return response()->json(['harga_beli' => null]);
     }
 }

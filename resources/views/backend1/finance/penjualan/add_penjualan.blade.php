@@ -175,30 +175,6 @@
                                                 </div>
 
                                                 <div id="elseContainer" style="display: none" class="mt-5">
-                                                    {{-- <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                        <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
-                                                            <div class="text-left">
-                                                                <div class="flex items-center">
-                                                                    <div class="font-medium">Produk</div>
-                                                                    <div
-                                                                        class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
-                                                                        Required
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                            <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="produk" name="produk_id">
-                                                                <option value="">Pilih Produk</option>
-                                                                @foreach ($produk as $s)
-                                                                    <option value="{{ $s->id }}" data-nama="{{ $s->nama }}">{{ $s->nama }}
-                                                                @endforeach
-                                                            </select>
-                                                            @error('jenis')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div> --}}
                                                     <!-- Form Profit and Quantity -->
                                                     <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                         <div id="profit" class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
@@ -221,7 +197,7 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                         </div>
-                                                        <div id="harga_beli" class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-38">
+                                                        <div id="harga_beliForm" class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-38">
                                                             <div class="text-left mr-2 ml-3 mt-2">
                                                                 <div class="flex items-center">
                                                                     <div class="font-medium">Harga Beli</div>
@@ -413,6 +389,7 @@
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
         <script>
+            // Show Hide Form Tarik dan Else
             document.addEventListener('DOMContentLoaded', function () {
                 const jenisSelect = document.getElementById('jenis');
                 const tarikContainer = document.getElementById('tarikContainer');
@@ -440,8 +417,69 @@
                 // Jalankan saat select berubah
                 jenisSelect.addEventListener('change', toggleTarikForm);
             });
-        </script>
 
+            // Menangani perubahan pada select produk
+            const produkSelect = new TomSelect('#produk', {
+                create: false,
+                placeholder: 'Pilih Produk',
+            });
+            // Menampilkan produk berdasarkan jenis transaksi yang dipilih
+            document.getElementById('jenis').addEventListener('change', function () {
+                const jenisId = this.value;
+
+                produkSelect.clearOptions();
+                produkSelect.addOption({ value: '', text: 'Pilih Produk' });
+                produkSelect.refreshOptions();
+
+                if (jenisId) {
+                    fetch(`/produk-by-jenis/${jenisId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            data.forEach(item => {
+                                produkSelect.addOption({
+                                    value: item.id,
+                                    text: item.nama,
+                                });
+                            });
+                            produkSelect.refreshOptions();
+                        })
+                        .catch(error => {
+                            console.error('Gagal memuat produk:', error);
+                        });
+                }
+            });
+            // Menampilkan harga beli produk saat produk dipilih
+            document.getElementById('produk').addEventListener('change', function() {
+                let produkId = this.value;
+
+                if (produkId) {
+                    fetch(`/produk/${produkId}/harga-beli`)
+                        .then(res => {
+                            if (!res.ok) {
+                                throw new Error('Gagal mengambil harga beli produk');
+                            }
+                            return res.json();
+                        })
+                        .then(data => {
+                            if (data.harga_beli === null || data.harga_beli === undefined) {
+                                throw new Error('Harga beli tidak ditemukan , Harap Periksa apakah ada pembelian terhadap produk ini');
+                            }
+
+                            document.getElementById('harga_beli').value = formatRupiah(data.harga_beli);
+                        })
+
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops!',
+                                text: error.message,
+                            });
+                        });
+                } else {
+                    document.getElementById('harga_beli').value = '';
+                }
+            });
+        </script>
 
         <script>
             const profitRules = [

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('pembelian_id');
             $table->unsignedBigInteger('produk_id')->nullable();
             $table->integer('qty')->nullable();
-            $table->double('harga')->nullable();
+            $table->integer('qty_terpakai')->default(0); // untuk FIFO tracking
+            $table->double('harga_beli')->nullable();
             $table->double('diskon')->nullable();
             $table->double('total')->nullable();
             $table->string('keterangan')->nullable();

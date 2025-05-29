@@ -111,6 +111,13 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 6,
+                'nama' => 'Accesoris',
+                'created_by' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
 
         ]);
 
@@ -153,15 +160,52 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
-        MasterProduk::create([
-            'id' => 1,
-            'kategori_id' => 2,
-            'nama' => 'beras ir 42',
-            'qty' => 10,
-            'harga_jual' => 150000,
-            'harga_beli_terakhir' => 128000,
-            'satuan_id' => 1,
-            'created_by' => '1',
+        MasterProduk::insert([
+            [
+                'id' => 1,
+                'kategori_id' => 1,
+                'nama' => 'Kabel Charger C',
+                'qty' => 100,
+                'harga_beli' => 5000,
+                'harga_jual' => 10000,
+                'harga_beli_terakhir' => 8000,
+                'satuan_id' => 2,
+                'created_by' => '1',
+            ],
+            [
+                'id' => 4,
+                'kategori_id' => 2,
+                'nama' => 'Beras',
+                'qty' => 20,
+                'harga_beli' => 5000,
+                'harga_jual' => 50000,
+                'harga_beli_terakhir' => 40000,
+                'satuan_id' => 1,
+                'created_by' => '1',
+            ],
+            [
+                'id' => 2,
+                'kategori_id' => 3,
+                'nama' => 'Kabel Charger Micro',
+                'qty' => 50,
+                'harga_beli' => 5000,
+                'harga_jual' => 12000,
+                'harga_beli_terakhir' => 9000,
+                'satuan_id' => 2,
+                'created_by' => '1',
+            ],
+            [
+                'id' => 3,
+                'kategori_id' => 5,
+                'nama' => 'Top Up Pulsa',
+                'qty' => 200,
+                'harga_beli' => 5000,
+                'harga_jual' => 50000,
+                'harga_beli_terakhir' => 45000,
+                'satuan_id' => 2,
+                'created_by' => '1',
+            ]
+
         ]);
 
         MasterSatuan::insert([
