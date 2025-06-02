@@ -199,6 +199,7 @@ Route::middleware(['auth'])->group(function () {
         // Route untuk cek produk by jenis transaksi
         Route::get('/produk-by-jenis/{id}', 'getProdukByJenis')->name('produk.by.jenis');
         Route::get('/produk/{id}/harga-beli', 'getHargaBeli')->name('produk.harga.beli');
+        Route::POST('/finance/penjualan/store', 'store_penjualan')->name('finance.penjualan.store');
     });
 });
 

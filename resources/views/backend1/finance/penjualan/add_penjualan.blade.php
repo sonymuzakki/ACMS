@@ -18,7 +18,7 @@
 
                         {{-- <form action="{{ route('finance.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf --}}
-                        <form id="formPengeluaran" action="{{ route('finance.store') }}" method="POST"
+                        <form id="formPengeluaran" action="{{ route('finance.penjualan.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
@@ -35,10 +35,8 @@
                                             </div>
 
                                             <div class="mt-5">
-                                                <div
-                                                    class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                <div class="flex-col block pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Tanggal</div>
@@ -60,13 +58,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
-                                                    <div
-                                                        class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
+                                                    <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Jenis Transaksi</div>
-                                                                <div
-                                                                    class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
                                                                     Required
                                                                 </div>
                                                             </div>
@@ -122,7 +118,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                            <input id="nominalInput" data-tw-merge="" type="text" placeholder="Nominal" value="{{ old('nominal') }}" name="nominal"
+                                                            <input id="nominalInput" data-tw-merge="" type="text" placeholder="Nominal" name="nominal"
                                                                 class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                                         </div>
                                                     </div>
@@ -151,7 +147,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                                <input id="profitInput" data-tw-merge="" type="text" placeholder="Profit" value="{{ old('profit') }}" name="profit"
+                                                                <input id="profitInput" data-tw-merge="" type="text" placeholder="Profit" name="profit"
                                                                     class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                                         </div>
                                                         <div id="qtyCon" class="inline-block mb-2 sm:mb-0 sm:mr-4 sm:text-right xl:mr-5 xl:w-20">
@@ -163,8 +159,7 @@
                                                         </div>
                                                         <div id="qtyInp" class="flex-1 w-full mt-2 xl:mt-0">
                                                             <input data-tw-merge="" type="text" id="qty"
-                                                                placeholder="qty" value="{{ old('qty', 1) }}" name="qty"
-                                                                min="1"
+                                                                placeholder="qty" value="{{ old('qty', 1) }}" name="qty" min="1"
                                                                 class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                                             @error('qty')
                                                                 <div class="text-danger">{{ $message }}</div>
@@ -256,13 +251,13 @@
                                                                 </div>
                                                             </div>
                                                             <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                                <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="bank" name="pembayaran_id">
+                                                                <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="bank_else" name="pembayaran_id_else">
                                                                     <option value="">Pilih Bank</option>
                                                                     @foreach ($pembayaran as $s)
                                                                         <option value="{{ $s->id }}">{{ $s->nama }}
                                                                     @endforeach
                                                                 </select>
-                                                                @error('pembayaran')
+                                                                @error('pembayaran_id_else')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
@@ -322,7 +317,7 @@
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Jenis Transaksi
                                                     </th>
-                                                    <th data-tw-merge
+                                                    <th data-tw-merge id="label"
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Bank / E-Wallet
                                                     </th>
@@ -581,7 +576,28 @@
         </script>
 
         <script>
-            document.getElementById("tambah").addEventListener("click", function(e) {
+
+            function getSelectedText(selectId) {
+                const el = document.getElementById(selectId);
+                return el.options[el.selectedIndex]?.text || '';
+            }
+
+            function getSelectedValue(selectId) {
+                return document.getElementById(selectId).value;
+            }
+
+            function updateLabel() {
+                const jenisText = getSelectedText('jenis').toLowerCase();
+                const label = document.getElementById("label");
+                if (jenisText.includes("tarik tunai") || jenisText.includes("top up")) {
+                    label.innerText = "Bank";
+                } else {
+                    label.innerText = "Produk";
+                }
+            }
+
+            // Tambahkan baris baru ke tabel
+            document.getElementById("tambah").addEventListener("click", function (e) {
                 e.preventDefault();
 
                 let keterangan = document.querySelector("input[name='keterangan']").value;
@@ -589,50 +605,70 @@
                 let profit = document.querySelector("input[name='profit']").value;
                 let qty = document.querySelector("input[name='qty']").value;
 
-                let jenisEl = document.getElementById("jenis");
-                let pembayaranEl = document.getElementById("pembayaran");
+                const jenisId = getSelectedValue("jenis");
+                const jenisText = getSelectedText("jenis");
 
-                let jenisId = jenisEl.value;
-                let JenisNama = jenisEl.options[jenisEl.selectedIndex].text;
+                const isBank = jenisText.toLowerCase().includes("tarik tunai") || jenisText.toLowerCase().includes("top up");
 
-                let pembayaranId = pembayaranEl.value;
-                let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
+                const bankId = getSelectedValue("pembayaran");
+                const bankText = getSelectedText("pembayaran");
 
-                // Hapus semua karakter selain angka
+                const produkId = getSelectedValue("produk");
+                const produkText = getSelectedText("produk");
+
                 nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
                 qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
                 profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
 
-                let biayaf = nominal.toLocaleString();
                 let totalBiaya = qty * nominal + profit;
 
                 let table = document.getElementById("dataTable").querySelector("tbody");
                 let newRow = table.insertRow();
 
+                const selectedName = isBank ? bankText : produkText;
+                const selectedId = isBank ? bankId : produkId;
+
                 newRow.innerHTML = `
-                    <td class="py-2 px-4 border">${JenisNama}</td>
-                    <td class="py-2 px-4 border">${pembayaranNama}</td>
-                    <td class="py-2 px-4 border">${keterangan}</td> <!-- Nama SPV atau Sales ditampilkan di sini -->
-                    <td class="py-2 px-4 border ">${biayaf}</td>
-                    <td class="py-2 px-4 border">${profit}</td>
+                    <td class="py-2 px-4 border">${jenisText}</td>
+                    <td class="py-2 px-4 border">${selectedName}</td>
+                    <td class="py-2 px-4 border">${keterangan}</td>
+                    <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
+                    <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
                     <td class="py-2 px-4 border">${qty}</td>
-                    <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
+                    <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
                     <td class="py-2 px-4 border">
                         <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
                     </td>
+
                     <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
-                    <input type="hidden" name="pembayaran_id[]" value="${pembayaranId}">
+                    <input type="hidden" name="${isBank ? 'bank_id[]' : 'produk_id[]'}" value="${selectedId}">
                     <input type="hidden" name="nominal[]" value="${nominal}">
                     <input type="hidden" name="profit[]" value="${profit}">
-                    <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
+                    <input type="hidden" name="keterangan[]" value="${keterangan}">
                     <input type="hidden" name="qty[]" value="${qty}">
                     <input type="hidden" name="total[]" value="${totalBiaya}">
                 `;
 
-                updateSubtotal();
-                resetForm();
+                // Reset input setelah tambah
+
+                document.querySelector("input[name='keterangan']").value = '';
+                document.querySelector("input[name='nominal']").value = '';
+                document.querySelector("input[name='profit']").value = '';
+                document.querySelector("input[name='qty']").value = '';
             });
 
+            // Ganti label ketika jenis transaksi dipilih
+            document.getElementById("jenis").addEventListener("change", updateLabel);
+
+            // Jalankan saat halaman dibuka
+            window.onload = updateLabel;
+
+            // Hapus baris
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("remove-row")) {
+                    e.target.closest("tr").remove();
+                }
+            });
 
             // 🔥 Fungsi untuk reset form setelah tambah data
             function resetForm() {

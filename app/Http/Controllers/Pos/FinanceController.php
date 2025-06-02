@@ -335,17 +335,6 @@ class FinanceController extends Controller
 
     public function getHargaBeli($id)
     {
-        // $detail = finance_pembelian_detail::where('produk_id', $id)
-        //             ->orderByDesc('id')
-        //             ->first(); // Ambil harga beli terakhir
-
-        // if (!$detail) {
-        //     return response()->json(['harga_beli' => null]);
-        // }
-
-        // return response()->json([
-        //     'harga_beli' => $detail->harga_beli
-        // ]);
         Log::info('Cek produk ID', ['id' => $id]); // 👈 Tambahkan baris ini
 
         $harga = DB::table('finance_pembelian_detail')
@@ -358,5 +347,47 @@ class FinanceController extends Controller
         }
 
         return response()->json(['harga_beli' => null]);
+    }
+
+    private function generateTransaksiId(): string
+    {
+        $prefix = 'PJ' . date('Y');
+        $lastId = finance_penjualan::where('id', 'like', $prefix . '%')
+            ->orderByDesc('id')
+            ->value('id');
+
+        if ($lastId) {
+            $lastNumber = (int) substr($lastId, -4);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function store_penjualan(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'tanggal' => 'required|date',
+            'jenis_transaksi_id' => 'nullable',
+            'pembayaran_id' => 'nullable',
+            'nominal' => 'nullable|numeric',
+            'profit' => 'nullable|numeric',
+            'qty' => 'nullable',
+        ]);
+
+        $id = $this->generateTransaksiId();
+
+        finance_penjualan::insert([
+            'id' => $id,
+            'tanggal' => $request->tanggal,
+            'jenis_transaksi_id' => $request->jenis_transaksi_id,
+            'pembayaran_id' => $request->pembayaran_id,
+            'qty' => $request->qty,
+            'nominal' => str_replace(['.', ','], '', $request->nominal),
+            'profit' => str_replace(['.', ','], '', $request->profit),
+        ]);
     }
 }
