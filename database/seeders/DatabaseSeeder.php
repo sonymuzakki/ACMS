@@ -243,7 +243,7 @@ class DatabaseSeeder extends Seeder
             'pembayaran_id' => 1,
             'profit' => 20000,
             'tanggal' => '2025-05-19',
-            'total' => 100000,
+            'subtotal' => 100000,
             'keterangan' => 'Pembayaran',
             'created_by' => '1',
         ]);

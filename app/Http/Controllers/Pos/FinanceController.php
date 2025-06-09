@@ -283,7 +283,13 @@ class FinanceController extends Controller
                     return $row->MasterPelanggan->nama ?? '-';
                 })
                 ->addColumn('harga', function ($row) {
-                    return $row->finance_penjualan_detail->first()->harga_jual ?? '-';
+                    return $row->finance_penjualan_detail->first()->harga ?? '-';
+                })
+                ->addColumn('nominal', function ($row) {
+                    return $row->finance_penjualan_detail->first()->nominal ?? '-';
+                })
+                ->addColumn('profit', function ($row) {
+                    return $row->finance_penjualan_detail->first()->profit ?? '-';
                 })
                 ->addColumn('qty', function ($row) {
                     return $row->finance_penjualan_detail->first()->qty ?? '-';
@@ -313,7 +319,7 @@ class FinanceController extends Controller
         $pembayaran = MasterBank::all();
         $penjualan = finance_penjualan_detail::all();
         $pelanggan = MasterPelanggan::all();
-        return view('backend1.finance.penjualan.add_penjualan', [
+        return view('backend1.finance.penjualan.add', [
             'jenis' => $jenis,
             'produk' => $produk,
             'pembayaran' => $pembayaran,
@@ -351,7 +357,7 @@ class FinanceController extends Controller
 
     private function generateTransaksiId(): string
     {
-        $prefix = 'PJ' . date('Y');
+        $prefix = 'PJ' . date('Ymd');
         $lastId = finance_penjualan::where('id', 'like', $prefix . '%')
             ->orderByDesc('id')
             ->value('id');
@@ -366,28 +372,154 @@ class FinanceController extends Controller
         return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
 
+    private function generateDetailId(): string
+    {
+        $prefix = 'PJD' . date('Ymd');
+        $lastId = finance_penjualan_detail::where('id', 'like', $prefix . '%')
+            ->orderByDesc('id')
+            ->value('id');
+
+        if ($lastId) {
+            $lastNumber = (int) substr($lastId, -4);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    // public function store_penjualan(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $request->validate([
+    //         'tanggal' => 'nullable|date',
+    //         'jenis_transaksi_id	.*' => 'nullable|exists:master_jenis_transaksi,id',
+    //         'nominal.*' => 'nullable|numeric',
+    //         'profit.*' => 'nullable|numeric',
+    //         'qty.*' => 'nullable|numeric|min:1',
+    //         'total.*' => 'nullable|numeric',
+    //         'keterangan.*' => 'nullable|string',
+    //     ]);
+
+    //     DB::beginTransaction();
+    //     try {
+    //         // Generate ID transaksi utama
+    //         $idTransaksi = $this->generateTransaksiId();
+
+    //         $transaksi = finance_penjualan::create([
+    //             'id' => $idTransaksi,
+    //             'tanggal' => $request->tanggal,
+    //             'created_by' => auth()->id(),
+    //         ]);
+
+    //         // Simpan detail transaksi
+    //         foreach ($request->master_jenis_transaksi as $i => $jenisId) {
+    //             $detailId = $this->generateDetailId();
+
+    //             finance_penjualan_detail::create([
+    //                 'id' => $detailId,
+    //                 'finance_penjualan_id' => $idTransaksi,
+    //                 'jenis_transaksi_id' => $jenisId,
+    //                 'produk_id' => $request->produk_id[$i] ?? null,
+    //                 'bank_id' => $request->bank_id[$i] ?? null,
+    //                 'nominal' => $request->nominal[$i],
+    //                 'profit' => $request->profit[$i],
+    //                 'qty' => $request->qty[$i],
+    //                 'total' => $request->total[$i],
+    //                 'keterangan' => $request->keterangan[$i] ?? '',
+    //             ]);
+    //         }
+
+    //         DB::commit();
+    //         return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return redirect()->back()->withErrors(['error' => 'Gagal menyimpan transaksi: ' . $e->getMessage()]);
+    //     }
+    // }
+
     public function store_penjualan(Request $request)
     {
         // dd($request->all());
         $request->validate([
-            'tanggal' => 'required|date',
-            'jenis_transaksi_id' => 'nullable',
-            'pembayaran_id' => 'nullable',
-            'nominal' => 'nullable|numeric',
-            'profit' => 'nullable|numeric',
-            'qty' => 'nullable',
+            'tanggal' => 'nullable|date',
+            'jenis_transaksi_id.*' => 'nullable',
+            'nominal.*' => 'nullable|',
+            'profit.*' => 'nullable|',
+            'qty.*' => 'nullable|',
+            'total.*' => 'nullable|',
+            'keterangan.*' => 'nullable|string',
         ]);
 
-        $id = $this->generateTransaksiId();
+        DB::beginTransaction();
+        try {
+            // Generate ID transaksi utama
+            $idTransaksi = $this->generateTransaksiId();
 
-        finance_penjualan::insert([
-            'id' => $id,
-            'tanggal' => $request->tanggal,
-            'jenis_transaksi_id' => $request->jenis_transaksi_id,
-            'pembayaran_id' => $request->pembayaran_id,
-            'qty' => $request->qty,
-            'nominal' => str_replace(['.', ','], '', $request->nominal),
-            'profit' => str_replace(['.', ','], '', $request->profit),
-        ]);
+            $transaksi = finance_penjualan::create([
+                'id' => $idTransaksi,
+                // 'jenis_transaksi_id' => $request->jenis_transaksi_id,
+                'jenis_transaksi_id' => $request->jenis_transaksi_id[0] ?? null,
+                'pembayaran_id' => $request->pembayaran_id,
+                'subtotal' => $request->total[0] ?? 0,
+                'tanggal' => $request->tanggal,
+                'created_by' => auth()->id(),
+            ]);
+
+            // Simpan detail transaksi
+            foreach ($request->jenis_transaksi_id as $i => $jenisId) {
+                $detailId = $this->generateDetailId();
+
+                finance_penjualan_detail::create([
+                    'id' => $detailId,
+                    'penjualan_id' => $idTransaksi,
+                    'produk_id' => $request->produk_id[$i] ?? null,
+                    'nominal' => $request->nominal[$i],
+                    'profit' => $request->profit[$i],
+                    'qty' => $request->qty[$i],
+                    'total' => $request->total[$i],
+                    'keterangan' => $request->keterangan[$i] ?? '',
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // ✅ Log error untuk debugging
+            Log::error('Gagal menyimpan transaksi penjualan', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+
+            return redirect()->back()->withErrors(['error' => 'Gagal menyimpan transaksi: ' . $e->getMessage()]);
+        }
+    }
+
+    public function delete_penjualan($id)
+    {
+        DB::beginTransaction();
+        try {
+            // Cek apakah data penjualan ada
+            $penjualan = finance_penjualan::find($id);
+            if (!$penjualan) {
+                return response()->json(['message' => 'Data tidak ditemukan'], 404);
+            }
+
+            // Hapus detail penjualan terlebih dahulu
+            finance_penjualan_detail::where('penjualan_id', $id)->delete();
+
+            // Hapus data utama dari finance_penjualan
+            $penjualan->delete();
+
+            DB::commit();
+            return response()->json(['message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Terjadi kesalahan', 'error' => $e->getMessage()], 500);
+        }
     }
 }

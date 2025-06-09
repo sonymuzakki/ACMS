@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('jenis_transaksi_id')->nullable();
             $table->date('tanggal')->nullable();
             $table->double('profit')->nullable();
-            $table->double('total')->nullable();
+            $table->double('subtotal')->nullable();
             $table->string('keterangan')->nullable();
             $table->integer('status')->default(0)->comment('0 = draft, 1 = proses, 2 = selesai', '3 = batal');
             $table->integer('status_closing')->default(0)->comment('0 = open, 1 = closed');

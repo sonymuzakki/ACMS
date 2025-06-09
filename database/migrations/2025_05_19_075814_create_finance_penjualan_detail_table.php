@@ -15,10 +15,13 @@ return new class extends Migration
             $table->string('id');
             $table->string('penjualan_id');
             $table->string('pembelian_detail_id')->nullable();
-            $table->unsignedBigInteger('produk_id');
-            $table->integer('qty');
+            $table->string('produk_id')->nullable();
+            $table->double('nominal')->nullable();
+            $table->double('profit')->nullable();
+            $table->double('qty')->nullable();
             $table->double('harga_beli')->nullable();
             $table->double('harga_jual')->nullable();
+            $table->string('keterangan')->nullable();
             $table->double('total');
             $table->string('created_by')->nullable();
             $table->timestamps();

@@ -200,6 +200,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/produk-by-jenis/{id}', 'getProdukByJenis')->name('produk.by.jenis');
         Route::get('/produk/{id}/harga-beli', 'getHargaBeli')->name('produk.harga.beli');
         Route::POST('/finance/penjualan/store', 'store_penjualan')->name('finance.penjualan.store');
+        Route::get('/finance/penjualan/delete/{id}', 'delete_penjualan')->name('finance.penjualan.delete');
     });
 });
 
