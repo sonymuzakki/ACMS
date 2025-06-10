@@ -326,54 +326,100 @@
         </script>
 
         <script>
+            // document.getElementById("tambah").addEventListener("click", function(e) {
+            //     e.preventDefault();
+
+            //     // let supplier = document.getElementById("supplier").value;
+            //     // let kategori = document.getElementById("kategori").value;
+            //     let keterangan = document.querySelector("input[name='keterangan']").value;
+            //     let harga_beli = document.querySelector("input[name='harga_beli']").value;
+            //     let qty = document.querySelector("input[name='qty']").value;
+
+            //     let SuppEl = document.getElementById("supplier");
+            //     let KategoriEl = document.getElementById("produk");
+
+            //     let jenisId = SuppEl.value;
+            //     let JenisNama = SuppEl.options[SuppEl.selectedIndex].text;
+
+            //     let pembayaranId = pembayaranEl.value;
+            //     let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
+
+            //     // Hapus semua karakter selain angka
+            //     harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
+            //     qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
+
+            //     let biayaf = harga_beli.toLocaleString();
+            //     let totalBiaya = qty * harga_beli;
+
+            //     let table = document.getElementById("dataTable").querySelector("tbody");
+            //     let newRow = table.insertRow();
+
+            //     newRow.innerHTML = `
+            //         <td class="py-2 px-4 border">${supplier}</td>
+            //         <td class="py-2 px-4 border">${kategori}</td>
+            //         <td class="py-2 px-4 border">${keterangan}</td> <!-- Nama SPV atau Sales ditampilkan di sini -->
+            //         <td class="py-2 px-4 border">${qty}</td>
+            //         <td class="py-2 px-4 border ">${biayaf}</td>
+            //         <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
+            //         <td class="py-2 px-4 border">
+            //             <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
+            //         </td>
+            //         <input type="hidden" name="kategori_id[]" value="${kategori}">
+            //         <input type="hidden" name="harga_beli[]" value="${harga_beli}">
+            //         <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
+            //         <input type="hidden" name="qty[]" value="${qty}">
+            //         <input type="hidden" name="total[]" value="${totalBiaya}">
+            //     `;
+
+            //     updateSubtotal();
+            //     resetForm();
+            // });
             document.getElementById("tambah").addEventListener("click", function(e) {
-                e.preventDefault();
+    e.preventDefault();
 
-                // let supplier = document.getElementById("supplier").value;
-                // let kategori = document.getElementById("kategori").value;
-                let keterangan = document.querySelector("input[name='keterangan']").value;
-                let harga_beli = document.querySelector("input[name='harga_beli']").value;
-                let qty = document.querySelector("input[name='qty']").value;
+    let keterangan = document.querySelector("input[name='keterangan']").value;
+    let harga_beli = document.querySelector("input[name='harga_beli']").value;
+    let qty = document.querySelector("input[name='qty']").value;
 
-                let SuppEl = document.getElementById("supplier");
-                let KategoriEl = document.getElementById("produk");
+    let SuppEl = document.getElementById("supplier");
+    let ProdukEl = document.getElementById("produk");
 
-                let jenisId = SuppEl.value;
-                let JenisNama = jenisEl.options[jenisEl.selectedIndex].text;
+    let supplierId = SuppEl.value;
+    let supplierNama = SuppEl.options[SuppEl.selectedIndex].text;
 
-                let pembayaranId = pembayaranEl.value;
-                let pembayaranNama = pembayaranEl.options[pembayaranEl.selectedIndex].text;
+    let kategoriId = ProdukEl.value;
+    let kategoriNama = ProdukEl.options[ProdukEl.selectedIndex].text;
 
-                // Hapus semua karakter selain angka
-                harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
-                qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
+    // Hapus karakter selain angka
+    harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
+    qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
 
-                let biayaf = harga_beli.toLocaleString();
-                let totalBiaya = qty * harga_beli;
+    let biayaf = harga_beli.toLocaleString();
+    let totalBiaya = qty * harga_beli;
 
-                let table = document.getElementById("dataTable").querySelector("tbody");
-                let newRow = table.insertRow();
+    let table = document.getElementById("dataTable").querySelector("tbody");
+    let newRow = table.insertRow();
 
-                newRow.innerHTML = `
-                    <td class="py-2 px-4 border">${supplier}</td>
-                    <td class="py-2 px-4 border">${kategori}</td>
-                    <td class="py-2 px-4 border">${keterangan}</td> <!-- Nama SPV atau Sales ditampilkan di sini -->
-                    <td class="py-2 px-4 border">${qty}</td>
-                    <td class="py-2 px-4 border ">${biayaf}</td>
-                    <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
-                    <td class="py-2 px-4 border">
-                        <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
-                    </td>
-                    <input type="hidden" name="kategori_id[]" value="${kategori}">
-                    <input type="hidden" name="harga_beli[]" value="${harga_beli}">
-                    <input type="hidden" name="keterangan[]" value="${keterangan}"> <!-- Simpan nama SPV/Sales -->
-                    <input type="hidden" name="qty[]" value="${qty}">
-                    <input type="hidden" name="total[]" value="${totalBiaya}">
-                `;
+    newRow.innerHTML = `
+        <td class="py-2 px-4 border">${supplierNama}</td>
+        <td class="py-2 px-4 border">${kategoriNama}</td>
+        <td class="py-2 px-4 border">${keterangan}</td>
+        <td class="py-2 px-4 border">${qty}</td>
+        <td class="py-2 px-4 border">${biayaf}</td>
+        <td class="py-2 px-4 border biaya-value">${totalBiaya.toLocaleString()}</td>
+        <td class="py-2 px-4 border">
+            <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
+        </td>
+        <input type="hidden" name="kategori_id[]" value="${kategoriId}">
+        <input type="hidden" name="harga_beli[]" value="${harga_beli}">
+        <input type="hidden" name="keterangan[]" value="${keterangan}">
+        <input type="hidden" name="qty[]" value="${qty}">
+        <input type="hidden" name="total[]" value="${totalBiaya}">
+    `;
 
-                updateSubtotal();
-                resetForm();
-            });
+    updateSubtotal();
+    resetForm();
+});
 
 
             // 🔥 Fungsi untuk reset form setelah tambah data

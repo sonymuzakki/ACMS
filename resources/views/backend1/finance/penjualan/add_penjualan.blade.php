@@ -4,8 +4,7 @@
 @section('br2', 'Add')
 @section('main')
 
-    <div
-        class="content transition-[margin,width] duration-100 xl:pl-3.5 pt-[54px] pb-16 relative z-10 group mode content--compact xl:ml-[275px] mode--light [&.content--compact]:xl:ml-[91px]">
+    <div class="content transition-[margin,width] duration-100 xl:pl-3.5 pt-[54px] pb-16 relative z-10 group mode content--compact xl:ml-[275px] mode--light [&.content--compact]:xl:ml-[91px]">
         <div class="mt-16 px-5">
             <div class="container">
                 <div class="grid grid-cols-12 gap-x-6 gap-y-10">
@@ -40,8 +39,7 @@
                                                         <div class="text-left">
                                                             <div class="flex items-center">
                                                                 <div class="font-medium">Tanggal</div>
-                                                                <div
-                                                                    class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
+                                                                <div class="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">
                                                                     Required
                                                                 </div>
                                                             </div>
@@ -251,7 +249,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                                <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="bank_else" name="pembayaran_id_else">
+                                                                <select class="tom-select w-full text-sm border-slate-200 shadow-sm rounded-md" id="bank_else" name="pembayaran_id">
                                                                     <option value="">Pilih Bank</option>
                                                                     @foreach ($pembayaran as $s)
                                                                         <option value="{{ $s->id }}">{{ $s->nama }}
@@ -276,7 +274,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="flex-1 w-full mt-2 xl:mt-0">
-                                                                <input id="hargaInput" data-tw-merge="" type="text" placeholder="Harga" value="{{ old('harga_jual') }}" name="harga_jual"
+                                                                <input id="harga_jual" data-tw-merge="" type="text" placeholder="Harga" value="{{ old('harga_jual_else') }}" name="harga_jual_else"
                                                                     class="rupiah disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&[type='file']]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10">
                                                             </div>
                                                         </div>
@@ -597,65 +595,157 @@
             }
 
             // Tambahkan baris baru ke tabel
+            // document.getElementById("tambah").addEventListener("click", function (e) {
+            //     e.preventDefault();
+
+            //     let keterangan = document.querySelector("input[name='keterangan']").value;
+            //     let nominal = document.querySelector("input[name='nominal']").value;
+            //     let profit = document.querySelector("input[name='profit']").value;
+            //     let qty = document.querySelector("input[name='qty']").value;
+            //     let harga_jual = document.querySelector("input[name='harga_jual']").value;
+
+            //     const jenisId = getSelectedValue("jenis");
+            //     const jenisText = getSelectedText("jenis");
+
+            //     const isBank = jenisText.toLowerCase().includes("tarik tunai") || jenisText.toLowerCase().includes("top up");
+
+            //     const bankId = getSelectedValue("pembayaran");
+            //     const bankText = getSelectedText("pembayaran");
+
+            //     const produkId = getSelectedValue("produk");
+            //     const produkText = getSelectedText("produk");
+
+            //     nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
+            //     qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
+            //     profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
+            //     harga_jual = parseFloat(harga_jual.replace(/[^\d]/g, '')) || 0;
+
+            //     let totalBiaya = 0;
+
+            //     if (produkId) {
+            //         // Jika produk_id ada, pakai harga (harga jual)
+            //         totalBiaya = harga_jual;
+            //     } else {
+            //         // Jika bukan produk, hitung totalBiaya dari qty * nominal + profit
+            //         totalBiaya = qty * nominal + profit;
+            //     }
+
+            //     // let totalBiaya = qty * nominal + profit;
+
+
+            //     let table = document.getElementById("dataTable").querySelector("tbody");
+            //     let newRow = table.insertRow();
+
+            //     const selectedName = isBank ? bankText : produkText;
+            //     const selectedId = isBank ? bankId : produkId;
+
+            //     newRow.innerHTML = `
+            //         <td class="py-2 px-4 border">${jenisText}</td>
+            //         <td class="py-2 px-4 border">${selectedName}</td>
+            //         <td class="py-2 px-4 border">${keterangan}</td>
+            //         <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
+            //         <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
+            //         <td class="py-2 px-4 border">${qty}</td>
+            //         <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
+            //         <td class="py-2 px-4 border">
+            //             <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
+            //         </td>
+
+            //         <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+            //         <input type="hidden" name="${isBank ? 'bank_id[]' : 'produk_id[]'}" value="${selectedId}">
+            //         <input type="hidden" name="nominal[]" value="${nominal}">
+            //         <input type="hidden" name="profit[]" value="${profit}">
+            //         <input type="hidden" name="harga[]" value="${harga}">
+            //         <input type="hidden" name="harga_jual[]" value="${harga_jual}">
+            //         <input type="hidden" name="keterangan[]" value="${keterangan}">
+            //         <input type="hidden" name="qty[]" value="${qty}">
+            //         <input type="hidden" name="total[]" value="${totalBiaya}">
+            //     `;
+
+            //     // Reset input setelah tambah
+
+            //     document.querySelector("input[name='keterangan']").value = '';
+            //     document.querySelector("input[name='nominal']").value = '';
+            //     document.querySelector("input[name='profit']").value = '';
+            //     document.querySelector("input[name='qty']").value = '';
+            //     document.querySelector("input[name='harga_jual']").value = '';
+            // });
             document.getElementById("tambah").addEventListener("click", function (e) {
-                e.preventDefault();
+    e.preventDefault();
 
-                let keterangan = document.querySelector("input[name='keterangan']").value;
-                let nominal = document.querySelector("input[name='nominal']").value;
-                let profit = document.querySelector("input[name='profit']").value;
-                let qty = document.querySelector("input[name='qty']").value;
+    let keterangan = document.querySelector("input[name='keterangan']").value;
+    let nominal = document.querySelector("input[name='nominal']").value;
+    let profit = document.querySelector("input[name='profit']").value;
+    let qty = document.querySelector("input[name='qty']").value;
 
-                const jenisId = getSelectedValue("jenis");
-                const jenisText = getSelectedText("jenis");
+    // Harga jual dan harga beli
+    let harga_jual = document.querySelector("harga_jual").value;
+    let harga_beli = document.querySelector("harga_beli").value;
 
-                const isBank = jenisText.toLowerCase().includes("tarik tunai") || jenisText.toLowerCase().includes("top up");
+    const jenisId = getSelectedValue("jenis");
+    const jenisText = getSelectedText("jenis");
 
-                const bankId = getSelectedValue("pembayaran");
-                const bankText = getSelectedText("pembayaran");
+    const isBank = jenisText.toLowerCase().includes("tarik tunai") || jenisText.toLowerCase().includes("top up");
 
-                const produkId = getSelectedValue("produk");
-                const produkText = getSelectedText("produk");
+    const bankId = getSelectedValue("pembayaran");
+    const bankText = getSelectedText("pembayaran");
 
-                nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
-                qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
-                profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
+    const produkId = getSelectedValue("produk");
+    const produkText = getSelectedText("produk");
 
-                let totalBiaya = qty * nominal + profit;
+    // Konversi angka
+    nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
+    qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
+    profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
+    harga_jual = parseFloat(harga_jual.replace(/[^\d]/g, '')) || 0;
+    harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
 
-                let table = document.getElementById("dataTable").querySelector("tbody");
-                let newRow = table.insertRow();
+    let totalBiaya = 0;
 
-                const selectedName = isBank ? bankText : produkText;
-                const selectedId = isBank ? bankId : produkId;
+    if (produkId) {
+        // Jika produk_id ada, pakai harga (harga jual)
+        totalBiaya = harga_jual;
+    } else {
+        // Jika bukan produk, hitung totalBiaya dari qty * nominal + profit
+        totalBiaya = qty * nominal + profit;
+    }
 
-                newRow.innerHTML = `
-                    <td class="py-2 px-4 border">${jenisText}</td>
-                    <td class="py-2 px-4 border">${selectedName}</td>
-                    <td class="py-2 px-4 border">${keterangan}</td>
-                    <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
-                    <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
-                    <td class="py-2 px-4 border">${qty}</td>
-                    <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
-                    <td class="py-2 px-4 border">
-                        <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
-                    </td>
+    let table = document.getElementById("dataTable").querySelector("tbody");
+    let newRow = table.insertRow();
 
-                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
-                    <input type="hidden" name="${isBank ? 'bank_id[]' : 'produk_id[]'}" value="${selectedId}">
-                    <input type="hidden" name="nominal[]" value="${nominal}">
-                    <input type="hidden" name="profit[]" value="${profit}">
-                    <input type="hidden" name="keterangan[]" value="${keterangan}">
-                    <input type="hidden" name="qty[]" value="${qty}">
-                    <input type="hidden" name="total[]" value="${totalBiaya}">
-                `;
+    const selectedName = isBank ? bankText : produkText;
+    const selectedId = isBank ? bankId : produkId;
 
-                // Reset input setelah tambah
+    newRow.innerHTML = `
+        <td class="py-2 px-4 border">${jenisText}</td>
+        <td class="py-2 px-4 border">${selectedName}</td>
+        <td class="py-2 px-4 border">${keterangan}</td>
+        <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
+        <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
+        <td class="py-2 px-4 border">${qty}</td>
+        <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
+        <td class="py-2 px-4 border">
+            <button class="bg-red-500 text-white px-2 py-1 rounded remove-row">Hapus</button>
+        </td>
 
-                document.querySelector("input[name='keterangan']").value = '';
-                document.querySelector("input[name='nominal']").value = '';
-                document.querySelector("input[name='profit']").value = '';
-                document.querySelector("input[name='qty']").value = '';
-            });
+        <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+        <input type="hidden" name="${isBank ? 'bank_id[]' : 'produk_id[]'}" value="${selectedId}">
+        <input type="hidden" name="nominal[]" value="${nominal}">
+        <input type="hidden" name="profit[]" value="${profit}">
+        <input type="hidden" name="keterangan[]" value="${keterangan}">
+        <input type="hidden" name="qty[]" value="${qty}">
+        <input type="hidden" name="harga_jual[]" value="${harga_jual}">
+        <input type="hidden" name="total[]" value="${totalBiaya}">
+    `;
+
+    // Reset input
+    document.querySelector("input[name='keterangan']").value = '';
+    document.querySelector("input[name='nominal']").value = '';
+    document.querySelector("input[name='profit']").value = '';
+    document.querySelector("input[name='qty']").value = '';
+    document.getElementById("harga_jual").value = '';
+    // document.getElementById("harga_beli").value = '';
+});
 
             // Ganti label ketika jenis transaksi dipilih
             document.getElementById("jenis").addEventListener("change", updateLabel);

@@ -328,6 +328,22 @@ class FinanceController extends Controller
         ]);
     }
 
+    public function add_penjualan1()
+    {
+        $jenis = MasterJenisTransaksi::all();
+        $produk = MasterProduk::all();
+        $pembayaran = MasterBank::all();
+        $penjualan = finance_penjualan_detail::all();
+        $pelanggan = MasterPelanggan::all();
+        return view('backend1.finance.penjualan.add_penjualan', [
+            'jenis' => $jenis,
+            'produk' => $produk,
+            'pembayaran' => $pembayaran,
+            'penjualan' => $penjualan,
+            'pelanggan' => $pelanggan,
+        ]);
+    }
+
     public function getProdukByJenis($id)
     {
         $jenis = MasterJenisTransaksi::findOrFail($id);
@@ -456,13 +472,17 @@ class FinanceController extends Controller
         try {
             // Generate ID transaksi utama
             $idTransaksi = $this->generateTransaksiId();
+            $hargaBeli = str_replace('.', '', $request->harga_beli);
+            $hargaJual = str_replace('.', '', $request->harga_jual);
 
             $transaksi = finance_penjualan::create([
                 'id' => $idTransaksi,
                 // 'jenis_transaksi_id' => $request->jenis_transaksi_id,
                 'jenis_transaksi_id' => $request->jenis_transaksi_id[0] ?? null,
                 'pembayaran_id' => $request->pembayaran_id,
+                'pembayaran_id' => $request->pembayaran_id_else,
                 'subtotal' => $request->total[0] ?? 0,
+                'subtotal' => $hargaJual,
                 'tanggal' => $request->tanggal,
                 'created_by' => auth()->id(),
             ]);
@@ -471,13 +491,19 @@ class FinanceController extends Controller
             foreach ($request->jenis_transaksi_id as $i => $jenisId) {
                 $detailId = $this->generateDetailId();
 
+
                 finance_penjualan_detail::create([
                     'id' => $detailId,
                     'penjualan_id' => $idTransaksi,
+                    'metode_pembayaran' => $request->metode_pembayaran,
+                    'harga_beli' => $hargaBeli,
+                    'harga_jual' => $hargaJual,
+                    'total' => $hargaJual,
                     'produk_id' => $request->produk_id[$i] ?? null,
                     'nominal' => $request->nominal[$i],
                     'profit' => $request->profit[$i],
                     'qty' => $request->qty[$i],
+
                     'total' => $request->total[$i],
                     'keterangan' => $request->keterangan[$i] ?? '',
                 ]);

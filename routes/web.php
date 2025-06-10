@@ -196,6 +196,7 @@ Route::middleware(['auth'])->group(function () {
         // Penjualan
         Route::get('/finance/penjualan', 'index_penjualan')->name('finance.penjualan.index');
         Route::get('/finance/penjualan/add', 'add_penjualan')->name('finance.penjualan.add');
+        Route::get('/finance/penjualan/add1', 'add_penjualan1')->name('finance.penjualan.add1');
         // Route untuk cek produk by jenis transaksi
         Route::get('/produk-by-jenis/{id}', 'getProdukByJenis')->name('produk.by.jenis');
         Route::get('/produk/{id}/harga-beli', 'getHargaBeli')->name('produk.harga.beli');

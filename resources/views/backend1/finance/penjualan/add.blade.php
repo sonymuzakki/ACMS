@@ -80,7 +80,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="mt-5">
+                                                <div id="tarikContainer" style="display: none" class="mt-5">
                                                     <!-- Form Bank / E-Wallet -->
                                                     <div class="flex-col pt-5 mt-2 first:mt-0 first:pt-0 sm:flex xl:flex-row xl:items-center">
                                                         <div class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-60">

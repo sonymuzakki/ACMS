@@ -226,27 +226,31 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        finance_penjualan_detail::create([
-            'id' => 'PJD20250001',
-            'penjualan_id' => 'PJ20250001',
-            'produk_id' => 1,
-            'qty' => 10,
-            'harga_jual' => 10000,
-            'total' => 100000,
-            'created_by' => '1',
-        ]);
-
         finance_penjualan::create([
             'id' => 'PJ20250001',
             'pelanggan_id' => 1,
             'jenis_transaksi_id' => 1,
             'pembayaran_id' => 1,
-            'profit' => 20000,
             'tanggal' => '2025-05-19',
             'subtotal' => 100000,
             'keterangan' => 'Pembayaran',
             'created_by' => '1',
         ]);
+
+        finance_penjualan_detail::create([
+            'id' => 'PJD20250001',
+            'penjualan_id' => 'PJ20250001',
+            'produk_id' => 1,
+            'nominal' => 10000,
+            'profit' => 2000,
+            'qty' => 10,
+            'keterangan' => 'Pembelian Kabel Charger C',
+            'harga_beli' => 8000,
+            'harga_jual' => 10000,
+            'total' => 100000,
+            'created_by' => '1',
+        ]);
+
 
         MasterJenisTransaksi::insert([
             [
