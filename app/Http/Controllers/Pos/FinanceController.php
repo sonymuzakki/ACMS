@@ -343,7 +343,6 @@ class FinanceController extends Controller
             'penjualan' => $penjualan,
             'pelanggan' => $pelanggan,
         ]);
-
     }
 
     public function getProdukByJenis($id)
@@ -407,160 +406,71 @@ class FinanceController extends Controller
         return $prefix . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
 
-
-    // public function store_penjualan(Request $request)
-    // {
-    //     dd($request->all());
-    //     $request->validate([
-    //         'tanggal' => 'nullable|date',
-    //         'jenis_transaksi_id.*' => 'nullable',
-    //         'nominal.*' => 'nullable|',
-    //         'profit.*' => 'nullable|',
-    //         'qty.*' => 'nullable|',
-    //         'total.*' => 'nullable|',
-    //         'keterangan.*' => 'nullable|string',
-    //     ]);
-
-    //     DB::beginTransaction();
-    //     try {
-    //         // Generate ID transaksi utama
-    //         $idTransaksi = $this->generateTransaksiId();
-    //         $hargaBeli = str_replace('.', '', $request->harga_beli);
-    //         $hargaJual = str_replace('.', '', $request->harga_jual);
-    //         $pembayaranId = $request->pembayaran_id_else ?? $request->pembayaran_id;
-    //         $subtotal = $request->total[0] ?? str_replace('.', '', $request->harga_jual);
-
-    //         $transaksi = finance_penjualan::create([
-    //             'id' => $idTransaksi,
-    //             // 'jenis_transaksi_id' => $request->jenis_transaksi_id,
-    //             'jenis_transaksi_id' => $request->jenis_transaksi_id[0] ?? null,
-    //             'pembayaran_id' => $pembayaranId,
-    //             'pembayaran_id' => $request->pembayaran_id_else,
-    //             'metode_pembayaran' => is_array($request->metode_pembayaran) ? $request->metode_pembayaran[0] ?? null : $request->metode_pembayaran, // tambahkan ini
-    //             'subtotal' => $request->total[0] ?? 0,
-    //             'subtotal' => $hargaJual,
-    //             'tanggal' => $request->tanggal,
-    //             'created_by' => auth()->id(),
-    //         ]);
-
-    //         // // Simpan detail transaksi
-    //         // foreach ($request->jenis_transaksi_id as $i => $jenisId) {
-    //         //     $detailId = $this->generateDetailId();
-
-    //         //     finance_penjualan_detail::create([
-    //         //         'id' => $detailId,
-    //         //         'penjualan_id' => $idTransaksi,
-    //         //         'metode_pembayaran' => $request->metode_pembayaran,
-    //         //         'harga_beli' => $hargaBeli,
-    //         //         'harga_jual' => $hargaJual,
-    //         //         'total' => $hargaJual,
-    //         //         'produk_id' => $request->produk_id[$i] ?? null,
-    //         //         'nominal' => $request->nominal[$i],
-    //         //         'profit' => $request->profit[$i],
-    //         //         'qty' => $request->qty[$i],
-
-    //         //         'total' => $request->total[$i],
-    //         //         'keterangan' => $request->keterangan[$i] ?? '',
-    //         //     ]);
-    //         // }
-
-    //         foreach ($request->jenis_transaksi_id as $i => $jenisId) {
-    //             finance_penjualan_detail::create([
-    //                 'id' => $this->generateDetailId(),
-    //                 'penjualan_id' => $idTransaksi,
-    //                 'harga_beli' => str_replace('.', '', $request->harga_beli[$i] ?? 0),
-    //                 'harga_jual' => str_replace('.', '', $request->harga_jual[$i] ?? 0),
-    //                 'total' => str_replace('.', '', $request->total[$i] ?? 0),
-    //                 'produk_id' => $request->produk_id[$i] ?? null,
-    //                 'nominal' => str_replace('.', '', $request->nominal[$i] ?? 0),
-    //                 'profit' => str_replace('.', '', $request->profit[$i] ?? 0),
-    //                 'qty' => $request->qty[$i] ?? 1,
-    //                 'keterangan' => $request->keterangan[$i] ?? '',
-    //             ]);
-    //         }
-
-    //         DB::commit();
-    //         return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-
-    //         // ✅ Log error untuk debugging
-    //         Log::error('Gagal menyimpan transaksi penjualan', [
-    //             'message' => $e->getMessage(),
-    //             'trace' => $e->getTraceAsString(),
-    //             'request' => $request->all()
-    //         ]);
-
-    //         return redirect()->back()->withErrors(['error' => 'Gagal menyimpan transaksi: ' . $e->getMessage()]);
-    //     }
-    // }
-
-
     public function store_penjualan(Request $request)
-{
-    // dd($request->all());
-    function toInt($value) {
-    return (int) str_replace('.', '', $value);
-}
-    $request->validate([
-        'tanggal' => 'nullable|date',
-        'jenis_transaksi_id.*' => 'nullable',
-        'nominal.*' => 'nullable',
-        'profit.*' => 'nullable',
-        'qty.*' => 'nullable',
-        'total.*' => 'nullable',
-        'keterangan.*' => 'nullable|string',
-    ]);
-
-    DB::beginTransaction();
-    try {
-        $idTransaksi = $this->generateTransaksiId();
-
-        // Ambil pembayaran_id yang benar
-        $pembayaranId = $request->pembayaran_id_else ?? $request->pembayaran_id;
-        $subtotal = toInt($request->harga_jual); // Ambil dari total pertama (kalau hanya satu item)
-
-        // ⬇️ Simpan ke tabel finance_penjualan (HEADER)
-        $transaksi = finance_penjualan::create([
-            'id' => $idTransaksi,
-            'jenis_transaksi_id' => $request->jenis_transaksi_id[0] ?? null,
-            'pembayaran_id' => $pembayaranId,
-            'subtotal' => $subtotal,
-            'tanggal' => $request->tanggal,
-            'metode_pembayaran' => $request->metode_pembayaran, // DI SINI tempatnya
-            'created_by' => auth()->id(),
-        ]);
-
-        // ⬇️ Simpan ke tabel finance_penjualan_detail (DETAIL)
-        foreach ($request->jenis_transaksi_id as $i => $jenisId) {
-            finance_penjualan_detail::create([
-                'id' => $this->generateDetailId(),
-                'penjualan_id' => $idTransaksi,
-
-                'produk_id'  => $request->produk_id[$i] ?? null,
-                'nominal'    => toInt($request->nominal[$i] ?? 0),
-                'profit'     => toInt($request->profit[$i] ?? 0),
-                'qty'        => $request->qty[$i] ?? 1,
-                'total'      => toInt($request->total[$i] ?? 0),
-                'harga_jual' => toInt($request->harga_jual), // Jika hanya 1 item
-                'harga_beli' => toInt($request->harga_beli),
-                'keterangan' => $request->keterangan[$i] ?? '',
-            ]);
-        }
-
-        DB::commit();
-        return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
-    } catch (\Exception $e) {
-        DB::rollBack();
-        Log::error('Gagal menyimpan transaksi penjualan', [
-            'message' => $e->getMessage(),
-            'trace' => $e->getTraceAsString(),
-            'request' => $request->all()
-        ]);
-
-        return redirect()->back()->withErrors(['error' => 'Gagal menyimpan transaksi: ' . $e->getMessage()]);
+    {
+        // dd($request->all());
+        function toInt($value) {
+        return (int) str_replace('.', '', $value);
     }
-}
+        $request->validate([
+            'tanggal' => 'nullable|date',
+            'jenis_transaksi_id.*' => 'nullable',
+            'nominal.*' => 'nullable',
+            'profit.*' => 'nullable',
+            'qty.*' => 'nullable',
+            'total.*' => 'nullable',
+            'keterangan.*' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $idTransaksi = $this->generateTransaksiId();
+
+            // Ambil pembayaran_id yang benar
+            $pembayaranId = $request->pembayaran_id_else ?? $request->pembayaran_id;
+            $subtotal = toInt($request->harga_jual); // Ambil dari total pertama (kalau hanya satu item)
+
+            // ⬇️ Simpan ke tabel finance_penjualan (HEADER)
+            $transaksi = finance_penjualan::create([
+                'id' => $idTransaksi,
+                'jenis_transaksi_id' => $request->jenis_transaksi_id[0] ?? null,
+                'pembayaran_id' => $pembayaranId,
+                'subtotal' => $subtotal,
+                'tanggal' => $request->tanggal,
+                'metode_pembayaran' => $request->metode_pembayaran, // DI SINI tempatnya
+                'created_by' => auth()->id(),
+            ]);
+
+            // ⬇️ Simpan ke tabel finance_penjualan_detail (DETAIL)
+            foreach ($request->jenis_transaksi_id as $i => $jenisId) {
+                finance_penjualan_detail::create([
+                    'id' => $this->generateDetailId(),
+                    'penjualan_id' => $idTransaksi,
+
+                    'produk_id'  => $request->produk_id[$i] ?? null,
+                    'nominal'    => toInt($request->nominal[$i] ?? 0),
+                    'profit'     => toInt($request->profit[$i] ?? 0),
+                    'qty'        => $request->qty[$i] ?? 1,
+                    'total'      => toInt($request->total[$i] ?? 0),
+                    'harga_jual' => toInt($request->harga_jual), // Jika hanya 1 item
+                    'harga_beli' => toInt($request->harga_beli),
+                    'keterangan' => $request->keterangan[$i] ?? '',
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Transaksi berhasil disimpan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Gagal menyimpan transaksi penjualan', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+
+            return redirect()->back()->withErrors(['error' => 'Gagal menyimpan transaksi: ' . $e->getMessage()]);
+        }
+    }
 
     public function delete_penjualan($id)
     {

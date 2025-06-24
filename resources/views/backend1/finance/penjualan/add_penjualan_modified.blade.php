@@ -308,7 +308,7 @@
                                     </div>
 
                                     <!-- Tabel untuk menampilkan data yang sudah diinput -->
-                                    <div class="overflow-x-auto mt-5 mb-4">
+                                    {{-- <div class="overflow-x-auto mt-5 mb-4">
                                         <table id="dataTable" data-tw-merge class="w-full text-left">
                                             <thead data-tw-merge class="bg-dark text-white dark:bg-black/30">
                                                 <tr data-tw-merge class="">
@@ -316,10 +316,10 @@
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Jenis Transaksi
                                                     </th>
-                                                    <th data-tw-merge
+                                                    <!-- <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Produk
-                                                    </th>
+                                                    </th> -->
                                                     <th data-tw-merge
                                                         class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 border-b-0 whitespace-nowrap">
                                                         Bank / E-Wallet
@@ -359,14 +359,41 @@
                                                     <td></td>
                                                 </tr>
                                             </tfoot>
-
-                                        <tbody id="metode-pembayaran-info" class="hidden"></tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
+                                    <div class="overflow-x-auto mt-5 mb-4">
+    <table id="dataTable" data-tw-merge class="w-full text-left">
+        <thead data-tw-merge class="bg-dark text-white dark:bg-black/30">
+            <tr>
+                <th class="font-medium px-5 py-3 border-b-2">Jenis Transaksi</th>
+                <th class="font-medium px-5 py-3 border-b-2">Bank / E-Wallet</th>
+                <th class="font-medium px-5 py-3 border-b-2">Keterangan</th>
+                <th class="font-medium px-5 py-3 border-b-2">Nominal</th>
+                <th class="font-medium px-5 py-3 border-b-2">Profit</th>
+                <th class="font-medium px-5 py-3 border-b-2">Qty</th>
+                <th class="font-medium px-5 py-3 border-b-2">Total</th>
+                <th class="font-medium px-5 py-3 border-b-2">Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="data-table-body"></tbody>
+
+        <tfoot>
+            <tr class="bg-gray-100 dark:bg-black/30">
+                <td colspan="6" class="px-5 py-3 font-bold text-right">Subtotal:</td>
+                <td class="px-5 py-3 font-bold" id="subtotal">0</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<!-- Input hidden untuk dikirim ke backend -->
+<input type="hidden" id="subtotal_input" name="subtotal">
                                     <!-- End Tabel -->
 
                                     <!-- Input hidden untuk menyimpan array data -->
-                                    {{-- <input type="hidden" name="biaya[]" value="${biaya}"> --}}
+                                    <!-- <input type="hidden" name="biaya[]" value="${biaya}"> -->
                                     <input type="hidden" id="subtotal_input" name="subtotal">
 
                                     <div class="flex flex-col justify-end gap-3 mt-2 md:flex-row">
@@ -582,126 +609,43 @@
 
         <script>
 
-            // function getSelectedText(selectId) {
-            //     const el = document.getElementById(selectId);
-            //     return el.options[el.selectedIndex]?.text || '';
-            // }
+                function getSelectedValue(id) {
+                const el = document.getElementById(id);
+                return el ? el.value : '';
+            }
 
-            // function getSelectedValue(selectId) {
-            //     return document.getElementById(selectId).value;
-            // }
+            function getSelectedText(id) {
+                const el = document.getElementById(id);
+                const selected = el ? el.options[el.selectedIndex] : null;
+                return selected ? selected.text : '';
+            }
 
-            // function updateLabel() {
-            //     const jenisText = getSelectedText('jenis').toLowerCase();
-            //     const label = document.getElementById("label");
-            //     if (jenisText.includes("tarik tunai") || jenisText.includes("top up")) {
-            //         label.innerText = "Bank";
-            //     } else {
-            //         label.innerText = "Produk";
-            //     }
-            // }
+            function unformatNumber(num) {
+                return parseInt((num || '0').replace(/[^\d]/g, ''), 10) || 0;
+            }
 
-            // Tambahkan baris baru ke tabel
+            function recalculateSubtotal() {
+                let sum = 0;
+                document.querySelectorAll("input[name='total[]']").forEach(el => {
+                    sum += unformatNumber(el.value);
+                });
+                // Update hidden input
+                const subtotalInput = document.querySelector("input[name='subtotal']");
+                if (subtotalInput) subtotalInput.value = sum;
+
+                // Update tampilan subtotal
+                const subtotalDisplay = document.getElementById("subtotal");
+                if (subtotalDisplay) subtotalDisplay.textContent = sum.toLocaleString();
+            }
+
             // document.getElementById("tambah").addEventListener("click", function (e) {
             //     e.preventDefault();
-
-            //     let keterangan = document.querySelector("input[name='keterangan']").value;
-            //     let nominal = document.querySelector("input[name='nominal']").value;
-            //     let profit = document.querySelector("input[name='profit']").value;
-            //     let qty = document.querySelector("input[name='qty']").value;
-            //     let harga_jual = document.querySelector("input[name='harga_jual']").value;
 
             //     const jenisId = getSelectedValue("jenis");
             //     const jenisText = getSelectedText("jenis");
 
-            //     const isBank = jenisText.toLowerCase().includes("tarik tunai") || jenisText.toLowerCase().includes("top up");
-
-            //     const bankId = getSelectedValue("pembayaran");
-            //     const bankText = getSelectedText("pembayaran");
-
-            //     const produkId = getSelectedValue("produk");
-            //     const produkText = getSelectedText("produk");
-
-            //     nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
-            //     qty = parseFloat(qty.replace(/[^\d]/g, '')) || 0;
-            //     profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
-            //     harga_jual = parseFloat(harga_jual.replace(/[^\d]/g, '')) || 0;
-
-            //     let totalBiaya = 0;
-
-            //     if (produkId) {
-            //         // Jika produk_id ada, pakai harga (harga jual)
-            //         totalBiaya = harga_jual;
-            //     } else {
-            //         // Jika bukan produk, hitung totalBiaya dari qty * nominal + profit
-            //         totalBiaya = qty * nominal + profit;
-            //     }
-
-            //     // let totalBiaya = qty * nominal + profit;
-
-
-            //     let table = document.getElementById("dataTable").querySelector("tbody");
-            //     let newRow = table.insertRow();
-
-            //     const selectedName = isBank ? bankText : produkText;
-            //     const selectedId = isBank ? bankId : produkId;
-
-            //     newRow.innerHTML = `
-            //         <td class="py-2 px-4 border">${jenisText}</td>
-            //         <td class="py-2 px-4 border">${selectedName}</td>
-            //         <td class="py-2 px-4 border">${keterangan}</td>
-            //         <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
-            //         <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
-            //         <td class="py-2 px-4 border">${qty}</td>
-            //         <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
-            //         <td class="py-2 px-4 border">
-            //             <button class="bg-red-500 text-red px-2 py-1 rounded remove-row">Hapus</button>
-            //         </td>
-
-            //         <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
-            //         <input type="hidden" name="${isBank ? 'bank_id[]' : 'produk_id[]'}" value="${selectedId}">
-            //         <input type="hidden" name="nominal[]" value="${nominal}">
-            //         <input type="hidden" name="profit[]" value="${profit}">
-            //         <input type="hidden" name="harga[]" value="${harga}">
-            //         <input type="hidden" name="harga_jual[]" value="${harga_jual}">
-            //         <input type="hidden" name="keterangan[]" value="${keterangan}">
-            //         <input type="hidden" name="qty[]" value="${qty}">
-            //         <input type="hidden" name="total[]" value="${totalBiaya}">
-            //     `;
-
-            //     // Reset input setelah tambah
-
-            //     document.querySelector("input[name='keterangan']").value = '';
-            //     document.querySelector("input[name='nominal']").value = '';
-            //     document.querySelector("input[name='profit']").value = '';
-            //     document.querySelector("input[name='qty']").value = '';
-            //     document.querySelector("input[name='harga_jual']").value = '';
-            // });
-            // function getSelectedValue(selectId) {
-            //             const select = document.getElementById(selectId);
-            //         return select ? select.value : '';
-            //     }
-
-            // function getSelectedText(selectId) {
-            //     const select = document.getElementById(selectId);
-            //     const selectedOption = select ? select.options[select.selectedIndex] : null;
-            //     return selectedOption ? selectedOption.text : '';
-            // }
-            // document.getElementById("tambah").addEventListener("click", function (e) {
-            //     e.preventDefault();
-
-            //     let keterangan = document.querySelector("input[name='keterangan']").value;
-            //     let nominal = document.querySelector("input[name='nominal']").value;
-            //     let profit = document.querySelector("input[name='profit']").value;
-            //     let qty = document.querySelector("input[name='qty']").value || 1; // default 1
-            //     let harga_jual = document.getElementById("harga_jual").value || 0;
-            //     let harga_beli = document.getElementById("harga_beli").value || 0;
-
-            //     const jenisId = getSelectedValue("jenis");
-            //     const jenisText = getSelectedText("jenis");
-
-            //     const metodePembayaran = document.querySelector('input[name="metode_pembayaran"]:checked');
-            //     const metodeText = metodePembayaran ? metodePembayaran.value : "Tunai";
+            //     const metode = document.querySelector("input[name='metode_pembayaran']:checked");
+            //     const metodeText = metode ? metode.value : "Tunai";
 
             //     const bankId = getSelectedValue("bank_else");
             //     const bankText = getSelectedText("bank_else");
@@ -709,215 +653,58 @@
             //     const produkId = getSelectedValue("produk");
             //     const produkText = getSelectedText("produk");
 
-            //     const isBeras = jenisText.toLowerCase() === "beras";
-            //     const isTunaiAtauEwallet = metodeText.toLowerCase() === "tunai" || metodeText.toLowerCase() === "e-wallet";
+            //     const hargaJualRaw = document.getElementById("harga_jual").value;
+            //     const hargaBeliRaw = document.getElementById("harga_beli").value;
 
+            //     const hargaJual = unformatNumber(hargaJualRaw);
+            //     const hargaBeli = unformatNumber(hargaBeliRaw);
+            //     const qty = parseInt(document.querySelector("input[name='qty']")?.value || '1');
+            //     const keterangan = document.querySelector("input[name='keterangan']")?.value || '';
 
-            //     // Konversi angka
-            //     nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
-            //     qty = parseFloat(qty.replace(/[^\d]/g, '')) || 1;
-            //     profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
-            //     harga_jual = parseFloat(harga_jual.replace(/[^\d]/g, '')) || 0;
-            //     harga_beli = parseFloat(harga_beli.replace(/[^\d]/g, '')) || 0;
-
-
-            //     let totalBiaya = 0;
-            //     if (produkId) {
-            //         totalBiaya = harga_jual;
-            //     } else if (isBeras && isTunaiAtauEwallet) {
-            //         totalBiaya = harga_jual * qty;
-            //         profit = harga_jual - harga_beli; // Hitung ulang profit
-            //     } else {
-            //         totalBiaya = qty * nominal + profit;
+            //     // if (!jenisId || !hargaJual || !hargaBeli) {
+            //     if (!jenisId ) {
+            //         alert("Pastikan jenis transaksi, harga jual dan harga beli diisi.");
+            //         return;
             //     }
 
-            //     let table = document.getElementById("dataTable").querySelector("tbody");
-            //     let newRow = table.insertRow();
+            //     const nominal = hargaJual;
+            //     const profit = hargaJual - hargaBeli;
+            //     const total = hargaJual * qty;
 
-            //     // Tampilkan Bank/Harga Beli jika metode Bank, jika tidak tampilkan Tunai
-            //     let metodeCol = "";
-            //     if (produkId) {
-            //         if (metodeText === "Bank") {
-            //             metodeCol = `Bank: ${bankText}<br>Harga Beli: ${harga_beli.toLocaleString('id-ID')}`;
-            //         } else {
-            //             metodeCol = "Tunai";
-            //         }
-            //     } else {
-            //         metodeCol = bankText || "-";
-            //     }
+            //     const table = document.getElementById("dataTable").querySelector("tbody");
+            //     const row = table.insertRow();
 
-            //     newRow.innerHTML = `
+            //     const metodeCol = metodeText === "Bank" ? `${bankText}` : "Tunai";
+
+            //     row.innerHTML = `
             //         <td class="py-2 px-4 border">${jenisText}</td>
             //         <td class="py-2 px-4 border">${metodeCol}</td>
             //         <td class="py-2 px-4 border">${keterangan}</td>
             //         <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
             //         <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
             //         <td class="py-2 px-4 border">${qty}</td>
-            //         <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
+            //         <td class="py-2 px-4 border">${total.toLocaleString()}</td>
             //         <td class="py-2 px-4 border">
-            //             <button class="bg-red-500 text-white px-2 py-1 rounded remove-row">Hapus</button>
+            //             <button type="button" class="bg-red-500 text-dark px-2 py-1 rounded remove-row">Hapus</button>
             //         </td>
 
             //         <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
             //         <input type="hidden" name="${produkId ? 'produk_id[]' : 'bank_id[]'}" value="${produkId || bankId}">
             //         <input type="hidden" name="nominal[]" value="${nominal}">
             //         <input type="hidden" name="profit[]" value="${profit}">
-            //         <input type="hidden" name="keterangan[]" value="${keterangan}">
             //         <input type="hidden" name="qty[]" value="${qty}">
-            //         <input type="hidden" name="harga_jual[]" value="${harga_jual}">
-            //         <input type="hidden" name="harga_beli[]" value="${harga_beli}">
-            //         <input type="hidden" name="metode_pembayaran[]" value="${metodeText}">
-            //         <input type="hidden" name="total[]" value="${totalBiaya}">
+            //         <input type="hidden" name="harga_jual" value="${hargaJual}">
+            //         <input type="hidden" name="harga_beli" value="${hargaBeli}">
+            //         <input type="hidden" name="metode_pembayaran" value="${metodeText}">
+            //         <input type="hidden" name="total[]" value="${total}">
             //     `;
 
-            //     // Reset input
-            //     document.querySelector("input[name='keterangan']").value = '';
-            //     document.querySelector("input[name='nominal']").value = '';
-            //     document.querySelector("input[name='profit']").value = '';
-            //     document.querySelector("input[name='qty']").value = 1;
+            //     recalculateSubtotal();
+
             //     document.getElementById("harga_jual").value = '';
             //     document.getElementById("harga_beli").value = '';
             // });
-
-    // function getSelectedValue(selectId) {
-    //     const select = document.getElementById(selectId);
-    //     return select ? select.value : '';
-    // }
-
-    // function getSelectedText(selectId) {
-    //     const select = document.getElementById(selectId);
-    //     const selectedOption = select ? select.options[select.selectedIndex] : null;
-    //     return selectedOption ? selectedOption.text : '';
-    // }
-
-
-    // document.getElementById("tambah").addEventListener("click", function (e) {
-    //     e.preventDefault();
-
-    //     const jenisId = getSelectedValue("jenis");
-    //     const jenisText = getSelectedText("jenis").toLowerCase();
-
-    //     const metodeRadio = document.querySelector('input[name="metode_pembayaran"]:checked');
-    //     const metodeText = metodeRadio ? metodeRadio.value.toLowerCase() : "tunai";
-
-    //     const bankId = getSelectedValue("bank_else");
-    //     const bankText = getSelectedText("bank_else");
-
-    //     const produkId = getSelectedValue("produk");
-    //     const produkText = getSelectedText("produk");
-
-    //     // Cek apakah jenisnya beras & metode tunai/e-wallet
-    //     const isBeras = jenisText === "beras";
-    //     const isTunaiAtauEwallet = metodeText === "tunai" || metodeText === "e-wallet";
-
-    //     // Tampilkan input harga jika beras + tunai/e-wallet
-    //     if (isBeras && isTunaiAtauEwallet) {
-    //         const hargaDiv = document.getElementById("harga");
-    //         if (hargaDiv) hargaDiv.style.display = "block";
-    //     }
-
-    //     // Ambil nilai dari input
-    //     let keterangan = document.querySelector("input[name='keterangan']").value;
-    //     let nominal = document.querySelector("input[name='nominal']").value;
-    //     let profit = document.querySelector("input[name='profit']").value;
-    //     let qty = document.querySelector("input[name='qty']").value || 1;
-    //     let harga_jual = document.getElementById("harga_jual").value || 0;
-    //     let harga_beli = document.getElementById("harga_beli").value || 0;
-
-    //     // Konversi angka
-    //     nominal = parseFloat(nominal.replace(/[^\d]/g, '')) || 0;
-    //     qty = parseFloat(qty.toString().replace(/[^\d]/g, '')) || 1;
-    //     profit = parseFloat(profit.replace(/[^\d]/g, '')) || 0;
-    //     harga_jual = parseFloat(harga_jual.toString().replace(/[^\d]/g, '')) || 0;
-    //     harga_beli = parseFloat(harga_beli.toString().replace(/[^\d]/g, '')) || 0;
-
-    //     // Hitung Total
-    //     let totalBiaya = 0;
-    //     if (produkId) {
-    //         totalBiaya = harga_jual;
-    //     } else if (isBeras && isTunaiAtauEwallet) {
-    //         profit = harga_jual - harga_beli;
-    //         totalBiaya = harga_jual * qty;
-    //     } else {
-    //         totalBiaya = qty * nominal + profit;
-    //     }
-
-    //     // Tambahkan ke tabel
-    //     const table = document.getElementById("dataTable").querySelector("tbody");
-    //     const newRow = table.insertRow();
-
-    //     // Kolom Metode
-    //     let metodeCol = "-";
-    //     if (produkId) {
-    //         if (metodeText === "bank") {
-    //             metodeCol = `Bank: ${bankText}<br>Harga Beli: ${harga_beli.toLocaleString('id-ID')}`;
-    //         } else {
-    //             metodeCol = "Tunai";
-    //         }
-    //     } else {
-    //         metodeCol = bankText || "-";
-    //     }
-
-    //     // Tambahkan baris baru ke tabel
-    //     newRow.innerHTML = `
-    //         <td class="py-2 px-4 border">${jenisText}</td>
-    //         <td class="py-2 px-4 border">${metodeCol}</td>
-    //         <td class="py-2 px-4 border">${keterangan}</td>
-    //         <td class="py-2 px-4 border">
-    //             ${isBeras && isTunaiAtauEwallet ? harga_jual.toLocaleString() : nominal.toLocaleString()}
-    //         </td>
-    //         <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
-    //         <td class="py-2 px-4 border">${qty}</td>
-    //         <td class="py-2 px-4 border">${totalBiaya.toLocaleString()}</td>
-    //         <td class="py-2 px-4 border">
-    //             <button class="bg-red-500 text-white px-2 py-1 rounded remove-row">Hapus</button>
-    //         </td>
-
-    //         <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
-    //         <input type="hidden" name="${produkId ? 'produk_id[]' : 'bank_id[]'}" value="${produkId || bankId}">
-    //         <input type="hidden" name="nominal[]" value="${nominal}">
-    //         <input type="hidden" name="profit[]" value="${profit}">
-    //         <input type="hidden" name="keterangan[]" value="${keterangan}">
-    //         <input type="hidden" name="qty[]" value="${qty}">
-    //         <input type="hidden" name="harga_jual[]" value="${harga_jual}">
-    //         <input type="hidden" name="harga_beli[]" value="${harga_beli}">
-    //         <input type="hidden" name="total[]" value="${totalBiaya}">
-    //     `;
-
-    //     // Reset input
-    //     document.querySelector("input[name='keterangan']").value = '';
-    //     document.querySelector("input[name='nominal']").value = '';
-    //     document.querySelector("input[name='profit']").value = '';
-    //     document.querySelector("input[name='qty']").value = 1;
-    //     document.getElementById("harga_jual").value = '';
-    //     document.getElementById("harga_beli").value = '';
-    // });
-
-    function getSelectedValue(id) {
-    const el = document.getElementById(id);
-    return el ? el.value : '';
-}
-
-function getSelectedText(id) {
-    const el = document.getElementById(id);
-    const selected = el ? el.options[el.selectedIndex] : null;
-    return selected ? selected.text : '';
-}
-
-function unformatNumber(num) {
-    return parseInt((num || '0').replace(/[^\d]/g, ''), 10) || 0;
-}
-
-function recalculateSubtotal() {
-    let sum = 0;
-    document.querySelectorAll("input[name='total[]']").forEach(el => {
-        sum += unformatNumber(el.value);
-    });
-    const subtotalInput = document.querySelector("input[name='subtotal']");
-    if (subtotalInput) subtotalInput.value = sum;
-}
-
-document.getElementById("tambah").addEventListener("click", function (e) {
+            document.getElementById("tambah").addEventListener("click", function (e) {
     e.preventDefault();
 
     const jenisId = getSelectedValue("jenis");
@@ -932,37 +719,62 @@ document.getElementById("tambah").addEventListener("click", function (e) {
     const produkId = getSelectedValue("produk");
     const produkText = getSelectedText("produk");
 
-    const hargaJualRaw = document.getElementById("harga_jual").value;
-    const hargaBeliRaw = document.getElementById("harga_beli").value;
+    // Ambil nama jenis transaksi
+    const jenisSelect = document.getElementById('jenis');
+    const selectedOption = jenisSelect.options[jenisSelect.selectedIndex];
+    const jenisNama = selectedOption ? selectedOption.getAttribute('data-nama') : '';
 
-    const hargaJual = unformatNumber(hargaJualRaw);
-    const hargaBeli = unformatNumber(hargaBeliRaw);
-    const qty = parseInt(document.querySelector("input[name='qty']")?.value || '1');
+    let hargaJual = 0, hargaBeli = 0, profit = 0, nominal = 0, total = 0, qty = 1;
 
-    if (!jenisId || !hargaJual || !hargaBeli) {
-        alert("Pastikan jenis transaksi, harga jual dan harga beli diisi.");
+    if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
+        // Ambil dari input nominal & profit
+        const nominalRaw = document.getElementById("nominalInput").value;
+        const profitRaw = document.getElementById("profitInput").value;
+        nominal = unformatNumber(nominalRaw);
+        profit = unformatNumber(profitRaw);
+        hargaJual = nominal;
+        hargaBeli = nominal - profit;
+        qty = 1;
+        total = nominal * qty;
+    } else {
+        // Ambil dari input harga jual & beli
+        const hargaJualRaw = document.getElementById("harga_jual").value;
+        const hargaBeliRaw = document.getElementById("harga_beli").value;
+        hargaJual = unformatNumber(hargaJualRaw);
+        hargaBeli = unformatNumber(hargaBeliRaw);
+        profit = hargaJual - hargaBeli;
+        qty = parseInt(document.querySelector("input[name='qty']")?.value || '1');
+        nominal = hargaJual;
+        total = hargaJual * qty;
+    }
+
+    const keterangan = document.querySelector("input[name='keterangan']")?.value || '';
+
+    if (!jenisId) {
+        alert("Pastikan jenis transaksi diisi.");
         return;
     }
 
-    const nominal = hargaJual;
-    const profit = hargaJual - hargaBeli;
-    const total = hargaJual * qty;
-
     const table = document.getElementById("dataTable").querySelector("tbody");
+    // Cek jika sudah ada satu baris data
+    if (table.rows.length > 0) {
+        alert("Hanya bisa menambahkan satu data transaksi saja.");
+        return;
+    }
     const row = table.insertRow();
 
-    const metodeCol = metodeText === "Bank" ? `Bank: ${bankText}<br>Harga Beli: ${hargaBeli.toLocaleString('id-ID')}` : "Tunai";
+    const metodeCol = metodeText === "Bank" ? `${bankText}` : "Tunai";
 
     row.innerHTML = `
         <td class="py-2 px-4 border">${jenisText}</td>
         <td class="py-2 px-4 border">${metodeCol}</td>
-        <td class="py-2 px-4 border">-</td>
+        <td class="py-2 px-4 border">${keterangan}</td>
         <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
         <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
         <td class="py-2 px-4 border">${qty}</td>
         <td class="py-2 px-4 border">${total.toLocaleString()}</td>
         <td class="py-2 px-4 border">
-            <button type="button" class="bg-red-500 text-white px-2 py-1 rounded remove-row">Hapus</button>
+            <button type="button" class="bg-red-500 text-dark px-2 py-1 rounded remove-row">Hapus</button>
         </td>
 
         <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
@@ -978,17 +790,23 @@ document.getElementById("tambah").addEventListener("click", function (e) {
 
     recalculateSubtotal();
 
-    document.getElementById("harga_jual").value = '';
-    document.getElementById("harga_beli").value = '';
-});
-
-document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("remove-row")) {
-        const row = e.target.closest("tr");
-        row.remove();
-        recalculateSubtotal();
+    // Reset input sesuai jenis
+    if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
+        document.getElementById("nominalInput").value = '';
+        document.getElementById("profitInput").value = '';
+    } else {
+        document.getElementById("harga_jual").value = '';
+        document.getElementById("harga_beli").value = '';
     }
 });
+
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("remove-row")) {
+                    const row = e.target.closest("tr");
+                    row.remove();
+                    recalculateSubtotal();
+                }
+            });
 
             // Ganti label ketika jenis transaksi dipilih
             // document.getElementById("jenis").addEventListener("change", updateLabel);
