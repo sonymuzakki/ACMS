@@ -705,100 +705,100 @@
             //     document.getElementById("harga_beli").value = '';
             // });
             document.getElementById("tambah").addEventListener("click", function (e) {
-    e.preventDefault();
+                e.preventDefault();
 
-    const jenisId = getSelectedValue("jenis");
-    const jenisText = getSelectedText("jenis");
+                const jenisId = getSelectedValue("jenis");
+                const jenisText = getSelectedText("jenis");
 
-    const metode = document.querySelector("input[name='metode_pembayaran']:checked");
-    const metodeText = metode ? metode.value : "Tunai";
+                const metode = document.querySelector("input[name='metode_pembayaran']:checked");
+                const metodeText = metode ? metode.value : "Tunai";
 
-    const bankId = getSelectedValue("bank_else");
-    const bankText = getSelectedText("bank_else");
+                const bankId = getSelectedValue("bank_else");
+                const bankText = getSelectedText("bank_else");
 
-    const produkId = getSelectedValue("produk");
-    const produkText = getSelectedText("produk");
+                const produkId = getSelectedValue("produk");
+                const produkText = getSelectedText("produk");
 
-    // Ambil nama jenis transaksi
-    const jenisSelect = document.getElementById('jenis');
-    const selectedOption = jenisSelect.options[jenisSelect.selectedIndex];
-    const jenisNama = selectedOption ? selectedOption.getAttribute('data-nama') : '';
+                // Ambil nama jenis transaksi
+                const jenisSelect = document.getElementById('jenis');
+                const selectedOption = jenisSelect.options[jenisSelect.selectedIndex];
+                const jenisNama = selectedOption ? selectedOption.getAttribute('data-nama') : '';
 
-    let hargaJual = 0, hargaBeli = 0, profit = 0, nominal = 0, total = 0, qty = 1;
+                let hargaJual = 0, hargaBeli = 0, profit = 0, nominal = 0, total = 0, qty = 1;
 
-    if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
-        // Ambil dari input nominal & profit
-        const nominalRaw = document.getElementById("nominalInput").value;
-        const profitRaw = document.getElementById("profitInput").value;
-        nominal = unformatNumber(nominalRaw);
-        profit = unformatNumber(profitRaw);
-        hargaJual = nominal;
-        hargaBeli = nominal - profit;
-        qty = 1;
-        total = nominal * qty;
-    } else {
-        // Ambil dari input harga jual & beli
-        const hargaJualRaw = document.getElementById("harga_jual").value;
-        const hargaBeliRaw = document.getElementById("harga_beli").value;
-        hargaJual = unformatNumber(hargaJualRaw);
-        hargaBeli = unformatNumber(hargaBeliRaw);
-        profit = hargaJual - hargaBeli;
-        qty = parseInt(document.querySelector("input[name='qty']")?.value || '1');
-        nominal = hargaJual;
-        total = hargaJual * qty;
-    }
+                if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
+                    // Ambil dari input nominal & profit
+                    const nominalRaw = document.getElementById("nominalInput").value;
+                    const profitRaw = document.getElementById("profitInput").value;
+                    nominal = unformatNumber(nominalRaw);
+                    profit = unformatNumber(profitRaw);
+                    hargaJual = nominal;
+                    // hargaBeli = nominal - profit;
+                    qty = 1;
+                    total = nominal + profit * qty;
+                } else {
+                    // Ambil dari input harga jual & beli
+                    const hargaJualRaw = document.getElementById("harga_jual").value;
+                    const hargaBeliRaw = document.getElementById("harga_beli").value;
+                    hargaJual = unformatNumber(hargaJualRaw);
+                    hargaBeli = unformatNumber(hargaBeliRaw);
+                    profit = hargaJual - hargaBeli;
+                    qty = parseInt(document.querySelector("input[name='qty']")?.value || '1');
+                    nominal = hargaJual;
+                    total = hargaJual * qty;
+                }
 
-    const keterangan = document.querySelector("input[name='keterangan']")?.value || '';
+                const keterangan = document.querySelector("input[name='keterangan']")?.value || '';
 
-    if (!jenisId) {
-        alert("Pastikan jenis transaksi diisi.");
-        return;
-    }
+                if (!jenisId) {
+                    alert("Pastikan jenis transaksi diisi.");
+                    return;
+                }
 
-    const table = document.getElementById("dataTable").querySelector("tbody");
-    // Cek jika sudah ada satu baris data
-    if (table.rows.length > 0) {
-        alert("Hanya bisa menambahkan satu data transaksi saja.");
-        return;
-    }
-    const row = table.insertRow();
+                const table = document.getElementById("dataTable").querySelector("tbody");
+                // Cek jika sudah ada satu baris data
+                if (table.rows.length > 0) {
+                    alert("Hanya bisa menambahkan satu data transaksi saja.");
+                    return;
+                }
+                const row = table.insertRow();
 
-    const metodeCol = metodeText === "Bank" ? `${bankText}` : "Tunai";
+                const metodeCol = metodeText === "Bank" ? `${bankText}` : "Tunai";
 
-    row.innerHTML = `
-        <td class="py-2 px-4 border">${jenisText}</td>
-        <td class="py-2 px-4 border">${metodeCol}</td>
-        <td class="py-2 px-4 border">${keterangan}</td>
-        <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
-        <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
-        <td class="py-2 px-4 border">${qty}</td>
-        <td class="py-2 px-4 border">${total.toLocaleString()}</td>
-        <td class="py-2 px-4 border">
-            <button type="button" class="bg-red-500 text-dark px-2 py-1 rounded remove-row">Hapus</button>
-        </td>
+                row.innerHTML = `
+                    <td class="py-2 px-4 border">${jenisText}</td>
+                    <td class="py-2 px-4 border">${metodeCol}</td>
+                    <td class="py-2 px-4 border">${keterangan}</td>
+                    <td class="py-2 px-4 border">${nominal.toLocaleString()}</td>
+                    <td class="py-2 px-4 border">${profit.toLocaleString()}</td>
+                    <td class="py-2 px-4 border">${qty}</td>
+                    <td class="py-2 px-4 border">${total.toLocaleString()}</td>
+                    <td class="py-2 px-4 border">
+                        <button type="button" class="bg-red-500 text-dark px-2 py-1 rounded remove-row">Hapus</button>
+                    </td>
 
-        <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
-        <input type="hidden" name="${produkId ? 'produk_id[]' : 'bank_id[]'}" value="${produkId || bankId}">
-        <input type="hidden" name="nominal[]" value="${nominal}">
-        <input type="hidden" name="profit[]" value="${profit}">
-        <input type="hidden" name="qty[]" value="${qty}">
-        <input type="hidden" name="harga_jual" value="${hargaJual}">
-        <input type="hidden" name="harga_beli" value="${hargaBeli}">
-        <input type="hidden" name="metode_pembayaran" value="${metodeText}">
-        <input type="hidden" name="total[]" value="${total}">
-    `;
+                    <input type="hidden" name="jenis_transaksi_id[]" value="${jenisId}">
+                    <input type="hidden" name="${produkId ? 'produk_id[]' : 'bank_id[]'}" value="${produkId || bankId}">
+                    <input type="hidden" name="nominal[]" value="${nominal}">
+                    <input type="hidden" name="profit[]" value="${profit}">
+                    <input type="hidden" name="qty[]" value="${qty}">
+                    <input type="hidden" name="harga_jual" value="${hargaJual}">
+                    <input type="hidden" name="harga_beli" value="${hargaBeli}">
+                    <input type="hidden" name="metode_pembayaran" value="${metodeText}">
+                    <input type="hidden" name="total[]" value="${total}">
+                `;
 
-    recalculateSubtotal();
+                recalculateSubtotal();
 
-    // Reset input sesuai jenis
-    if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
-        document.getElementById("nominalInput").value = '';
-        document.getElementById("profitInput").value = '';
-    } else {
-        document.getElementById("harga_jual").value = '';
-        document.getElementById("harga_beli").value = '';
-    }
-});
+                // Reset input sesuai jenis
+                if (jenisNama === 'Tarik Tunai' || jenisNama === 'Top Up') {
+                    document.getElementById("nominalInput").value = '';
+                    document.getElementById("profitInput").value = '';
+                } else {
+                    document.getElementById("harga_jual").value = '';
+                    document.getElementById("harga_beli").value = '';
+                }
+            });
 
             document.addEventListener("click", function (e) {
                 if (e.target.classList.contains("remove-row")) {
